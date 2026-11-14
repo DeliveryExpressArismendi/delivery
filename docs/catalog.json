@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T21:49:09.340Z",
+  "updatedAt": "2026-11-14T21:53:07.474Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -52,10 +52,10 @@
     {
       "id": "pili_hamburguesa_doble",
       "storeId": "pili_burger",
-      "name": "Hamburguesa Doble Especial",
+      "name": "Hamburguesa Especial",
       "category": "Hamburguesas",
       "description": "Doble carne jugosa, doble cheddar, tocineta crocante y huevo.",
-      "priceUsd": 7.5,
+      "priceUsd": 8,
       "ingredients": [
         "Doble carne de res",
         "Doble queso cheddar",
@@ -72,10 +72,10 @@
     {
       "id": "pili_pepito_mixto",
       "storeId": "pili_burger",
-      "name": "Pepito Mixto Pili",
+      "name": "Pepito",
       "category": "Pepitos",
       "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
-      "priceUsd": 8,
+      "priceUsd": 7,
       "ingredients": [
         "Carne a la plancha",
         "Pollo a la plancha",
@@ -92,10 +92,10 @@
     {
       "id": "pili_perro_caliente",
       "storeId": "pili_burger",
-      "name": "Perro Caliente Pili",
+      "name": "Perro Normal",
       "category": "Perros",
       "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
-      "priceUsd": 2.5,
+      "priceUsd": 3,
       "ingredients": [
         "Salchicha al vapor",
         "Pan suave",
@@ -113,15 +113,11 @@
     {
       "id": "pili_refresco_15l",
       "storeId": "pili_burger",
-      "name": "Refresco Familiar 1.5L",
+      "name": "Refresco 1L",
       "category": "Refrescos",
-      "description": "Botella familiar de 1.5 litros bien fría.",
-      "priceUsd": 3,
-      "ingredients": [
-        "Coca-Cola 1.5L",
-        "Chinotto 1.5L",
-        "Frescolita 1.5L"
-      ],
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
       "iconKey": "soda",
       "isPopular": false
     },
@@ -142,6 +138,17 @@
         "Pepinillos"
       ],
       "iconKey": "shawarma",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693125664",
+      "storeId": "pili_burger",
+      "name": "Refresco 2L",
+      "category": "Refrescos",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "soda",
       "isPopular": false
     }
   ]
