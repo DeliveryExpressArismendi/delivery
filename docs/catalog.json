@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T21:42:21.619Z",
+  "updatedAt": "2026-11-14T21:47:30.830Z",
   "config": {
     "id": "business_config",
-    "exchangeRateBsPerUsd": 1300,
+    "exchangeRateBsPerUsd": 1200,
     "whatsappPhone": "04245224500",
-    "deliveryFeeUsd": 0,
-    "pagoMovilBank": "Banco de Venezuela (0102)",
-    "pagoMovilDoc": "V-00000000",
+    "deliveryFeeUsd": 1,
+    "pagoMovilBank": "0104 Banco Venezolano de Credito",
+    "pagoMovilDoc": "V-26490000",
     "pagoMovilPhone": "0424-5224500",
     "repoSync": {
       "owner": "deliveryexpressarismendi",
