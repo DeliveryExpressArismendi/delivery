@@ -1,0 +1,3881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Delivery Express Arismendi</title>
+  <meta name="description" content="Delivery de comida rápida con cálculo en Bolívares y Dólares a tasa del día y factura directa por WhatsApp." />
+  <meta name="theme-color" content="#D32F2F" />
+
+  <!-- PWA Manifest (Android / Desktop sobre HTTPS / GitHub Pages) -->
+  <link rel="manifest" href="manifest.webmanifest" />
+
+  <!-- iOS / iPhone PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Arismendi" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+
+  <style>
+    :root {
+      --crimson-deep: #9A0007;
+      --crimson-primary: #D32F2F;
+      --scarlet-accent: #FF1744;
+      --coral-soft: #FFEBEE;
+      --amber-gold: #FFA000;
+      --amber-soft: #FFF8E1;
+      --wa-green: #1B8E3E;
+      --wa-green-dark: #126E2E;
+      --wa-bubble: #E7FFDB;
+      --bg-warm: #FFF8F7;
+      --surface: #FFFFFF;
+      --surface-variant: #FDF0EE;
+      --outline: #EAD4D1;
+      --text-main: #1F1212;
+      --text-muted: #6E5353;
+      --gradient-red: linear-gradient(135deg, var(--crimson-deep) 0%, var(--crimson-primary) 55%, var(--scarlet-accent) 100%);
+      --shadow-sm: 0 2px 10px rgba(154, 0, 7, 0.08);
+      --shadow-md: 0 8px 24px rgba(154, 0, 7, 0.16);
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-xl: 28px;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      background: var(--bg-warm);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      line-height: 1.4;
+      min-height: 100dvh;
+    }
+
+    button, input, textarea, select { font-family: inherit; }
+
+    .app-shell {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      overflow-x: clip;
+      padding-bottom: calc(108px + env(safe-area-inset-bottom));
+    }
+
+    .hero-header {
+      background: var(--gradient-red);
+      color: #fff;
+      padding: calc(16px + env(safe-area-inset-top)) 16px 20px;
+      border-bottom-left-radius: var(--radius-xl);
+      border-bottom-right-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-header::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand-group { display: flex; align-items: center; gap: 10px; }
+
+    .brand-moto-badge {
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      background: #E80C12;
+      border: 2px solid rgba(255,255,255,0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.24);
+      flex-shrink: 0;
+    }
+
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-title-sub { font-size: 13px; font-weight: 600; opacity: 0.92; display: block; }
+    .brand-title-main { font-size: 23px; font-weight: 900; letter-spacing: 0.5px; line-height: 1.1; margin: 0; }
+    .header-actions { display: flex; align-items: center; gap: 6px; }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hero-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .rate-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.38);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .wa-badge-pill {
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.24);
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .hero-desc { margin: 12px 0 0; font-size: 13.5px; opacity: 0.94; }
+
+    .install-banner {
+      margin: 14px 16px 0;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #FFF5F5, #FFE3E6);
+      border: 1px solid rgba(211, 47, 47, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .install-banner-text { font-size: 12.5px; color: var(--text-main); }
+    .install-banner-text strong { color: var(--crimson-deep); display: block; font-size: 13.5px; }
+
+    .btn-install {
+      background: var(--gradient-red);
+      color: #fff;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .section-head { padding: 18px 16px 8px; }
+    .section-title { margin: 0; font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+    .section-subtitle { margin: 3px 0 0; font-size: 13px; color: var(--text-muted); }
+
+    .stack-list { display: flex; flex-direction: column; gap: 12px; padding: 6px 16px; }
+
+    .store-card {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+    }
+
+    .store-card-banner {
+      background: var(--gradient-red);
+      color: #fff;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .store-icon-box {
+      width: 66px;
+      height: 66px;
+      border-radius: 20px;
+      background: rgba(255, 250, 246, 0.96);
+      border: 2px solid rgba(255,255,255,0.75);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .store-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(0,0,0,0.28);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+    }
+
+    .store-name { margin: 0; font-size: 20px; font-weight: 800; }
+    .store-meta { font-size: 12px; opacity: 0.92; margin-top: 2px; }
+
+    .store-card-footer {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .store-tagline { font-size: 13px; color: var(--text-muted); }
+    .dual-price { text-align: right; flex-shrink: 0; }
+    .price-usd { display: block; font-size: 17px; font-weight: 900; color: var(--crimson-primary); }
+
+    .price-bs {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 700;
+      background: var(--coral-soft);
+      color: var(--crimson-deep);
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-top: 2px;
+    }
+
+    .h-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 6px 16px 10px; scrollbar-width: none; }
+    .h-scroll::-webkit-scrollbar { display: none; }
+
+    .quick-card {
+      min-width: 215px;
+      max-width: 215px;
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .chips-row { display: flex; gap: 8px; overflow-x: auto; padding: 14px 16px 8px; scrollbar-width: none; }
+    .chips-row::-webkit-scrollbar { display: none; }
+
+    .chip {
+      border: 1px solid var(--outline);
+      background: var(--surface);
+      color: var(--text-main);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .chip.active { background: var(--crimson-primary); border-color: var(--crimson-primary); color: #fff; }
+
+    .menu-card {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-lg);
+      padding: 15px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .menu-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+
+    .menu-item-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #FFF7F4, #FFE8E4);
+      border: 1px solid rgba(211, 47, 47, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cat-kicker { font-size: 11px; font-weight: 800; color: var(--crimson-primary); text-transform: uppercase; letter-spacing: 0.4px; }
+    .popular-tag { display: inline-block; background: var(--amber-soft); color: #8D5800; font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-left: 6px; }
+    .menu-item-title { margin: 2px 0 0; font-size: 17px; font-weight: 800; }
+    .menu-item-desc { margin: 0; font-size: 13px; color: var(--text-muted); }
+    .ingredients-box { background: var(--surface-variant); border-radius: 12px; padding: 8px 10px; font-size: 12px; color: var(--text-muted); }
+
+    .card-btn-row { display: flex; gap: 10px; }
+
+    .btn-outline {
+      flex: 1;
+      min-height: 44px;
+      border-radius: 13px;
+      border: 1px solid var(--outline);
+      background: var(--surface);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      min-height: 44px;
+      border-radius: 13px;
+      border: none;
+      background: var(--gradient-red);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 14px;
+    }
+
+    .btn-whatsapp {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 16px;
+      border: none;
+      background: linear-gradient(135deg, var(--wa-green-dark), var(--wa-green));
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(27, 142, 62, 0.28);
+    }
+
+    .floating-cart-wrap {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
+      pointer-events: none;
+    }
+
+    .floating-cart-btn {
+      pointer-events: auto;
+      max-width: 688px;
+      margin: 0 auto;
+      width: 100%;
+      background: var(--gradient-red);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 26px rgba(154, 0, 7, 0.35);
+      cursor: pointer;
+    }
+
+    .cart-badge-usd { background: #fff; color: var(--crimson-deep); font-weight: 900; font-size: 15px; padding: 6px 12px; border-radius: 12px; }
+
+    .panel-card {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .panel-card-title { margin: 0; font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+    .field-group { display: flex; flex-direction: column; gap: 5px; }
+    .field-label { font-size: 12.5px; font-weight: 700; color: var(--text-muted); }
+
+    .input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 13px;
+      border: 1.5px solid var(--outline);
+      background: var(--surface);
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .input:focus { border-color: var(--crimson-primary); }
+    .textarea { min-height: 72px; resize: vertical; }
+
+    .payment-option {
+      border: 1.5px solid var(--outline);
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: var(--surface-variant);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .payment-option.selected { border-color: var(--crimson-primary); background: var(--coral-soft); box-shadow: inset 0 0 0 1px var(--crimson-primary); }
+
+    .pago-movil-box {
+      background: #FFF3F4;
+      border: 1px solid rgba(211, 47, 47, 0.35);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 13.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .wa-preview-bubble {
+      background: var(--wa-bubble);
+      border: 1px solid rgba(27, 142, 62, 0.35);
+      border-radius: 16px;
+      padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #152216;
+    }
+
+    .sub-topbar {
+      background: var(--gradient-red);
+      color: #fff;
+      padding: calc(12px + env(safe-area-inset-top)) 14px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sub-topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .sub-topbar-left > div { min-width: 0; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(20, 6, 6, 0.56);
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 12px 0 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .bottom-sheet {
+      width: 100%;
+      max-width: 680px;
+      margin-top: auto;
+      max-height: calc(100vh - 16px);
+      max-height: calc(100dvh - 16px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      background: var(--surface);
+      border-top-left-radius: 26px;
+      border-top-right-radius: 26px;
+      padding: 20px 18px calc(24px + env(safe-area-inset-bottom));
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.22);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .ing-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .ing-chip {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--outline);
+      background: var(--surface);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .ing-chip.selected { background: var(--coral-soft); border-color: var(--crimson-primary); color: var(--crimson-deep); }
+
+    .qty-stepper { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--outline); border-radius: 13px; padding: 4px 8px; }
+    .qty-btn { width: 34px; height: 34px; border-radius: 10px; border: none; background: var(--surface-variant); font-size: 18px; font-weight: 800; cursor: pointer; color: var(--text-main); }
+
+    .tabs-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px 14px 4px;
+    }
+    .tab-btn {
+      flex: 1 1 auto;
+      min-width: 72px;
+      padding: 9px 6px;
+      border-radius: 12px;
+      border: 1px solid var(--outline);
+      background: var(--surface);
+      font-weight: 700;
+      font-size: 12.5px;
+      text-align: center;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .tab-btn.active { background: var(--crimson-primary); border-color: var(--crimson-primary); color: #fff; }
+
+    .toast-container {
+      position: fixed;
+      left: 50%;
+      bottom: calc(88px + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      z-index: 120;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast { background: #231313; color: #fff; padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: 0 8px 20px rgba(0,0,0,0.28); }
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
+
+    .pw-input-wrap { position: relative; display: flex; align-items: center; }
+    .pw-input-wrap .input { padding-right: 46px; }
+    .pw-toggle-btn {
+      position: absolute;
+      right: 6px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .error-banner {
+      background: #FFEBEE;
+      color: #B00020;
+      border: 1px solid rgba(176, 0, 32, 0.25);
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-card {
+      background: var(--surface-variant);
+      border: 1px solid var(--outline);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .stat-label { font-size: 11.5px; color: var(--text-muted); font-weight: 700; }
+    .stat-value { font-size: 18px; font-weight: 900; color: var(--crimson-deep); margin-top: 2px; word-break: break-word; }
+    .log-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--outline);
+      font-size: 12.5px;
+    }
+    .log-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .log-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      background: var(--coral-soft);
+      color: var(--crimson-deep);
+    }
+    .loyalty-banner {
+      margin: 14px 16px 0;
+      padding: 13px 15px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #FFF8E1 0%, #FFE8C2 100%);
+      border: 1.5px solid #FFA000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(255, 160, 0, 0.16);
+    }
+    .loyalty-modal-hero {
+      background: var(--gradient-red);
+      color: #fff;
+      border-radius: 20px;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .loyalty-msg-box {
+      background: var(--amber-soft);
+      border: 1.5px solid rgba(255, 160, 0, 0.55);
+      border-radius: 16px;
+      padding: 15px;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--text-main);
+      white-space: pre-line;
+      font-weight: 600;
+    }
+
+    @keyframes accordionScreenUnfold {
+      0% {
+        opacity: 0;
+        transform: scaleY(0.88) translateY(-10px);
+        clip-path: inset(0 0 22% 0);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleY(1) translateY(0);
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes accordionItemUnfold {
+      0% {
+        opacity: 0;
+        transform: scaleY(0.84) translateY(-8px);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleY(1) translateY(0);
+      }
+    }
+
+    @keyframes sheetAccordionUnfold {
+      0% {
+        opacity: 0;
+        transform: translateY(24px) scaleY(0.82);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+      }
+    }
+
+    @keyframes backdropFade {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .view-accordion-enter {
+      transform-origin: top center;
+      animation: accordionScreenUnfold 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .view-accordion-enter .stack-list > *,
+    .view-accordion-enter .tabs-bar,
+    .view-accordion-enter .chips-row {
+      transform-origin: top center;
+      animation: accordionItemUnfold 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .view-accordion-enter .stack-list > *:nth-child(2) { animation-delay: 35ms; }
+    .view-accordion-enter .stack-list > *:nth-child(3) { animation-delay: 70ms; }
+    .view-accordion-enter .stack-list > *:nth-child(4) { animation-delay: 105ms; }
+    .view-accordion-enter .stack-list > *:nth-child(5) { animation-delay: 140ms; }
+
+    .modal-backdrop {
+      animation: backdropFade 200ms ease-out both;
+    }
+
+    .bottom-sheet {
+      transform-origin: bottom center;
+      animation: sheetAccordionUnfold 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .pago-movil-box,
+    .cash-bill-accordion {
+      transform-origin: top center;
+      animation: accordionItemUnfold 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .acc-card {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .acc-trigger {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+
+    .acc-chevron {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface-variant);
+      color: var(--crimson-deep);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      flex-shrink: 0;
+      transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease;
+    }
+
+    .acc-card.open .acc-chevron {
+      transform: rotate(180deg);
+      background: var(--coral-soft);
+    }
+
+    .acc-collapse {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0.25;
+      transition: grid-template-rows 300ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease;
+    }
+
+    .acc-card.open .acc-collapse {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    .acc-collapse-inner {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .acc-card.open .acc-collapse-inner {
+      padding-top: 12px;
+    }
+
+    .btn-danger-chip {
+      background: #FFEBEE;
+      border-color: rgba(176, 0, 32, 0.28);
+      color: #B00020;
+    }
+
+    .admin-store-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--outline);
+    }
+
+    .icon-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .icon-pick-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 10px 6px;
+      border-radius: 14px;
+      border: 1.5px solid var(--outline);
+      background: var(--surface);
+      color: var(--text-main);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+    }
+
+    .icon-pick-btn.selected {
+      border-color: var(--crimson-primary);
+      background: var(--coral-soft);
+      color: var(--crimson-deep);
+      box-shadow: inset 0 0 0 1px var(--crimson-primary);
+      transform: scale(1.02);
+    }
+
+    @keyframes splashLogoDriveIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-75px) scale(0.65) rotate(-8deg);
+      }
+      55% {
+        opacity: 1;
+        transform: translateX(8px) scale(1.07) rotate(2deg);
+      }
+      78% {
+        transform: translateX(-2px) scale(0.98) rotate(-1deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes splashLogoFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-5px) scale(1.03); }
+    }
+
+    @keyframes splashRingExpand {
+      0% {
+        opacity: 0.58;
+        transform: scale(0.82);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.65);
+      }
+    }
+
+    @keyframes splashTextRise {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scaleY(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+      }
+    }
+
+    @keyframes splashProgressRun {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    .splash-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 220;
+      background: radial-gradient(circle at 50% 42%, #FF1E27 0%, #E80C12 46%, #9A0007 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 28px 24px calc(32px + env(safe-area-inset-bottom));
+      text-align: center;
+      cursor: pointer;
+      transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1), transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .splash-screen.splash-hide {
+      opacity: 0;
+      transform: scale(1.06);
+      pointer-events: none;
+    }
+
+    .splash-logo-stage {
+      position: relative;
+      width: 152px;
+      height: 152px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .splash-ring {
+      position: absolute;
+      inset: 4px;
+      border-radius: 36px;
+      border: 2.5px solid rgba(255, 255, 255, 0.55);
+      animation: splashRingExpand 1.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      pointer-events: none;
+    }
+
+    .splash-ring-2 {
+      animation-delay: 0.45s;
+    }
+
+    .splash-logo-card {
+      position: relative;
+      width: 138px;
+      height: 138px;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      background: #E80C12;
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.36);
+      animation: splashLogoDriveIn 820ms cubic-bezier(0.22, 1, 0.36, 1) both,
+                 splashLogoFloat 1.5s ease-in-out 850ms infinite;
+    }
+
+    .splash-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .splash-brand {
+      animation: splashTextRise 520ms cubic-bezier(0.22, 1, 0.36, 1) 240ms both;
+    }
+
+    .splash-sub {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .splash-title {
+      margin: 4px 0 6px;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      line-height: 1.05;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+    }
+
+    .splash-caption {
+      font-size: 13.5px;
+      opacity: 0.92;
+      font-weight: 500;
+    }
+
+    .splash-progress-track {
+      width: 190px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.25);
+      overflow: hidden;
+      animation: splashTextRise 450ms ease 360ms both;
+    }
+
+    .splash-progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+      animation: splashProgressRun 1.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .splash-skip-hint {
+      font-size: 11.5px;
+      opacity: 0.78;
+      letter-spacing: 0.4px;
+      animation: splashTextRise 450ms ease 520ms both;
+    }
+  </style>
+</head>
+<body>
+  <div id="splash-screen" class="splash-screen" aria-label="Cargando Delivery Express Arismendi">
+    <div class="splash-logo-stage">
+      <div class="splash-ring"></div>
+      <div class="splash-ring splash-ring-2"></div>
+      <div class="splash-logo-card">
+        <img src="icons/logo.png" alt="Logo Delivery Express Arismendi" class="splash-logo-img" />
+      </div>
+    </div>
+    <div class="splash-brand">
+      <div class="splash-sub">Delivery Express</div>
+      <h2 class="splash-title">ARISMENDI</h2>
+      <div class="splash-caption">Comida rápida directo a tu puerta</div>
+    </div>
+    <div class="splash-progress-track">
+      <div class="splash-progress-fill"></div>
+    </div>
+    <div class="splash-skip-hint">Iniciando aplicación...</div>
+  </div>
+  <div id="app" class="app-shell"></div>
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-container" aria-live="polite"></div>
+
+  <script>
+    /**
+     * Base de datos IndexedDB con respaldo automático en localStorage/memoria
+     * Tablas: config, stores, menu_items, cart, orders, user_profile, usage_logs
+     */
+    const ArismendiDB = (() => {
+      const DB_NAME = 'DeliveryArismendiDB';
+      const DB_VERSION = 2;
+      const LS_KEY = 'arismendi_fallback_db_v2';
+      const LEGACY_LS_KEY = 'arismendi_fallback_db_v1';
+      const LS_UID_KEY = 'arismendi_uid_v1';
+      let dbPromise = null;
+      let useMemoryFallback = false;
+
+      function createRandomUserId() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let code = '';
+        try {
+          if (window.crypto && window.crypto.getRandomValues) {
+            const bytes = new Uint8Array(10);
+            window.crypto.getRandomValues(bytes);
+            for (let i = 0; i < bytes.length; i++) code += chars[bytes[i] % chars.length];
+            return 'USR-' + code;
+          }
+        } catch (_) {}
+        for (let i = 0; i < 10; i++) code += chars[Math.floor(Math.random() * chars.length)];
+        return 'USR-' + code;
+      }
+
+      function getOrCreatePersistentUserId() {
+        try {
+          if (window.localStorage) {
+            let uid = localStorage.getItem(LS_UID_KEY);
+            if (!uid) {
+              uid = createRandomUserId();
+              localStorage.setItem(LS_UID_KEY, uid);
+            }
+            return uid;
+          }
+        } catch (_) {}
+        return createRandomUserId();
+      }
+
+      function makeDefaultProfile(uid) {
+        return {
+          id: 'current_user',
+          userId: uid || getOrCreatePersistentUserId(),
+          createdAt: Date.now(),
+          lastActiveAt: Date.now(),
+          sessionCount: 0,
+          totalOrders: 0,
+          totalSpentUsd: 0,
+          loyaltyDeliveriesCount: 0,
+          hasFreeDeliveryReward: false,
+          loyaltyNotificationPending: false,
+          freeDeliveriesRedeemed: 0,
+          itemStats: {},
+          savedDeliveryInfo: {
+            customerName: '',
+            address: '',
+            reference: '',
+            paymentMethod: 'PAGO_MOVIL'
+          }
+        };
+      }
+
+      const DEFAULT_CONFIG = {
+        id: 'business_config',
+        exchangeRateBsPerUsd: 1200,
+        whatsappPhone: '04245224500',
+        deliveryFeeUsd: 0,
+        pagoMovilBank: 'Banco de Venezuela (0102)',
+        pagoMovilDoc: 'V-00000000',
+        pagoMovilPhone: '0424-5224500',
+        repoSync: {
+          owner: '',
+          repo: '',
+          branch: 'main',
+          filePath: 'docs/catalog.json'
+        }
+      };
+
+      const SEED_STORES = [
+        {
+          id: 'pili_burger',
+          name: 'Pili Burger',
+          badge: 'Más Popular',
+          tagline: 'Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos',
+          etaMinutes: '20-30 min',
+          rating: '4.9',
+          iconKey: 'burger'
+        },
+        {
+          id: 'rey_shawarma',
+          name: 'El Rey del Shawarma',
+          badge: 'Especialidad Árabe',
+          tagline: 'Auténtico trompo árabe, crema de ajo artesanal y pepitos',
+          etaMinutes: '25-35 min',
+          rating: '4.8',
+          iconKey: 'shawarma'
+        },
+        {
+          id: 'esquina_perro',
+          name: 'La Esquina del Perro',
+          badge: 'Entrega Rápida',
+          tagline: 'Perros calientes full equipo, combos y pepitos gratinados',
+          etaMinutes: '15-25 min',
+          rating: '4.8',
+          iconKey: 'hotdog'
+        }
+      ];
+
+      const SEED_MENU_ITEMS = [
+        {
+          id: 'pili_hamburguesa_clasica',
+          storeId: 'pili_burger',
+          name: 'Hamburguesa Clásica Pili',
+          category: 'Hamburguesas',
+          description: 'Pan brioche artesanal con carne a la parrilla y vegetales frescos.',
+          priceUsd: 5.0,
+          ingredients: ['Carne de res 150g', 'Queso amarillo', 'Jamón', 'Lechuga', 'Tomate', 'Cebolla', 'Papas ralladas', 'Salsa de ajo', 'Salsa rosada'],
+          iconKey: 'burger',
+          isPopular: true
+        },
+        {
+          id: 'pili_hamburguesa_doble',
+          storeId: 'pili_burger',
+          name: 'Hamburguesa Doble Especial',
+          category: 'Hamburguesas',
+          description: 'Doble carne jugosa, doble cheddar, tocineta crocante y huevo.',
+          priceUsd: 7.5,
+          ingredients: ['Doble carne de res', 'Doble queso cheddar', 'Tocineta crocante', 'Huevo frito', 'Lechuga', 'Tomate', 'Papas ralladas', 'Salsa especial Pili'],
+          iconKey: 'burger',
+          isPopular: true
+        },
+        {
+          id: 'pili_perro_caliente',
+          storeId: 'pili_burger',
+          name: 'Perro Caliente Pili',
+          category: 'Perros',
+          description: 'Clásico perro caliente callejero bien resuelto y con salsas al gusto.',
+          priceUsd: 2.5,
+          ingredients: ['Salchicha al vapor', 'Pan suave', 'Repollo', 'Cebolla picada', 'Papas hilo', 'Queso blanco rallado', 'Kétchup', 'Mostaza', 'Salsa de ajo'],
+          iconKey: 'hotdog',
+          isPopular: true
+        },
+        {
+          id: 'pili_pepito_mixto',
+          storeId: 'pili_burger',
+          name: 'Pepito Mixto Pili',
+          category: 'Pepitos',
+          description: 'Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.',
+          priceUsd: 8.0,
+          ingredients: ['Carne a la plancha', 'Pollo a la plancha', 'Tocineta', 'Queso blanco fundido', 'Maíz dulce', 'Aguacate', 'Papas hilo', 'Salsa de ajo y tártara'],
+          iconKey: 'pepito',
+          isPopular: true
+        },
+        {
+          id: 'pili_shawarma_arabe',
+          storeId: 'pili_burger',
+          name: 'Shawarma Árabe Pili',
+          category: 'Shawarmas',
+          description: 'Pan pita dorado al grill con pollo o carne marinada y crema de ajo.',
+          priceUsd: 6.5,
+          ingredients: ['Pollo y carne marinada', 'Pan pita tostado', 'Crema de ajo libanesa', 'Lechuga', 'Tomate', 'Cebolla morada', 'Pepinillos'],
+          iconKey: 'shawarma',
+          isPopular: false
+        },
+        {
+          id: 'pili_refresco_lata',
+          storeId: 'pili_burger',
+          name: 'Refresco Frío 355ml',
+          category: 'Refrescos',
+          description: 'Bebida gaseosa bien fría para acompañar tu comida.',
+          priceUsd: 1.5,
+          ingredients: ['Coca-Cola', 'Chinotto', 'Frescolita', 'Bien frío'],
+          iconKey: 'soda',
+          isPopular: false
+        },
+        {
+          id: 'pili_refresco_15l',
+          storeId: 'pili_burger',
+          name: 'Refresco Familiar 1.5L',
+          category: 'Refrescos',
+          description: 'Botella familiar de 1.5 litros bien fría.',
+          priceUsd: 3.0,
+          ingredients: ['Coca-Cola 1.5L', 'Chinotto 1.5L', 'Frescolita 1.5L'],
+          iconKey: 'soda',
+          isPopular: false
+        },
+        {
+          id: 'rey_shawarma_mixto',
+          storeId: 'rey_shawarma',
+          name: 'Shawarma Mixto Supremo',
+          category: 'Shawarmas',
+          description: 'Carne y pollo al trompo con papas fritas por dentro y doble crema de ajo.',
+          priceUsd: 7.0,
+          ingredients: ['Carne al trompo', 'Pollo al trompo', 'Crema de ajo', 'Salsa tahini', 'Repollo morado', 'Tomate', 'Pepinillos', 'Papas fritas'],
+          iconKey: 'shawarma',
+          isPopular: true
+        },
+        {
+          id: 'rey_shawarma_pollo',
+          storeId: 'rey_shawarma',
+          name: 'Shawarma de Pollo Clásico',
+          category: 'Shawarmas',
+          description: 'Pollo especiado estilo árabe en pan pita recién tostado.',
+          priceUsd: 5.5,
+          ingredients: ['Pollo especiado', 'Crema de ajo', 'Lechuga', 'Tomate', 'Cebolla morada'],
+          iconKey: 'shawarma',
+          isPopular: false
+        },
+        {
+          id: 'rey_pepito_arabe',
+          storeId: 'rey_shawarma',
+          name: 'Pepito Árabe Especial',
+          category: 'Pepitos',
+          description: 'Pan canilla tostado relleno de carne de shawarma y queso fundido.',
+          priceUsd: 8.5,
+          ingredients: ['Carne estilo shawarma', 'Queso mozzarella fundido', 'Crema de ajo', 'Tomate', 'Papas hilo'],
+          iconKey: 'pepito',
+          isPopular: false
+        },
+        {
+          id: 'rey_refresco_355',
+          storeId: 'rey_shawarma',
+          name: 'Refresco 355ml',
+          category: 'Refrescos',
+          description: 'Lata fría (Coca-Cola, Chinotto o Frescolita).',
+          priceUsd: 1.5,
+          ingredients: ['Coca-Cola', 'Chinotto', 'Frescolita'],
+          iconKey: 'soda',
+          isPopular: false
+        },
+        {
+          id: 'esquina_perro_super',
+          storeId: 'esquina_perro',
+          name: 'Perro Súper Especial',
+          category: 'Perros',
+          description: 'Salchicha polaca con queso amarillo, tocineta y lluvia de papas hilo.',
+          priceUsd: 3.0,
+          ingredients: ['Salchicha polaca', 'Queso amarillo', 'Tocineta', 'Repollo', 'Cebolla', 'Papas hilo', 'Queso rallado', 'Salsas de la casa'],
+          iconKey: 'hotdog',
+          isPopular: true
+        },
+        {
+          id: 'esquina_combo_perros',
+          storeId: 'esquina_perro',
+          name: 'Combo 2 Perros + Refresco',
+          category: 'Perros',
+          description: 'Dos perros calientes clásicos con todo más un refresco de 355ml.',
+          priceUsd: 5.5,
+          ingredients: ['2 Perros clásicos', 'Repollo y cebolla', 'Papas hilo', 'Queso rallado', 'Refresco 355ml', 'Salsas variadas'],
+          iconKey: 'hotdog',
+          isPopular: true
+        },
+        {
+          id: 'esquina_pepito_gratinado',
+          storeId: 'esquina_perro',
+          name: 'Pepito Gratinado XL',
+          category: 'Pepitos',
+          description: '35cm de puro sabor con lomo, pollo, maíz, tocineta y queso gratinado.',
+          priceUsd: 9.0,
+          ingredients: ['Lomo de res', 'Pechuga de pollo', 'Tocineta', 'Maíz', 'Queso gratinado', 'Papas hilo', 'Salsa de ajo y rosada'],
+          iconKey: 'pepito',
+          isPopular: false
+        },
+        {
+          id: 'esquina_hamburguesa',
+          storeId: 'esquina_perro',
+          name: 'Hamburguesa Callejera',
+          category: 'Hamburguesas',
+          description: 'Carne a la plancha con jamón, queso, repollo y papas ralladas.',
+          priceUsd: 4.5,
+          ingredients: ['Carne a la plancha', 'Queso amarillo', 'Jamón', 'Repollo', 'Tomate', 'Papas ralladas', 'Salsa tártara'],
+          iconKey: 'burger',
+          isPopular: false
+        },
+        {
+          id: 'esquina_refresco_15l',
+          storeId: 'esquina_perro',
+          name: 'Refresco 1.5L',
+          category: 'Refrescos',
+          description: 'Refresco familiar bien frío.',
+          priceUsd: 3.0,
+          ingredients: ['Coca-Cola 1.5L', 'Frescolita 1.5L', 'Chinotto 1.5L'],
+          iconKey: 'soda',
+          isPopular: false
+        }
+      ];
+
+      let memoryDb = {
+        config: { ...DEFAULT_CONFIG },
+        stores: JSON.parse(JSON.stringify(SEED_STORES)),
+        menuItems: JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+        cart: [],
+        orders: [],
+        userProfile: makeDefaultProfile(),
+        usageLogs: []
+      };
+
+      function getSeedSnapshot() {
+        return {
+          config: { ...DEFAULT_CONFIG },
+          stores: JSON.parse(JSON.stringify(SEED_STORES)),
+          menuItems: JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+          cart: [],
+          orders: [],
+          userProfile: makeDefaultProfile(getOrCreatePersistentUserId()),
+          usageLogs: []
+        };
+      }
+
+      function readFallback() {
+        try {
+          const raw = window.localStorage && (localStorage.getItem(LS_KEY) || localStorage.getItem(LEGACY_LS_KEY));
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            const uid = (parsed.userProfile && parsed.userProfile.userId) || getOrCreatePersistentUserId();
+            try { if (window.localStorage) localStorage.setItem(LS_UID_KEY, uid); } catch (_) {}
+            memoryDb = {
+              config: parsed.config || { ...DEFAULT_CONFIG },
+              stores: Array.isArray(parsed.stores) && parsed.stores.length ? parsed.stores : JSON.parse(JSON.stringify(SEED_STORES)),
+              menuItems: Array.isArray(parsed.menuItems) && parsed.menuItems.length ? parsed.menuItems : JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+              cart: Array.isArray(parsed.cart) ? parsed.cart : [],
+              orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+              userProfile: parsed.userProfile ? { ...makeDefaultProfile(uid), ...parsed.userProfile } : makeDefaultProfile(uid),
+              usageLogs: Array.isArray(parsed.usageLogs) ? parsed.usageLogs : []
+            };
+          }
+        } catch (_) {}
+        return memoryDb;
+      }
+
+      function writeFallback() {
+        try {
+          if (window.localStorage) localStorage.setItem(LS_KEY, JSON.stringify(memoryDb));
+        } catch (_) {}
+      }
+
+      function open() {
+        if (useMemoryFallback) return Promise.reject(new Error('Fallback active'));
+        if (dbPromise) return dbPromise;
+        dbPromise = new Promise((resolve, reject) => {
+          try {
+            if (!('indexedDB' in window) || !window.indexedDB) {
+              return reject(new Error('IndexedDB unavailable'));
+            }
+            const timer = setTimeout(() => reject(new Error('IndexedDB timeout')), 1200);
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            request.onupgradeneeded = (event) => {
+              const db = event.target.result;
+              if (!db.objectStoreNames.contains('config')) db.createObjectStore('config', { keyPath: 'id' });
+              if (!db.objectStoreNames.contains('stores')) db.createObjectStore('stores', { keyPath: 'id' });
+              if (!db.objectStoreNames.contains('menu_items')) {
+                const menuStore = db.createObjectStore('menu_items', { keyPath: 'id' });
+                menuStore.createIndex('by_storeId', 'storeId', { unique: false });
+              }
+              if (!db.objectStoreNames.contains('cart')) db.createObjectStore('cart', { keyPath: 'cartItemId' });
+              if (!db.objectStoreNames.contains('orders')) {
+                const ordersStore = db.createObjectStore('orders', { keyPath: 'id' });
+                ordersStore.createIndex('by_createdAt', 'createdAt', { unique: false });
+              }
+              if (!db.objectStoreNames.contains('user_profile')) {
+                db.createObjectStore('user_profile', { keyPath: 'id' });
+              }
+              if (!db.objectStoreNames.contains('usage_logs')) {
+                const logsStore = db.createObjectStore('usage_logs', { keyPath: 'id' });
+                logsStore.createIndex('by_createdAt', 'createdAt', { unique: false });
+                logsStore.createIndex('by_userId', 'userId', { unique: false });
+              }
+            };
+            request.onsuccess = () => { clearTimeout(timer); resolve(request.result); };
+            request.onerror = () => { clearTimeout(timer); reject(request.error || new Error('IndexedDB error')); };
+          } catch (err) {
+            reject(err);
+          }
+        });
+        return dbPromise;
+      }
+
+      async function withStore(storeName, mode, callback) {
+        const db = await open();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(storeName, mode);
+          const store = tx.objectStore(storeName);
+          const req = callback(store);
+          let reqResult;
+          if (req && typeof req === 'object' && 'onsuccess' in req) {
+            req.onsuccess = () => { reqResult = req.result; };
+          }
+          tx.oncomplete = () => resolve(reqResult);
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+
+      async function getAll(storeName) { return withStore(storeName, 'readonly', (s) => s.getAll()); }
+      async function put(storeName, value) { return withStore(storeName, 'readwrite', (s) => s.put(value)); }
+      async function remove(storeName, key) { return withStore(storeName, 'readwrite', (s) => s.delete(key)); }
+      async function clearStore(storeName) { return withStore(storeName, 'readwrite', (s) => s.clear()); }
+
+      async function seedIfEmpty() {
+        const existingConfig = await withStore('config', 'readonly', (s) => s.get('business_config'));
+        if (!existingConfig) await put('config', DEFAULT_CONFIG);
+        const existingStores = await getAll('stores');
+        if (!existingStores || existingStores.length === 0) {
+          for (const st of SEED_STORES) await put('stores', st);
+        }
+        const existingItems = await getAll('menu_items');
+        if (!existingItems || existingItems.length === 0) {
+          for (const item of SEED_MENU_ITEMS) await put('menu_items', item);
+        }
+        const existingProfile = await withStore('user_profile', 'readonly', (s) => s.get('current_user'));
+        if (!existingProfile) {
+          await put('user_profile', makeDefaultProfile(getOrCreatePersistentUserId()));
+        } else if (existingProfile.userId) {
+          try { if (window.localStorage) localStorage.setItem(LS_UID_KEY, existingProfile.userId); } catch (_) {}
+        }
+      }
+
+      async function loadAllState() {
+        try {
+          await seedIfEmpty();
+          const [config, stores, menuItems, cart, orders, userProfile, usageLogs] = await Promise.all([
+            withStore('config', 'readonly', (s) => s.get('business_config')),
+            getAll('stores'),
+            getAll('menu_items'),
+            getAll('cart'),
+            getAll('orders'),
+            withStore('user_profile', 'readonly', (s) => s.get('current_user')),
+            getAll('usage_logs')
+          ]);
+          const safeOrders = (orders || []).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+          const safeLogs = (usageLogs || []).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)).slice(0, 200);
+          return {
+            config: config || { ...DEFAULT_CONFIG },
+            stores: stores && stores.length ? stores : JSON.parse(JSON.stringify(SEED_STORES)),
+            menuItems: menuItems && menuItems.length ? menuItems : JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+            cart: cart || [],
+            orders: safeOrders,
+            userProfile: userProfile || makeDefaultProfile(getOrCreatePersistentUserId()),
+            usageLogs: safeLogs
+          };
+        } catch (_) {
+          useMemoryFallback = true;
+          return readFallback();
+        }
+      }
+
+      async function saveConfig(config) {
+        const clean = { ...config, id: 'business_config' };
+        if (useMemoryFallback) { memoryDb.config = clean; writeFallback(); return; }
+        return put('config', clean);
+      }
+
+      async function saveUserProfile(profile) {
+        const clean = { ...profile, id: 'current_user' };
+        if (clean.userId) {
+          try { if (window.localStorage) localStorage.setItem(LS_UID_KEY, clean.userId); } catch (_) {}
+        }
+        if (useMemoryFallback) { memoryDb.userProfile = clean; writeFallback(); return; }
+        return put('user_profile', clean);
+      }
+
+      async function logUsageEvent(logObj) {
+        if (useMemoryFallback) {
+          memoryDb.usageLogs.unshift(logObj);
+          if (memoryDb.usageLogs.length > 200) memoryDb.usageLogs = memoryDb.usageLogs.slice(0, 200);
+          writeFallback();
+          return;
+        }
+        await put('usage_logs', logObj);
+      }
+
+      async function clearUsageLogs() {
+        if (useMemoryFallback) { memoryDb.usageLogs = []; writeFallback(); return; }
+        return clearStore('usage_logs');
+      }
+
+      async function saveStore(storeObj) {
+        if (useMemoryFallback) {
+          const idx = memoryDb.stores.findIndex((s) => s.id === storeObj.id);
+          if (idx >= 0) memoryDb.stores[idx] = storeObj; else memoryDb.stores.push(storeObj);
+          writeFallback();
+          return;
+        }
+        return put('stores', storeObj);
+      }
+
+      async function saveMenuItem(itemObj) {
+        if (useMemoryFallback) {
+          const idx = memoryDb.menuItems.findIndex((i) => i.id === itemObj.id);
+          if (idx >= 0) memoryDb.menuItems[idx] = itemObj; else memoryDb.menuItems.push(itemObj);
+          writeFallback();
+          return;
+        }
+        return put('menu_items', itemObj);
+      }
+
+      async function deleteMenuItem(itemId) {
+        if (useMemoryFallback) {
+          memoryDb.menuItems = memoryDb.menuItems.filter((i) => i.id !== itemId);
+          writeFallback();
+          return;
+        }
+        return remove('menu_items', itemId);
+      }
+
+      async function deleteStore(storeId) {
+        if (useMemoryFallback) {
+          memoryDb.stores = memoryDb.stores.filter((s) => s.id !== storeId);
+          memoryDb.menuItems = memoryDb.menuItems.filter((i) => i.storeId !== storeId);
+          writeFallback();
+          return;
+        }
+        await remove('stores', storeId);
+        const allItems = await getAll('menu_items');
+        for (const it of (allItems || [])) {
+          if (it.storeId === storeId) await remove('menu_items', it.id);
+        }
+      }
+
+      async function replaceCart(cartArray) {
+        if (useMemoryFallback) { memoryDb.cart = cartArray; writeFallback(); return; }
+        const db = await open();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction('cart', 'readwrite');
+          const store = tx.objectStore('cart');
+          store.clear();
+          cartArray.forEach((entry) => store.put(entry));
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+
+      async function saveOrder(orderObj) {
+        if (useMemoryFallback) { memoryDb.orders.unshift(orderObj); writeFallback(); return; }
+        return put('orders', orderObj);
+      }
+
+      async function clearOrders() {
+        if (useMemoryFallback) { memoryDb.orders = []; writeFallback(); return; }
+        return clearStore('orders');
+      }
+
+      async function resetCatalogToDefault() {
+        if (useMemoryFallback) {
+          memoryDb.stores = JSON.parse(JSON.stringify(SEED_STORES));
+          memoryDb.menuItems = JSON.parse(JSON.stringify(SEED_MENU_ITEMS));
+          writeFallback();
+          return;
+        }
+        await clearStore('stores');
+        await clearStore('menu_items');
+        for (const st of SEED_STORES) await put('stores', st);
+        for (const item of SEED_MENU_ITEMS) await put('menu_items', item);
+      }
+
+      async function exportBackup() {
+        const data = await loadAllState();
+        return JSON.stringify({ app: 'Delivery Express Arismendi', exportedAt: new Date().toISOString(), ...data }, null, 2);
+      }
+
+      async function importBackup(jsonStr) {
+        const parsed = JSON.parse(jsonStr);
+        if (useMemoryFallback) {
+          memoryDb = {
+            config: parsed.config || { ...DEFAULT_CONFIG },
+            stores: Array.isArray(parsed.stores) ? parsed.stores : memoryDb.stores,
+            menuItems: Array.isArray(parsed.menuItems) ? parsed.menuItems : memoryDb.menuItems,
+            cart: memoryDb.cart,
+            orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+            userProfile: parsed.userProfile || memoryDb.userProfile,
+            usageLogs: Array.isArray(parsed.usageLogs) ? parsed.usageLogs : memoryDb.usageLogs
+          };
+          writeFallback();
+          return;
+        }
+        if (parsed.config) await saveConfig(parsed.config);
+        if (parsed.userProfile) await saveUserProfile(parsed.userProfile);
+        if (Array.isArray(parsed.stores)) {
+          await clearStore('stores');
+          for (const st of parsed.stores) await put('stores', st);
+        }
+        if (Array.isArray(parsed.menuItems)) {
+          await clearStore('menu_items');
+          for (const it of parsed.menuItems) await put('menu_items', it);
+        }
+        if (Array.isArray(parsed.orders)) {
+          await clearStore('orders');
+          for (const ord of parsed.orders) await put('orders', ord);
+        }
+        if (Array.isArray(parsed.usageLogs)) {
+          await clearStore('usage_logs');
+          for (const log of parsed.usageLogs) await put('usage_logs', log);
+        }
+      }
+
+      async function applyRemoteCatalog(payload) {
+        if (!payload || typeof payload !== 'object') return;
+        const cleanConfig = payload.config
+          ? { ...DEFAULT_CONFIG, ...payload.config, id: 'business_config' }
+          : null;
+        if (cleanConfig && cleanConfig.repoSync) {
+          cleanConfig.repoSync = {
+            owner: String(cleanConfig.repoSync.owner || ''),
+            repo: String(cleanConfig.repoSync.repo || ''),
+            branch: String(cleanConfig.repoSync.branch || 'main'),
+            filePath: String(cleanConfig.repoSync.filePath || 'docs/catalog.json')
+          };
+        }
+        if (useMemoryFallback) {
+          if (cleanConfig) memoryDb.config = cleanConfig;
+          if (Array.isArray(payload.stores) && payload.stores.length) memoryDb.stores = payload.stores;
+          if (Array.isArray(payload.menuItems)) memoryDb.menuItems = payload.menuItems;
+          writeFallback();
+          return;
+        }
+        if (cleanConfig) await saveConfig(cleanConfig);
+        if (Array.isArray(payload.stores) && payload.stores.length) {
+          await clearStore('stores');
+          for (const st of payload.stores) await put('stores', st);
+        }
+        if (Array.isArray(payload.menuItems)) {
+          await clearStore('menu_items');
+          for (const it of payload.menuItems) await put('menu_items', it);
+        }
+      }
+
+      return {
+        DEFAULT_CONFIG,
+        getSeedSnapshot,
+        loadAllState,
+        saveConfig,
+        saveUserProfile,
+        logUsageEvent,
+        clearUsageLogs,
+        saveStore,
+        deleteStore,
+        saveMenuItem,
+        deleteMenuItem,
+        replaceCart,
+        saveOrder,
+        clearOrders,
+        resetCatalogToDefault,
+        applyRemoteCatalog,
+        exportBackup,
+        importBackup
+      };
+    })();
+
+    (() => {
+      const SVG_ICONS = {
+        moto: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="54" rx="22" ry="3.5" fill="#000" fill-opacity="0.12"/>
+            <circle cx="16" cy="44" r="9" fill="#263238" stroke="#111" stroke-width="2"/>
+            <circle cx="16" cy="44" r="4.2" fill="#CFD8DC"/>
+            <circle cx="48" cy="44" r="9" fill="#263238" stroke="#111" stroke-width="2"/>
+            <circle cx="48" cy="44" r="4.2" fill="#CFD8DC"/>
+            <path d="M16 44h11l8-15h11l3 15" stroke="#455A64" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 40c2-5 9-7 16-5l7-9c3-1 8 0 11 4l3 10-8 1-6-5H24l-4 5z" fill="#E53935" stroke="#8E0000" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M26 29h9l3 5H24z" fill="#212121"/>
+            <rect x="6" y="18" width="16" height="13" rx="3" fill="#D32F2F" stroke="#8E0000" stroke-width="2"/>
+            <path d="M9 22h10" stroke="#FFD54F" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M40 20h7l3 5" stroke="#37474F" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="51" cy="28" r="3" fill="#FFF176" stroke="#F57F17" stroke-width="1.5"/>
+          </svg>`,
+        burger: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="55" rx="22" ry="3.5" fill="#000" fill-opacity="0.12"/>
+            <path d="M12 43h40v3.5c0 4-4.5 6.5-20 6.5s-20-2.5-20-6.5V43z" fill="#F4A241" stroke="#7B3F12" stroke-width="2.2"/>
+            <rect x="10" y="34" width="44" height="9" rx="4.5" fill="#7B3E19" stroke="#4A2108" stroke-width="2.2"/>
+            <path d="M12 34l9 6 7-5 7 5 9-6 8 4v-4H12z" fill="#FFC928" stroke="#C77800" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="13" y="29.5" width="38" height="4.5" rx="2" fill="#E53935" stroke="#8E0000" stroke-width="1.6"/>
+            <path d="M9 29c3-4 7-4 10 0s7 4 10 0 7-4 10 0 7 4 10 0 5-2 6 1c-2 3-6 3-10 1s-7-2-10 1-7 2-10-1-7-2-10 1-5 1-6-3z" fill="#4CAF50" stroke="#1B5E20" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M11 26c0-10 9-16 21-16s21 6 21 16c0 2-1.5 3-3 3H14c-1.5 0-3-1-3-3z" fill="#F6AD49" stroke="#7B3F12" stroke-width="2.2"/>
+            <path d="M18 16c4-3 10-4 16-3" stroke="#FFE0A3" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="24" cy="18" rx="1.6" ry="1" transform="rotate(-20 24 18)" fill="#FFF8E1"/>
+            <ellipse cx="33" cy="15" rx="1.6" ry="1" transform="rotate(15 33 15)" fill="#FFF8E1"/>
+            <ellipse cx="41" cy="19" rx="1.6" ry="1" transform="rotate(-15 41 19)" fill="#FFF8E1"/>
+            <ellipse cx="29" cy="22" rx="1.5" ry="0.9" transform="rotate(20 29 22)" fill="#FFF8E1"/>
+            <ellipse cx="38" cy="23" rx="1.5" ry="0.9" transform="rotate(-10 38 23)" fill="#FFF8E1"/>
+          </svg>`,
+        hotdog: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <g transform="rotate(-22 32 32)">
+              <ellipse cx="32" cy="49" rx="22" ry="4" fill="#000" fill-opacity="0.1"/>
+              <path d="M8 29c0-5.5 5-9 24-9s24 3.5 24 9v6c0 5.5-5 9-24 9s-24-3.5-24-9v-6z" fill="#F5AC4E" stroke="#7B3F12" stroke-width="2.2"/>
+              <path d="M11 24c7-2 15-2.5 23-2" stroke="#FFE0A3" stroke-width="2.2" stroke-linecap="round"/>
+              <rect x="4" y="25.5" width="56" height="13" rx="6.5" fill="#D8532B" stroke="#7A1C0A" stroke-width="2.2"/>
+              <path d="M11 29c4-1 10-1 16 0" stroke="#FF8A65" stroke-width="2" stroke-linecap="round"/>
+              <path d="M11 33c3-4 6 4 9 0s6 4 9 0 6 4 9 0 6 4 9 0 4 2 6 0" stroke="#FFD600" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="17" cy="29" r="1.4" fill="#4CAF50"/>
+              <circle cx="31" cy="35" r="1.4" fill="#4CAF50"/>
+              <circle cx="44" cy="29" r="1.4" fill="#4CAF50"/>
+            </g>
+          </svg>`,
+        pepito: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="52" rx="24" ry="3.5" fill="#000" fill-opacity="0.12"/>
+            <path d="M7 36h50v4c0 5-5 8-25 8S7 45 7 40v-4z" fill="#EE9E3C" stroke="#7B3F12" stroke-width="2.2"/>
+            <path d="M8 31h48c2 0 3 2 1 4.5-2 2.5-6 3.5-25 3.5S10 38 8 35.5C6 33 6 31 8 31z" fill="#7D3F18" stroke="#4A2108" stroke-width="2"/>
+            <path d="M11 31c3-3.5 7-3.5 10 0s7 3.5 10 0 7-3.5 10 0 7 3.5 10 0" fill="#4CAF50" stroke="#1B5E20" stroke-width="1.8"/>
+            <circle cx="18" cy="29" r="3" fill="#E53935" stroke="#8E0000" stroke-width="1.2"/>
+            <circle cx="33" cy="28" r="3" fill="#E53935" stroke="#8E0000" stroke-width="1.2"/>
+            <circle cx="46" cy="29" r="3" fill="#E53935" stroke="#8E0000" stroke-width="1.2"/>
+            <path d="M7 25c0-6 6-10 25-10s25 4 25 10c0 2.5-2 4-5 4H12c-3 0-5-1.5-5-4z" fill="#F6B254" stroke="#7B3F12" stroke-width="2.2"/>
+            <path d="M18 17l-2 5M31 16l-2 6M44 17l-2 5" stroke="#BD6716" stroke-width="2" stroke-linecap="round"/>
+            <path d="M13 33l5 3 5-3 6 3 6-3 6 3 6-3 5 3" stroke="#FFF8DC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>`,
+        shawarma: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="14" ry="3" fill="#000" fill-opacity="0.12"/>
+            <circle cx="24" cy="16" r="6" fill="#4CAF50" stroke="#1B5E20" stroke-width="1.8"/>
+            <circle cx="39" cy="17" r="6" fill="#66BB6A" stroke="#1B5E20" stroke-width="1.8"/>
+            <circle cx="31" cy="14" r="5.5" fill="#E53935" stroke="#8E0000" stroke-width="1.8"/>
+            <ellipse cx="27" cy="20" rx="5" ry="3.5" fill="#8D4925" stroke="#4E250F" stroke-width="1.6"/>
+            <ellipse cx="36" cy="21" rx="5" ry="3.5" fill="#A65E2E" stroke="#4E250F" stroke-width="1.6"/>
+            <path d="M15 21c5-3 29-3 34 0l-5 15H20l-5-15z" fill="#F3C27A" stroke="#8D5524" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M23 22c3 4 7 4 10 0s5 4 8 0" stroke="#FFFDF5" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M18 31l28 0-4 22c-.5 2-2 3-4 3H26c-2 0-3.5-1-4-3L18 31z" fill="#FFFFFF" stroke="#B71C1C" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M20 38h24M21.5 45h21" stroke="#E53935" stroke-width="3" stroke-linecap="round"/>
+            <path d="M25 31v24M39 31v24" stroke="#FFCDD2" stroke-width="2"/>
+          </svg>`,
+        soda: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="14" ry="3" fill="#000" fill-opacity="0.12"/>
+            <path d="M35 20l4-11h9" stroke="#FFD54F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M35 20l4-11h9" stroke="#E53935" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 4"/>
+            <path d="M19 22h26l-3.5 31c-.3 1.8-1.8 3-3.6 3H26.1c-1.8 0-3.3-1.2-3.6-3L19 22z" fill="#E53935" stroke="#8E0000" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M20.5 31h23l-1.3 12H21.8l-1.3-12z" fill="#FFF8F7"/>
+            <path d="M25 37h14" stroke="#D32F2F" stroke-width="3" stroke-linecap="round"/>
+            <rect x="16" y="17" width="32" height="6" rx="3" fill="#FFF" stroke="#8E0000" stroke-width="2.2"/>
+            <path d="M23 17c0-2.5 2-4 9-4s9 1.5 9 4" fill="#FFCDD2" stroke="#8E0000" stroke-width="1.8"/>
+            <circle cx="26" cy="48" r="1.8" fill="#FFCDD2"/>
+            <circle cx="38" cy="49" r="1.4" fill="#FFCDD2"/>
+          </svg>`,
+        pizza: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="55" rx="20" ry="3.2" fill="#000" fill-opacity="0.12"/>
+            <path d="M12 16c13-6 27-6 40 0l-3 8c-11-4-23-4-34 0l-3-8z" fill="#E69A3A" stroke="#7B3F12" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M15 24c11-4 23-4 34 0L32 54 15 24z" fill="#FFD54F" stroke="#C77800" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="27" cy="30" r="4" fill="#E53935" stroke="#8E0000" stroke-width="1.4"/>
+            <circle cx="37" cy="32" r="3.6" fill="#E53935" stroke="#8E0000" stroke-width="1.4"/>
+            <circle cx="31" cy="41" r="3.5" fill="#E53935" stroke="#8E0000" stroke-width="1.4"/>
+            <circle cx="24" cy="25" r="1.8" fill="#4CAF50"/>
+            <circle cx="34" cy="25" r="1.8" fill="#4CAF50"/>
+            <circle cx="32" cy="35" r="1.6" fill="#4CAF50"/>
+          </svg>`,
+        chicken: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="18" ry="3" fill="#000" fill-opacity="0.12"/>
+            <path d="M16 25h32l-4 28H20l-4-28z" fill="#E53935" stroke="#8E0000" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M23 25l1 28M32 25v28M41 25l-1 28" stroke="#FFF" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="24" cy="21" rx="8" ry="7" fill="#D97B29" stroke="#7B3F12" stroke-width="2"/>
+            <ellipse cx="39" cy="20" rx="8.5" ry="7.5" fill="#E68A32" stroke="#7B3F12" stroke-width="2"/>
+            <ellipse cx="32" cy="24" rx="8" ry="6" fill="#C9691C" stroke="#7B3F12" stroke-width="2"/>
+            <rect x="14" y="25" width="36" height="5" rx="2.5" fill="#FFF" stroke="#8E0000" stroke-width="2"/>
+          </svg>`,
+        fries: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="16" ry="3" fill="#000" fill-opacity="0.12"/>
+            <rect x="18" y="12" width="5" height="22" rx="2" transform="rotate(-10 18 12)" fill="#FFD54F" stroke="#B27A00" stroke-width="1.8"/>
+            <rect x="25" y="9" width="5.5" height="24" rx="2" fill="#FFE066" stroke="#B27A00" stroke-width="1.8"/>
+            <rect x="33" y="10" width="5.5" height="23" rx="2" fill="#FFD54F" stroke="#B27A00" stroke-width="1.8"/>
+            <rect x="41" y="13" width="5" height="21" rx="2" transform="rotate(10 41 13)" fill="#FFCA28" stroke="#B27A00" stroke-width="1.8"/>
+            <path d="M16 26c6 4 26 4 32 0l-4 27H20l-4-27z" fill="#E53935" stroke="#8E0000" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="32" cy="40" r="5" fill="#FFC107" stroke="#FFF" stroke-width="1.5"/>
+          </svg>`,
+        gear: (size = 20) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.82 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>`,
+        back: (size = 22) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>`,
+        receipt: (size = 20) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/>
+            <path d="M8 7h8M8 11h8M8 15h5"/>
+          </svg>`,
+        whatsapp: (size = 20) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.82 14.12c-.24.69-1.42 1.31-1.97 1.39-.51.08-1.15.11-1.85-.11-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.27-5.06-4.47-.15-.2-1.21-1.61-1.21-3.07s.76-2.18 1.04-2.47c.27-.3.6-.37.8-.37.2 0 .4.01.58.01.19 0 .44-.07.69.53.25.6.86 2.1.94 2.25.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.39-.45.52-.15.15-.31.31-.13.61.18.3.78 1.28 1.68 2.08 1.15 1.03 2.12 1.35 2.42 1.5.3.15.48.13.66-.07.18-.2.76-.88.96-1.18.2-.3.4-.25.68-.15.27.1 1.76.83 2.06.98.3.15.5.22.57.35.07.13.07.75-.17 1.44z"/>
+          </svg>`
+      };
+
+      const FOOD_ICON_OPTIONS = [
+        { key: 'burger', label: 'Hamburguesa' },
+        { key: 'hotdog', label: 'Perro Caliente' },
+        { key: 'shawarma', label: 'Shawarma' },
+        { key: 'pepito', label: 'Pepito' },
+        { key: 'pizza', label: 'Pizza' },
+        { key: 'chicken', label: 'Pollo Crispy' },
+        { key: 'fries', label: 'Papas Fritas' },
+        { key: 'soda', label: 'Refresco' },
+        { key: 'moto', label: 'Delivery Moto' }
+      ];
+
+      function getCategoryIcon(iconKey, color = '#D32F2F', size = 28) {
+        const fn = SVG_ICONS[iconKey] || SVG_ICONS.burger;
+        return fn(color, size);
+      }
+
+      const seedSnap = ArismendiDB.getSeedSnapshot();
+      const state = {
+        view: 'home',
+        adminTab: 'config',
+        isAdminUnlocked: false,
+        config: seedSnap.config,
+        stores: seedSnap.stores,
+        menuItems: seedSnap.menuItems,
+        cart: [],
+        orders: [],
+        userProfile: seedSnap.userProfile,
+        usageLogs: [],
+        selectedStoreId: 'pili_burger',
+        selectedCategory: 'Todos',
+        deliveryInfo: {
+          customerName: '',
+          address: '',
+          reference: '',
+          paymentMethod: 'PAGO_MOVIL',
+          cashBillNote: ''
+        },
+        deferredInstallPrompt: null,
+        hasEditedDelivery: false,
+        lastRouteKey: '',
+        isSyncingGitHub: false,
+        ghStatusBanner: null,
+        expandedAccordions: {
+          checkout_invoice: true,
+          store_pili_burger: true
+        }
+      };
+
+      const ADMIN_KEY_CODES = [75, 97, 116, 105, 110, 97, 49, 51, 50];
+      function verifyAdminPassword(input) {
+        const expected = String.fromCharCode(...ADMIN_KEY_CODES);
+        return String(input || '') === expected;
+      }
+
+      const GitHubSync = (() => {
+        const LS_GH_KEY = 'arismendi_gh_sync_v1';
+
+        function getMeta() {
+          try {
+            if (window.localStorage) {
+              const raw = localStorage.getItem(LS_GH_KEY);
+              if (raw) return JSON.parse(raw);
+            }
+          } catch (_) {}
+          return {};
+        }
+
+        function saveMeta(patch) {
+          const next = { ...getMeta(), ...patch };
+          try {
+            if (window.localStorage) localStorage.setItem(LS_GH_KEY, JSON.stringify(next));
+          } catch (_) {}
+          return next;
+        }
+
+        function detectPagesRepo() {
+          try {
+            const host = (window.location.hostname || '').toLowerCase();
+            if (host.endsWith('.github.io')) {
+              const owner = host.split('.')[0] || '';
+              const segs = (window.location.pathname || '/').split('/').filter(Boolean);
+              const repo = segs.length > 0 ? segs[0] : (owner ? owner + '.github.io' : '');
+              return { owner, repo };
+            }
+          } catch (_) {}
+          return { owner: '', repo: '' };
+        }
+
+        function getCreds() {
+          const meta = getMeta();
+          const cfgRepo = (state.config && state.config.repoSync) || {};
+          const detected = detectPagesRepo();
+          return {
+            owner: (meta.owner || cfgRepo.owner || detected.owner || '').trim(),
+            repo: (meta.repo || cfgRepo.repo || detected.repo || '').trim(),
+            branch: (meta.branch || cfgRepo.branch || 'main').trim() || 'main',
+            filePath: (meta.filePath || cfgRepo.filePath || 'docs/catalog.json').trim().replace(/^\/+/, '') || 'docs/catalog.json',
+            token: (meta.token || '').trim(),
+            lastSyncAt: meta.lastSyncAt || 0,
+            lastCommitSha: meta.lastCommitSha || '',
+            lastCommitUrl: meta.lastCommitUrl || '',
+            lastRemoteUpdatedAt: meta.lastRemoteUpdatedAt || '',
+            hasUnpushedChanges: Boolean(meta.hasUnpushedChanges)
+          };
+        }
+
+        async function saveCreds(fields) {
+          const owner = String(fields.owner || '').trim();
+          const repo = String(fields.repo || '').trim();
+          const branch = String(fields.branch || 'main').trim() || 'main';
+          const filePath = String(fields.filePath || 'docs/catalog.json').trim().replace(/^\/+/, '') || 'docs/catalog.json';
+          const token = String(fields.token || '').trim();
+          // El token solo se guarda localmente en el dispositivo del administrador, jamás en catalog.json
+          saveMeta({ owner, repo, branch, filePath, token });
+          state.config = {
+            ...state.config,
+            id: 'business_config',
+            repoSync: { owner, repo, branch, filePath }
+          };
+          await ArismendiDB.saveConfig(state.config);
+          return getCreds();
+        }
+
+        function markUnpushedChanges() {
+          saveMeta({ hasUnpushedChanges: true });
+        }
+
+        function encodeRepoPath(path) {
+          return String(path || 'docs/catalog.json')
+            .replace(/^\/+/, '')
+            .split('/')
+            .filter(Boolean)
+            .map((seg) => encodeURIComponent(seg))
+            .join('/');
+        }
+
+        function utf8ToBase64(str) {
+          const bytes = new TextEncoder().encode(str);
+          let binary = '';
+          const chunk = 0x8000;
+          for (let i = 0; i < bytes.length; i += chunk) {
+            binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+          }
+          return btoa(binary);
+        }
+
+        function base64ToUtf8(b64) {
+          const binary = atob(String(b64 || '').replace(/\s+/g, ''));
+          const bytes = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+          return new TextDecoder().decode(bytes);
+        }
+
+        function buildCatalogPayload(creds) {
+          const cleanConfig = {
+            ...ArismendiDB.DEFAULT_CONFIG,
+            ...state.config,
+            id: 'business_config',
+            repoSync: {
+              owner: creds.owner,
+              repo: creds.repo,
+              branch: creds.branch,
+              filePath: creds.filePath
+            }
+          };
+          delete cleanConfig.token;
+          return {
+            version: 1,
+            updatedAt: new Date().toISOString(),
+            config: cleanConfig,
+            stores: state.stores,
+            menuItems: state.menuItems
+          };
+        }
+
+        function buildHeaders(token, withJsonContentType = false) {
+          const h = {
+            Accept: 'application/vnd.github+json',
+            Authorization: 'Bearer ' + token
+          };
+          if (withJsonContentType) h['Content-Type'] = 'application/json';
+          return h;
+        }
+
+        function validateCreds(creds, requireToken = true) {
+          if (!creds.owner) throw new Error('Ingresa el usuario u organización de GitHub.');
+          if (!creds.repo) throw new Error('Ingresa el nombre del repositorio.');
+          if (!creds.branch) throw new Error('Ingresa la rama (ej: main).');
+          if (!creds.filePath) throw new Error('Ingresa la ruta del archivo (ej: docs/catalog.json).');
+          if (requireToken && !creds.token) throw new Error('Ingresa tu Token Personal de GitHub (PAT) para subir cambios.');
+        }
+
+        async function parseGhError(resp, fallbackMsg) {
+          let detail = '';
+          try {
+            const j = await resp.json();
+            if (j && j.message) detail = j.message;
+          } catch (_) {}
+          if (resp.status === 401) return 'Token inválido o expirado (401). Verifica tu PAT en GitHub.';
+          if (resp.status === 403) return 'Sin permiso de escritura (403). Asegúrate de que el token tenga permiso "Contents: Read & Write".';
+          if (resp.status === 404) return 'Repositorio, rama o usuario no encontrado (404). Verifica Owner, Repositorio y Rama.';
+          if (resp.status === 409 || resp.status === 422) return detail || 'Conflicto de versión al escribir el archivo en GitHub.';
+          return detail ? `${fallbackMsg}: ${detail}` : `${fallbackMsg} (HTTP ${resp.status})`;
+        }
+
+        async function testConnection(credsOverride) {
+          const creds = credsOverride ? { ...getCreds(), ...credsOverride } : getCreds();
+          validateCreds(creds, true);
+          const repoUrl = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}`;
+          const resp = await fetch(repoUrl, { headers: buildHeaders(creds.token), cache: 'no-store' });
+          if (!resp.ok) throw new Error(await parseGhError(resp, 'No se pudo conectar con GitHub'));
+          const repoData = await resp.json();
+          if (repoData.permissions && repoData.permissions.push === false) {
+            throw new Error('La conexión funcionó, pero este token solo tiene permisos de lectura (no permite subir cambios).');
+          }
+          const branchUrl = `${repoUrl}/branches/${encodeURIComponent(creds.branch)}`;
+          const bResp = await fetch(branchUrl, { headers: buildHeaders(creds.token), cache: 'no-store' });
+          if (!bResp.ok) {
+            throw new Error(`Repositorio "${repoData.full_name}" conectado, pero la rama "${creds.branch}" no existe.`);
+          }
+          return {
+            fullName: repoData.full_name || `${creds.owner}/${creds.repo}`,
+            isPrivate: Boolean(repoData.private),
+            branch: creds.branch
+          };
+        }
+
+        async function getExistingFileSha(creds) {
+          const encodedPath = encodeRepoPath(creds.filePath);
+          const url = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/contents/${encodedPath}?ref=${encodeURIComponent(creds.branch)}`;
+          const resp = await fetch(url, { headers: buildHeaders(creds.token), cache: 'no-store' });
+          if (resp.status === 404) return null;
+          if (!resp.ok) throw new Error(await parseGhError(resp, 'Error al consultar el archivo en GitHub'));
+          const data = await resp.json();
+          return data && data.sha ? data.sha : null;
+        }
+
+        async function pushCatalog(credsOverride) {
+          const creds = credsOverride ? { ...getCreds(), ...credsOverride } : getCreds();
+          validateCreds(creds, true);
+          const payload = buildCatalogPayload(creds);
+          const jsonText = JSON.stringify(payload, null, 2) + '\n';
+          const base64Content = utf8ToBase64(jsonText);
+          const encodedPath = encodeRepoPath(creds.filePath);
+          const putUrl = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/contents/${encodedPath}`;
+          const commitMsg = `Actualización Arismendi: Tasa ${Number(state.config.exchangeRateBsPerUsd)} Bs/$ • ${state.stores.length} locales • ${state.menuItems.length} productos`;
+
+          const attemptPut = async (sha) => {
+            const body = {
+              message: commitMsg,
+              content: base64Content,
+              branch: creds.branch
+            };
+            if (sha) body.sha = sha;
+            return fetch(putUrl, {
+              method: 'PUT',
+              headers: buildHeaders(creds.token, true),
+              body: JSON.stringify(body),
+              cache: 'no-store'
+            });
+          };
+
+          let sha = await getExistingFileSha(creds);
+          let resp = await attemptPut(sha);
+          if (resp.status === 409) {
+            sha = await getExistingFileSha(creds);
+            resp = await attemptPut(sha);
+          }
+          if (!resp.ok) throw new Error(await parseGhError(resp, 'No se pudieron subir los cambios'));
+          const result = await resp.json();
+          const commitSha = (result && result.commit && result.commit.sha) ? result.commit.sha.slice(0, 7) : '';
+          const commitUrl = (result && result.commit && result.commit.html_url) ? result.commit.html_url : '';
+          saveMeta({
+            hasUnpushedChanges: false,
+            lastSyncAt: Date.now(),
+            lastRemoteUpdatedAt: payload.updatedAt,
+            lastCommitSha: commitSha,
+            lastCommitUrl: commitUrl
+          });
+          return { commitSha, commitUrl, updatedAt: payload.updatedAt };
+        }
+
+        async function applyPulledPayload(data) {
+          if (!data || !Array.isArray(data.stores) || !Array.isArray(data.menuItems) || !data.config) {
+            return false;
+          }
+          await ArismendiDB.applyRemoteCatalog(data);
+          state.config = { ...ArismendiDB.DEFAULT_CONFIG, ...data.config, id: 'business_config' };
+          state.stores = data.stores;
+          state.menuItems = data.menuItems;
+          if (state.stores.length && !state.stores.some((s) => s.id === state.selectedStoreId)) {
+            state.selectedStoreId = state.stores[0].id;
+          }
+          if (data.config.repoSync) {
+            const meta = getMeta();
+            saveMeta({
+              owner: meta.owner || data.config.repoSync.owner || '',
+              repo: meta.repo || data.config.repoSync.repo || '',
+              branch: meta.branch || data.config.repoSync.branch || 'main',
+              filePath: meta.filePath || data.config.repoSync.filePath || 'docs/catalog.json'
+            });
+          }
+          saveMeta({
+            hasUnpushedChanges: false,
+            lastRemoteUpdatedAt: data.updatedAt || ''
+          });
+          return true;
+        }
+
+        async function pullRemoteCatalog(forceManual = false) {
+          const creds = getCreds();
+          if (!forceManual && creds.hasUnpushedChanges) return false;
+
+          // Si es descarga manual y el admin tiene token, leemos directo desde la API de GitHub (sin caché CDN)
+          if (forceManual && creds.owner && creds.repo && creds.token) {
+            const encodedPath = encodeRepoPath(creds.filePath);
+            const apiUrl = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/contents/${encodedPath}?ref=${encodeURIComponent(creds.branch)}`;
+            const resp = await fetch(apiUrl, { headers: buildHeaders(creds.token), cache: 'no-store' });
+            if (!resp.ok) throw new Error(await parseGhError(resp, 'No se pudo descargar catalog.json desde GitHub'));
+            const metaJson = await resp.json();
+            const parsed = JSON.parse(base64ToUtf8(metaJson.content));
+            return applyPulledPayload(parsed);
+          }
+
+          const candidates = [];
+          if (creds.owner && creds.repo) {
+            const rawPath = encodeRepoPath(creds.filePath);
+            candidates.push(`https://raw.githubusercontent.com/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/${encodeURIComponent(creds.branch)}/${rawPath}?t=${Date.now()}`);
+          }
+          if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+            candidates.push(`./catalog.json?t=${Date.now()}`);
+          }
+          if (!candidates.length) {
+            if (forceManual) throw new Error('Configura el Usuario y Repositorio de GitHub primero.');
+            return false;
+          }
+
+          let latestData = null;
+          for (const url of candidates) {
+            try {
+              const resp = await fetch(url, { cache: 'no-store' });
+              if (!resp.ok) continue;
+              const data = await resp.json();
+              if (data && Array.isArray(data.stores) && Array.isArray(data.menuItems) && data.config) {
+                if (!latestData || String(data.updatedAt || '') > String(latestData.updatedAt || '')) {
+                  latestData = data;
+                }
+              }
+            } catch (_) {}
+          }
+
+          if (!latestData) {
+            if (forceManual) throw new Error('No se encontró catalog.json en el repositorio o GitHub Pages aún.');
+            return false;
+          }
+          if (!forceManual && latestData.updatedAt && latestData.updatedAt === creds.lastRemoteUpdatedAt) {
+            return false;
+          }
+          return applyPulledPayload(latestData);
+        }
+
+        return {
+          getCreds,
+          saveCreds,
+          markUnpushedChanges,
+          testConnection,
+          pushCatalog,
+          pullRemoteCatalog
+        };
+      })();
+
+      async function recordActivity(type, summary) {
+        try {
+          const uid = (state.userProfile && state.userProfile.userId) || 'USR-ANON';
+          const logEntry = {
+            id: 'log_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+            userId: uid,
+            type,
+            summary,
+            createdAt: Date.now()
+          };
+          state.usageLogs.unshift(logEntry);
+          if (state.usageLogs.length > 200) state.usageLogs = state.usageLogs.slice(0, 200);
+          if (state.userProfile) {
+            state.userProfile.lastActiveAt = Date.now();
+            await ArismendiDB.saveUserProfile(state.userProfile);
+          }
+          await ArismendiDB.logUsageEvent(logEntry);
+        } catch (_) {}
+      }
+
+      let deliverySaveTimer = null;
+      function persistDeliveryPreferences() {
+        state.hasEditedDelivery = true;
+        if (deliverySaveTimer) clearTimeout(deliverySaveTimer);
+        deliverySaveTimer = setTimeout(async () => {
+          try {
+            if (!state.userProfile) return;
+            state.userProfile.savedDeliveryInfo = {
+              customerName: state.deliveryInfo.customerName || '',
+              address: state.deliveryInfo.address || '',
+              reference: state.deliveryInfo.reference || '',
+              paymentMethod: state.deliveryInfo.paymentMethod || 'PAGO_MOVIL'
+            };
+            state.userProfile.lastActiveAt = Date.now();
+            await ArismendiDB.saveUserProfile(state.userProfile);
+          } catch (_) {}
+        }, 350);
+      }
+
+      function formatUsd(amount) {
+        const num = Number(amount) || 0;
+        return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function formatBs(amountUsd, rate) {
+        const bs = (Number(amountUsd) || 0) * (Number(rate) || 1200);
+        return 'Bs. ' + bs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function formatRate(rate) {
+        const num = Number(rate) || 1200;
+        return num.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs/$';
+      }
+
+      function toWhatsAppIntlPhone(rawPhone) {
+        const digits = String(rawPhone || '').replace(/\D/g, '');
+        if (digits.startsWith('58') && digits.length >= 11) return digits;
+        if (digits.startsWith('0') && digits.length >= 10) return '58' + digits.slice(1);
+        return digits || '584245224500';
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function showToast(msg) {
+        const root = document.getElementById('toast-root');
+        const el = document.createElement('div');
+        el.className = 'toast';
+        el.textContent = msg;
+        root.appendChild(el);
+        setTimeout(() => el.remove(), 2600);
+      }
+
+      function getCartTotals() {
+        const subtotalUsd = state.cart.reduce((sum, item) => sum + item.priceUsd * item.quantity, 0);
+        const isFreeSeventhDelivery = Boolean(state.userProfile && state.userProfile.hasFreeDeliveryReward);
+        const deliveryUsd = state.cart.length > 0
+          ? (isFreeSeventhDelivery ? 0 : Number(state.config.deliveryFeeUsd || 0))
+          : 0;
+        const totalUsd = subtotalUsd + deliveryUsd;
+        const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+        return { subtotalUsd, deliveryUsd, totalUsd, count, isFreeSeventhDelivery };
+      }
+
+      function buildWhatsAppInvoice(invoiceCode = `DEA-${Math.floor(1000 + Math.random() * 9000)}`) {
+        const rate = Number(state.config.exchangeRateBsPerUsd) || 1200;
+        const { subtotalUsd, deliveryUsd, totalUsd, isFreeSeventhDelivery } = getCartTotals();
+        const storeNames = [...new Set(state.cart.map((c) => c.storeName))].join(' / ');
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('es-VE') + ' ' + now.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' });
+
+        const lines = [
+          '🛵 *DELIVERY EXPRESS ARISMENDI*',
+          '━━━━━━━━━━━━━━━━━━━━━━',
+          `🧾 *Factura N°:* ${invoiceCode}`,
+          `📅 *Fecha:* ${dateStr}`
+        ];
+        if (storeNames) lines.push(`🍔 *Local:* ${storeNames}`);
+        lines.push('', '*DETALLE DEL PEDIDO:*');
+
+        state.cart.forEach((item, idx) => {
+          const lineUsd = formatUsd(item.priceUsd * item.quantity);
+          const lineBs = formatBs(item.priceUsd * item.quantity, rate);
+          lines.push(`${idx + 1}. *${item.quantity}x ${item.name}*`);
+          lines.push(`   💵 ${lineUsd}  |  🇻🇪 ${lineBs}`);
+          if (item.selectedIngredients && item.selectedIngredients.length) {
+            lines.push(`   🧂 _Ingredientes:_ ${item.selectedIngredients.join(', ')}`);
+          }
+          const excluded = (item.allIngredients || []).filter((ing) => !(item.selectedIngredients || []).includes(ing));
+          if (excluded.length) lines.push(`   🚫 _Sin:_ ${excluded.join(', ')}`);
+          if (item.note && item.note.trim()) lines.push(`   📝 _Nota:_ ${item.note.trim()}`);
+        });
+
+        lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+        lines.push(`📦 *Subtotal:* ${formatUsd(subtotalUsd)} (${formatBs(subtotalUsd, rate)})`);
+        lines.push(
+          isFreeSeventhDelivery
+            ? '🛵 *Delivery:* GRATIS 🎁 (Premio Fidelidad - Entrega #7)'
+            : (deliveryUsd > 0
+              ? `🛵 *Delivery:* ${formatUsd(deliveryUsd)} (${formatBs(deliveryUsd, rate)})`
+              : '🛵 *Delivery:* Por confirmar / Gratis')
+        );
+        lines.push(`💱 *Tasa del día:* ${formatRate(rate)}`);
+        lines.push('');
+        lines.push(`💰 *TOTAL EN DIVISAS:* ${formatUsd(totalUsd)}`);
+        lines.push(`🇻🇪 *TOTAL EN BOLÍVARES:* ${formatBs(totalUsd, rate)}`);
+        lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+        lines.push('*MÉTODO DE PAGO:*');
+
+        if (state.deliveryInfo.paymentMethod === 'PAGO_MOVIL') {
+          lines.push('📲 *Pago Móvil (Bolívares)*');
+          lines.push(`• Banco: ${state.config.pagoMovilBank}`);
+          lines.push(`• Cédula/RIF: ${state.config.pagoMovilDoc}`);
+          lines.push(`• Teléfono: ${state.config.pagoMovilPhone}`);
+          lines.push(`• Monto exacto: *${formatBs(totalUsd, rate)}*`);
+        } else {
+          lines.push('💵 *Divisa en Efectivo (Dólares)*');
+          lines.push(`• Monto exacto: *${formatUsd(totalUsd)}*`);
+          if (state.deliveryInfo.cashBillNote.trim()) {
+            lines.push(`• Paga con billete de: ${state.deliveryInfo.cashBillNote.trim()}`);
+          }
+        }
+
+        lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+        lines.push('📍 *DATOS DE ENTREGA:*');
+        if (state.deliveryInfo.customerName.trim()) lines.push(`• Cliente: ${state.deliveryInfo.customerName.trim()}`);
+        lines.push(`• Dirección: ${state.deliveryInfo.address.trim()}`);
+        if (state.deliveryInfo.reference.trim()) lines.push(`• Referencia: ${state.deliveryInfo.reference.trim()}`);
+        lines.push('', '¡Gracias por pedir con *Delivery Express Arismendi*! 🚀');
+
+        return { invoiceCode, text: lines.join('\n') };
+      }
+
+      function isIosSafari() {
+        const ua = window.navigator.userAgent || '';
+        const isIos = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+        return isIos && !isStandalone;
+      }
+
+      function isStandalonePwa() {
+        return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+      }
+
+      function renderInstallBanner() {
+        if (isStandalonePwa()) return '';
+        if (state.deferredInstallPrompt) {
+          return `
+            <div class="install-banner">
+              <div class="install-banner-text">
+                <strong>Instala Delivery Express Arismendi</strong>
+                Úsala como app en tu Android sin ocupar memoria.
+              </div>
+              <button class="btn-install" id="btn-pwa-install">Instalar App</button>
+            </div>`;
+        }
+        if (isIosSafari()) {
+          return `
+            <div class="install-banner">
+              <div class="install-banner-text">
+                <strong>Instalar en iPhone</strong>
+                Toca <b>Compartir</b> y elige <b>"Añadir a pantalla de inicio"</b>.
+              </div>
+              <button class="btn-install" id="btn-ios-guide">Ver pasos</button>
+            </div>`;
+        }
+        return '';
+      }
+
+      function render() {
+        const root = document.getElementById('app');
+        const routeKey = `${state.view}|${state.adminTab}|${state.selectedStoreId}|${state.selectedCategory}`;
+        const shouldAnimate = routeKey !== state.lastRouteKey;
+        state.lastRouteKey = routeKey;
+
+        if (state.view === 'home') root.innerHTML = renderHomeView();
+        else if (state.view === 'store') root.innerHTML = renderStoreView();
+        else if (state.view === 'checkout') root.innerHTML = renderCheckoutView();
+        else if (state.view === 'admin') root.innerHTML = renderAdminView();
+
+        if (shouldAnimate) {
+          root.classList.remove('view-accordion-enter');
+          void root.offsetWidth;
+          root.classList.add('view-accordion-enter');
+        } else {
+          root.classList.remove('view-accordion-enter');
+        }
+        bindEvents();
+      }
+
+      function renderFloatingCartBar() {
+        if (state.view === 'checkout' || state.view === 'admin') return '';
+        const { count, totalUsd } = getCartTotals();
+        if (count === 0) return '';
+        const rate = state.config.exchangeRateBsPerUsd;
+        return `
+          <div class="floating-cart-wrap">
+            <button class="floating-cart-btn" id="btn-open-checkout">
+              <div style="text-align:left">
+                <div style="font-size:14.5px;font-weight:800">${count} ${count === 1 ? 'producto' : 'productos'} • Ver Factura</div>
+                <div style="font-size:12px;opacity:0.92">${formatBs(totalUsd, rate)}</div>
+              </div>
+              <span class="cart-badge-usd">${formatUsd(totalUsd)}</span>
+            </button>
+          </div>`;
+      }
+
+      function renderHomeView() {
+        const rate = state.config.exchangeRateBsPerUsd;
+        const { count } = getCartTotals();
+        const piliItems = state.menuItems.filter((i) => i.storeId === 'pili_burger').slice(0, 5);
+
+        const storesHtml = state.stores.map((st) => {
+          const storeItems = state.menuItems.filter((i) => i.storeId === st.id);
+          const minUsd = storeItems.length ? Math.min(...storeItems.map((i) => i.priceUsd)) : 0;
+          return `
+            <div class="store-card" data-open-store="${escapeHtml(st.id)}">
+              <div class="store-card-banner">
+                <div>
+                  <span class="store-badge">${escapeHtml(st.badge || 'Comida Rápida')}</span>
+                  <h3 class="store-name">${escapeHtml(st.name)}</h3>
+                  <div class="store-meta">${escapeHtml(st.etaMinutes || '20-30 min')} • ${storeItems.length} productos • ★ ${escapeHtml(st.rating || '4.9')}</div>
+                </div>
+                <div class="store-icon-box">${getCategoryIcon(st.iconKey, '', 44)}</div>
+              </div>
+              <div class="store-card-footer">
+                <div class="store-tagline">${escapeHtml(st.tagline)}</div>
+                <div class="dual-price">
+                  <span class="price-usd">Desde ${formatUsd(minUsd)}</span>
+                  <span class="price-bs">${formatBs(minUsd, rate)}</span>
+                </div>
+              </div>
+            </div>`;
+        }).join('');
+
+        const highlightsHtml = piliItems.map((item) => `
+          <div class="quick-card" data-customize-item="${escapeHtml(item.id)}">
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                <span class="cat-kicker">${escapeHtml(item.category)}</span>
+                ${getCategoryIcon(item.iconKey, '', 32)}
+              </div>
+              <div style="font-weight:800;font-size:15px">${escapeHtml(item.name)}</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${escapeHtml(item.ingredients.slice(0, 4).join(', '))}</div>
+            </div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:6px">
+              <div class="dual-price" style="text-align:left">
+                <span class="price-usd" style="font-size:16px">${formatUsd(item.priceUsd)}</span>
+                <span class="price-bs">${formatBs(item.priceUsd, rate)}</span>
+              </div>
+              <button class="btn-primary" style="flex:0;min-height:38px;padding:0 12px" data-quick-add="${escapeHtml(item.id)}">+</button>
+            </div>
+          </div>`).join('');
+
+        return `
+          <header class="hero-header">
+            <div class="hero-top-row">
+              <div class="brand-group">
+                <div class="brand-moto-badge"><img src="icons/logo.png" alt="Logo Delivery Express Arismendi" class="brand-logo-img" /></div>
+                <div>
+                  <span class="brand-title-sub">Delivery Express</span>
+                  <h1 class="brand-title-main">ARISMENDI</h1>
+                </div>
+              </div>
+              <div class="header-actions">
+                ${count > 0 ? `<button class="icon-btn" id="btn-header-checkout" aria-label="Ver factura">${SVG_ICONS.receipt(20)}</button>` : ''}
+                <button class="icon-btn" id="btn-open-admin" aria-label="Ajustes de administrador">${SVG_ICONS.gear(20)}</button>
+              </div>
+            </div>
+            <div class="hero-pills-row">
+              <button class="rate-pill" id="btn-quick-rate">💱 Tasa: ${formatRate(rate)}${state.isAdminUnlocked ? ' ✎' : ''}</button>
+              <span class="wa-badge-pill">WhatsApp: ${escapeHtml(state.config.whatsappPhone)}</span>
+            </div>
+            <p class="hero-desc">Comida rápida directo a tu puerta con factura en Bolívares y Dólares a la tasa del día. Sin registros obligatorios.</p>
+          </header>
+          ${renderInstallBanner()}
+          ${state.userProfile && state.userProfile.hasFreeDeliveryReward ? `
+            <div class="loyalty-banner">
+              <div style="font-size:13px;color:#5D3A00">
+                <strong style="display:block;font-size:14px;color:#8D5800">🎉 ¡Tienes tu Delivery #7 GRATIS!</strong>
+                Disfruta de tu próxima entrega por nuestra cuenta.
+              </div>
+              <button class="btn-install" id="btn-view-loyalty-msg">Ver premio</button>
+            </div>` : ''}
+          <div class="section-head">
+            <h2 class="section-title">🍔 Locales de Comida Rápida</h2>
+            <p class="section-subtitle">Escoge tu local favorito y personaliza los ingredientes</p>
+          </div>
+          <div class="stack-list">${storesHtml || '<div class="empty-state">No hay locales registrados aún.</div>'}</div>
+          ${piliItems.length ? `
+            <div class="section-head" style="display:flex;justify-content:space-between;align-items:center">
+              <h2 class="section-title" style="font-size:17px">🔥 Destacados Pili Burger</h2>
+              <button class="chip" style="padding:5px 11px;font-size:12px" data-open-store="pili_burger">Ver todo</button>
+            </div>
+            <div class="h-scroll">${highlightsHtml}</div>` : ''}
+          ${renderFloatingCartBar()}`;
+      }
+
+      function renderStoreView() {
+        const store = state.stores.find((s) => s.id === state.selectedStoreId) || state.stores[0];
+        if (!store) return renderHomeView();
+        const rate = state.config.exchangeRateBsPerUsd;
+        const allItems = state.menuItems.filter((i) => i.storeId === store.id);
+        const categories = ['Todos', ...new Set(allItems.map((i) => i.category))];
+        const filtered = state.selectedCategory === 'Todos' ? allItems : allItems.filter((i) => i.category === state.selectedCategory);
+
+        const chipsHtml = categories.map((cat) =>
+          `<button class="chip ${cat === state.selectedCategory ? 'active' : ''}" data-select-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</button>`
+        ).join('');
+
+        const itemsHtml = filtered.map((item) => `
+          <div class="menu-card" data-customize-item="${escapeHtml(item.id)}">
+            <div class="menu-card-top">
+              <div style="display:flex;gap:12px;align-items:flex-start;flex:1">
+                <div class="menu-item-icon">${getCategoryIcon(item.iconKey, '', 38)}</div>
+                <div>
+                  <div>
+                    <span class="cat-kicker">${escapeHtml(item.category)}</span>
+                    ${item.isPopular ? '<span class="popular-tag">Top</span>' : ''}
+                  </div>
+                  <h3 class="menu-item-title">${escapeHtml(item.name)}</h3>
+                </div>
+              </div>
+              <div class="dual-price">
+                <span class="price-usd">${formatUsd(item.priceUsd)}</span>
+                <span class="price-bs">${formatBs(item.priceUsd, rate)}</span>
+              </div>
+            </div>
+            <p class="menu-item-desc">${escapeHtml(item.description)}</p>
+            <div class="ingredients-box"><strong>Ingredientes:</strong> ${escapeHtml(item.ingredients.join(' • '))}</div>
+            <div class="card-btn-row">
+              <button class="btn-outline" data-customize-item="${escapeHtml(item.id)}">Ingredientes</button>
+              <button class="btn-primary" data-quick-add="${escapeHtml(item.id)}">+ Agregar</button>
+            </div>
+          </div>`).join('');
+
+        return `
+          <div class="sub-topbar">
+            <div class="sub-topbar-left">
+              <button class="icon-btn" id="btn-back-home" aria-label="Volver">${SVG_ICONS.back(20)}</button>
+              <div>
+                <div style="font-size:18px;font-weight:800">${escapeHtml(store.name)}</div>
+                <div style="font-size:12px;opacity:0.9">${escapeHtml(store.etaMinutes)} • ★ ${escapeHtml(store.rating)}</div>
+              </div>
+            </div>
+            <button class="rate-pill" id="btn-quick-rate" style="font-size:12px;padding:6px 10px">${formatRate(rate)}</button>
+          </div>
+          <div class="chips-row">${chipsHtml}</div>
+          <div class="stack-list">${itemsHtml || '<div class="empty-state">No hay productos en esta categoría.</div>'}</div>
+          ${renderFloatingCartBar()}`;
+      }
+
+      function renderCheckoutView() {
+        const rate = state.config.exchangeRateBsPerUsd;
+        const { subtotalUsd, deliveryUsd, totalUsd, isFreeSeventhDelivery } = getCartTotals();
+
+        if (state.cart.length === 0) {
+          return `
+            <div class="sub-topbar">
+              <div class="sub-topbar-left">
+                <button class="icon-btn" id="btn-back-from-checkout" aria-label="Volver">${SVG_ICONS.back(20)}</button>
+                <div style="font-size:18px;font-weight:800">Factura y Envío</div>
+              </div>
+            </div>
+            <div class="empty-state">
+              <div style="margin-bottom:12px"><img src="icons/logo.png" alt="Delivery Express Arismendi" style="width:68px;height:68px;border-radius:18px;box-shadow:0 6px 16px rgba(211,47,47,0.24)" /></div>
+              <h3 style="margin:0 0 6px;color:var(--text-main)">Tu pedido está vacío</h3>
+              <p style="margin:0 0 16px">Escoge un local como Pili Burger y agrega tus productos para generar la factura por WhatsApp.</p>
+              <button class="btn-primary" id="btn-empty-go-home" style="max-width:220px;margin:0 auto">Explorar Locales</button>
+            </div>`;
+        }
+
+        const { text: invoicePreview } = buildWhatsAppInvoice('DEA-PREVIEW');
+        const cartRows = state.cart.map((item) => {
+          const excluded = (item.allIngredients || []).filter((i) => !(item.selectedIngredients || []).includes(i));
+          return `
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--outline)">
+              <div style="flex:1">
+                <div style="font-weight:800;font-size:14.5px">${escapeHtml(item.name)}</div>
+                <div style="font-size:11.5px;color:var(--crimson-primary);font-weight:700">${escapeHtml(item.storeName)}</div>
+                ${excluded.length ? `<div style="font-size:11.5px;color:#B00020">Sin: ${escapeHtml(excluded.join(', '))}</div>` : ''}
+                ${item.note ? `<div style="font-size:11.5px;color:var(--text-muted)">Nota: ${escapeHtml(item.note)}</div>` : ''}
+                <div style="font-size:13px;font-weight:700;margin-top:3px">${formatUsd(item.priceUsd * item.quantity)} • ${formatBs(item.priceUsd * item.quantity, rate)}</div>
+              </div>
+              <div class="qty-stepper">
+                <button class="qty-btn" data-cart-dec="${escapeHtml(item.cartItemId)}">−</button>
+                <strong style="min-width:18px;text-align:center">${item.quantity}</strong>
+                <button class="qty-btn" data-cart-inc="${escapeHtml(item.cartItemId)}">+</button>
+              </div>
+            </div>`;
+        }).join('');
+
+        const isPagoMovil = state.deliveryInfo.paymentMethod === 'PAGO_MOVIL';
+
+        return `
+          <div class="sub-topbar">
+            <div class="sub-topbar-left">
+              <button class="icon-btn" id="btn-back-from-checkout" aria-label="Volver">${SVG_ICONS.back(20)}</button>
+              <div>
+                <div style="font-size:18px;font-weight:800">Factura y Envío</div>
+                <div style="font-size:12px;opacity:0.9">Tasa: ${formatRate(rate)}</div>
+              </div>
+            </div>
+            <button class="rate-pill" id="btn-clear-cart" style="font-size:12px;padding:6px 10px">Vaciar</button>
+          </div>
+
+          <div class="stack-list" style="padding-top:14px">
+            <div class="panel-card">
+              <h3 class="panel-card-title">🛒 Resumen del Pedido</h3>
+              ${cartRows}
+              <div style="display:flex;justify-content:space-between;font-size:13.5px">
+                <span>Subtotal</span>
+                <strong>${formatUsd(subtotalUsd)} • ${formatBs(subtotalUsd, rate)}</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:13.5px">
+                <span>Delivery</span>
+                <strong style="color:${isFreeSeventhDelivery ? '#1B8E3E' : 'var(--crimson-primary)'}">
+                  ${isFreeSeventhDelivery ? 'GRATIS 🎁 (Fidelidad #7)' : (deliveryUsd > 0 ? `${formatUsd(deliveryUsd)} • ${formatBs(deliveryUsd, rate)}` : 'Por confirmar / Gratis')}
+                </strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px dashed var(--outline)">
+                <div>
+                  <div style="font-size:12px;color:var(--text-muted)">TOTAL DIVISAS</div>
+                  <div style="font-size:22px;font-weight:900;color:var(--crimson-primary)">${formatUsd(totalUsd)}</div>
+                </div>
+                <div style="text-align:right">
+                  <div style="font-size:12px;color:var(--text-muted)">TOTAL BOLÍVARES</div>
+                  <div style="font-size:18px;font-weight:900">${formatBs(totalUsd, rate)}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h3 class="panel-card-title">📍 Dirección y Referencia de Entrega</h3>
+              <div class="field-group">
+                <label class="field-label" for="input-address">Dirección exacta *</label>
+                <textarea id="input-address" class="input textarea" placeholder="Ej: Urb. Los Pinos, Calle 4, Casa #12">${escapeHtml(state.deliveryInfo.address)}</textarea>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="input-ref">Punto de referencia (opcional)</label>
+                <input id="input-ref" class="input" type="text" placeholder="Ej: Portón rojo frente a la panadería" value="${escapeHtml(state.deliveryInfo.reference)}" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="input-name">Nombre / Quién recibe (opcional)</label>
+                <input id="input-name" class="input" type="text" placeholder="Ej: Carlos Pérez" value="${escapeHtml(state.deliveryInfo.customerName)}" />
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h3 class="panel-card-title">💳 Método de Pago</h3>
+              <div class="payment-option ${isPagoMovil ? 'selected' : ''}" data-pay-method="PAGO_MOVIL">
+                <div>
+                  <div style="font-weight:800;font-size:14.5px">Pago Móvil (Bolívares)</div>
+                  <div style="font-size:12px;color:var(--text-muted)">Calculado a ${formatRate(rate)}</div>
+                </div>
+                <strong style="color:var(--crimson-deep)">${formatBs(totalUsd, rate)}</strong>
+              </div>
+              ${isPagoMovil ? `
+                <div class="pago-movil-box">
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <strong style="color:var(--crimson-deep)">Datos de Pago Móvil</strong>
+                    <button class="chip" id="btn-copy-pm" style="padding:4px 10px;font-size:11.5px">Copiar datos</button>
+                  </div>
+                  <div><b>Banco:</b> ${escapeHtml(state.config.pagoMovilBank)}</div>
+                  <div><b>Cédula / RIF:</b> ${escapeHtml(state.config.pagoMovilDoc)}</div>
+                  <div><b>Teléfono:</b> ${escapeHtml(state.config.pagoMovilPhone)}</div>
+                  <div style="color:var(--crimson-deep);font-weight:800">Monto exacto: ${formatBs(totalUsd, rate)}</div>
+                </div>` : ''}
+
+              <div class="payment-option ${!isPagoMovil ? 'selected' : ''}" data-pay-method="EFECTIVO_USD">
+                <div>
+                  <div style="font-weight:800;font-size:14.5px">Divisa en Efectivo ($)</div>
+                  <div style="font-size:12px;color:var(--text-muted)">Pago en dólares al recibir</div>
+                </div>
+                <strong style="color:var(--crimson-deep)">${formatUsd(totalUsd)}</strong>
+              </div>
+              ${!isPagoMovil ? `
+                <div class="field-group cash-bill-accordion">
+                  <label class="field-label">¿Con qué billete pagas? (Para llevar vuelto)</label>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px">
+                    ${['Monto exacto', '$10', '$20', '$50'].map((b) =>
+                      `<button class="chip ${state.deliveryInfo.cashBillNote === b ? 'active' : ''}" data-bill-chip="${b}" style="padding:6px 11px;font-size:12px">${b}</button>`
+                    ).join('')}
+                  </div>
+                  <input id="input-cash-bill" class="input" type="text" placeholder="Ej: Billete de $20" value="${escapeHtml(state.deliveryInfo.cashBillNote)}" />
+                </div>` : ''}
+            </div>
+
+            <div class="acc-card ${state.expandedAccordions.checkout_invoice ? 'open' : ''}">
+              <button type="button" class="acc-trigger" data-acc-toggle="checkout_invoice">
+                <h3 class="panel-card-title">🧾 Vista Previa de Factura WhatsApp</h3>
+                <span class="acc-chevron">▾</span>
+              </button>
+              <div class="acc-collapse">
+                <div class="acc-collapse-inner">
+                  <div class="wa-preview-bubble">${escapeHtml(invoicePreview)}</div>
+                  <button class="btn-outline" id="btn-copy-invoice">📋 Copiar texto de la factura</button>
+                </div>
+              </div>
+              <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+                <button class="btn-whatsapp" id="btn-send-whatsapp">
+                  ${SVG_ICONS.whatsapp(20)}
+                  Enviar Factura a WhatsApp (${escapeHtml(state.config.whatsappPhone)})
+                </button>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      function renderAdminView() {
+        if (!state.isAdminUnlocked) {
+          state.view = 'home';
+          return renderHomeView();
+        }
+        const cfg = state.config;
+        const gh = GitHubSync.getCreds();
+        const ghSyncBadge = gh.hasUnpushedChanges
+          ? `<div style="background:#FFF8E1;border:1px solid #FFB300;color:#7A4F01;border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px">
+               <span>⚠️ Tienes cambios locales sin subir a GitHub (tasa, precios o menú).</span>
+             </div>`
+          : (gh.lastSyncAt
+            ? `<div style="background:#E8F5E9;border:1px solid #66BB6A;color:#1B5E20;border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:700">
+                 ✅ Repositorio sincronizado • Última subida: ${new Date(gh.lastSyncAt).toLocaleString('es-VE')}${gh.lastCommitSha ? ` (${escapeHtml(gh.lastCommitSha)})` : ''}
+               </div>`
+            : '');
+        const ghFeedbackHtml = state.ghStatusBanner
+          ? `<div style="border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:700;border:1px solid ${state.ghStatusBanner.type === 'err' ? '#EF9A9A' : state.ghStatusBanner.type === 'ok' ? '#66BB6A' : '#90CAF9'};background:${state.ghStatusBanner.type === 'err' ? '#FFEBEE' : state.ghStatusBanner.type === 'ok' ? '#E8F5E9' : '#E3F2FD'};color:${state.ghStatusBanner.type === 'err' ? '#B00020' : state.ghStatusBanner.type === 'ok' ? '#1B5E20' : '#0D47A1'}">${escapeHtml(state.ghStatusBanner.message)}</div>`
+          : '';
+        const tabsHtml = `
+          <div class="tabs-bar">
+            <button class="tab-btn ${state.adminTab === 'config' ? 'active' : ''}" data-admin-tab="config">Configuración</button>
+            <button class="tab-btn ${state.adminTab === 'catalog' ? 'active' : ''}" data-admin-tab="catalog">Menú</button>
+            <button class="tab-btn ${state.adminTab === 'orders' ? 'active' : ''}" data-admin-tab="orders">Facturas (${state.orders.length})</button>
+            <button class="tab-btn ${state.adminTab === 'usage' ? 'active' : ''}" data-admin-tab="usage">Consumo</button>
+          </div>`;
+
+        let bodyHtml = '';
+        if (state.adminTab === 'config') {
+          bodyHtml = `
+            <div class="stack-list">
+              ${ghSyncBadge}
+              <div class="panel-card">
+                <h3 class="panel-card-title">💱 Tasa del Día (Bs/$)</h3>
+                <div class="field-group">
+                  <label class="field-label" for="cfg-rate">Tasa actual en Bolívares</label>
+                  <input id="cfg-rate" class="input" type="number" step="0.01" value="${escapeHtml(cfg.exchangeRateBsPerUsd)}" />
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <button class="chip" data-rate-delta="-50">-50 Bs</button>
+                  <button class="chip" data-rate-delta="50">+50 Bs</button>
+                  <button class="chip" data-rate-set="1200">Ejemplo 1200</button>
+                </div>
+                <div style="font-size:13px;font-weight:700;color:var(--crimson-primary)">Ejemplo: $5.00 = ${formatBs(5, cfg.exchangeRateBsPerUsd)}</div>
+              </div>
+              <div class="panel-card">
+                <h3 class="panel-card-title">📲 Datos de Pago Móvil</h3>
+                <div class="field-group"><label class="field-label" for="cfg-bank">Banco</label><input id="cfg-bank" class="input" type="text" value="${escapeHtml(cfg.pagoMovilBank)}" /></div>
+                <div class="field-group"><label class="field-label" for="cfg-doc">Cédula o RIF</label><input id="cfg-doc" class="input" type="text" value="${escapeHtml(cfg.pagoMovilDoc)}" /></div>
+                <div class="field-group"><label class="field-label" for="cfg-pm-phone">Teléfono Pago Móvil</label><input id="cfg-pm-phone" class="input" type="text" value="${escapeHtml(cfg.pagoMovilPhone)}" /></div>
+              </div>
+              <div class="panel-card">
+                <h3 class="panel-card-title">🛵 WhatsApp y Delivery</h3>
+                <div class="field-group"><label class="field-label" for="cfg-wa">Número WhatsApp destino</label><input id="cfg-wa" class="input" type="tel" value="${escapeHtml(cfg.whatsappPhone)}" /></div>
+                <div class="field-group"><label class="field-label" for="cfg-delivery">Costo de Delivery ($)</label><input id="cfg-delivery" class="input" type="number" step="0.25" value="${escapeHtml(cfg.deliveryFeeUsd)}" /></div>
+                <button class="btn-primary" id="btn-save-config">Guardar Configuración Local</button>
+              </div>
+              <div class="panel-card" id="gh-config-card">
+                <h3 class="panel-card-title">🐙 Sincronización con GitHub (Publicar Cambios)</h3>
+                <p style="margin:0;font-size:12.5px;color:var(--text-muted)">Introduce tus credenciales de GitHub para subir locales nuevos, cambios de menú, precios y la tasa del día directamente a tu repositorio (<code>${escapeHtml(gh.filePath)}</code>). Tu token se guarda <b>solo en este teléfono</b> y nunca se sube al repositorio.</p>
+                ${ghFeedbackHtml}
+                <div class="field-group"><label class="field-label" for="gh-owner">Usuario u Organización GitHub (Owner)</label><input id="gh-owner" class="input" type="text" placeholder="Ej: tuusuario" value="${escapeHtml(gh.owner)}" autocomplete="off" /></div>
+                <div class="field-group"><label class="field-label" for="gh-repo">Nombre del Repositorio</label><input id="gh-repo" class="input" type="text" placeholder="Ej: delivery-arismendi" value="${escapeHtml(gh.repo)}" autocomplete="off" /></div>
+                <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px">
+                  <div class="field-group"><label class="field-label" for="gh-branch">Rama</label><input id="gh-branch" class="input" type="text" placeholder="main" value="${escapeHtml(gh.branch)}" autocomplete="off" /></div>
+                  <div class="field-group"><label class="field-label" for="gh-path">Archivo de Catálogo</label><input id="gh-path" class="input" type="text" placeholder="docs/catalog.json" value="${escapeHtml(gh.filePath)}" autocomplete="off" /></div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="gh-token">Token Personal de GitHub (PAT con permiso Contents: Read &amp; Write)</label>
+                  <div class="pw-input-wrap">
+                    <input id="gh-token" class="input" type="password" placeholder="ghp_... o github_pat_..." value="${escapeHtml(gh.token)}" autocomplete="off" />
+                    <button type="button" class="pw-toggle-btn" id="btn-toggle-gh-token" aria-label="Mostrar u ocultar token">👁️</button>
+                  </div>
+                </div>
+                <div class="card-btn-row">
+                  <button class="btn-outline" id="btn-save-gh" ${state.isSyncingGitHub ? 'disabled' : ''}>💾 Guardar Credenciales</button>
+                  <button class="btn-outline" id="btn-test-gh" ${state.isSyncingGitHub ? 'disabled' : ''}>🔌 Probar Conexión</button>
+                </div>
+                <button class="btn-primary" id="btn-push-gh" style="min-height:48px" ${state.isSyncingGitHub ? 'disabled' : ''}>${state.isSyncingGitHub ? '⏳ Subiendo cambios a GitHub...' : '🚀 Subir Todos los Cambios a GitHub'}</button>
+                <button class="btn-outline" id="btn-pull-gh" ${state.isSyncingGitHub ? 'disabled' : ''}>⬇️ Descargar Catálogo desde GitHub</button>
+              </div>
+              <div class="panel-card">
+                <h3 class="panel-card-title">💾 Base de Datos (Respaldo JSON)</h3>
+                <p style="margin:0;font-size:12.5px;color:var(--text-muted)">Todas las tablas (configuración, locales, menú con íconos en código, perfil de usuario, uso y facturas) se guardan en IndexedDB/localStorage.</p>
+                <div class="card-btn-row">
+                  <button class="btn-outline" id="btn-export-db">Exportar JSON</button>
+                  <button class="btn-outline" id="btn-import-db">Importar JSON</button>
+                </div>
+                <input id="input-import-db" type="file" accept="application/json" style="display:none" />
+              </div>
+            </div>`;
+        } else if (state.adminTab === 'catalog') {
+          const storeGroups = state.stores.length ? state.stores.map((st, sIdx) => {
+            const items = state.menuItems.filter((i) => i.storeId === st.id);
+            const accKey = `store_${st.id}`;
+            if (state.expandedAccordions[accKey] === undefined) state.expandedAccordions[accKey] = sIdx === 0;
+            const isOpen = Boolean(state.expandedAccordions[accKey]);
+            const rows = items.map((item) => `
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--outline)">
+                <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+                  ${getCategoryIcon(item.iconKey, '#D32F2F', 26)}
+                  <div style="min-width:0">
+                    <div style="font-weight:700;font-size:13.5px;word-break:break-word">${escapeHtml(item.name)}</div>
+                    <div style="font-size:12px;color:var(--text-muted)">${formatUsd(item.priceUsd)} • ${item.ingredients.length} ingredientes</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+                  <button class="chip" data-admin-edit-item="${escapeHtml(item.id)}" style="padding:6px 10px;font-size:12px">Editar</button>
+                  <button class="chip btn-danger-chip" data-admin-delete-item="${escapeHtml(item.id)}" aria-label="Eliminar ${escapeHtml(item.name)}" style="padding:6px 9px;font-size:12px">🗑️</button>
+                </div>
+              </div>`).join('');
+            return `
+              <div class="acc-card ${isOpen ? 'open' : ''}">
+                <button type="button" class="acc-trigger" data-acc-toggle="${escapeHtml(accKey)}">
+                  <h3 class="panel-card-title" style="min-width:0">${getCategoryIcon(st.iconKey, '#D32F2F', 24)} <span style="word-break:break-word">${escapeHtml(st.name)} (${items.length})</span></h3>
+                  <span class="acc-chevron">▾</span>
+                </button>
+                <div class="admin-store-toolbar">
+                  <button class="chip" data-admin-add-item="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">+ Producto</button>
+                  <button class="chip btn-danger-chip" data-admin-delete-store="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">🗑️ Eliminar local</button>
+                </div>
+                <div class="acc-collapse">
+                  <div class="acc-collapse-inner">
+                    ${rows || '<div style="font-size:12.5px;color:var(--text-muted)">Sin productos aún.</div>'}
+                  </div>
+                </div>
+              </div>`;
+          }).join('') : '<div class="empty-state">No hay locales registrados. Agrega uno nuevo o restaura el menú base.</div>';
+          bodyHtml = `
+            <div class="stack-list">
+              ${ghSyncBadge}
+              ${ghFeedbackHtml}
+              <button class="btn-primary" id="btn-push-gh-menu" style="min-height:46px" ${state.isSyncingGitHub ? 'disabled' : ''}>${state.isSyncingGitHub ? '⏳ Subiendo a GitHub...' : '🚀 Subir Cambios de Locales y Menú a GitHub'}</button>
+              <div style="display:flex;gap:10px">
+                <button class="btn-primary" id="btn-admin-new-store">+ Nuevo Local</button>
+                <button class="btn-outline" id="btn-admin-reset-catalog">Restaurar Menú Base</button>
+              </div>
+              ${storeGroups}
+            </div>`;
+        } else if (state.adminTab === 'orders') {
+          const ordersHtml = state.orders.length ? state.orders.map((ord, oIdx) => {
+            const ordAccKey = `order_${ord.id}`;
+            if (state.expandedAccordions[ordAccKey] === undefined) state.expandedAccordions[ordAccKey] = oIdx === 0;
+            const isOpen = Boolean(state.expandedAccordions[ordAccKey]);
+            return `
+              <div class="acc-card ${isOpen ? 'open' : ''}">
+                <button type="button" class="acc-trigger" data-acc-toggle="${escapeHtml(ordAccKey)}">
+                  <div style="min-width:0;flex:1">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                      <strong>🧾 ${escapeHtml(ord.invoiceCode)}</strong>
+                      <strong style="color:var(--crimson-primary);font-size:13.5px">${formatUsd(ord.totalUsd)}</strong>
+                    </div>
+                    <div style="font-size:11.5px;color:var(--text-muted)">${new Date(ord.createdAt).toLocaleString('es-VE')} • ${escapeHtml(ord.storeNames)}</div>
+                  </div>
+                  <span class="acc-chevron">▾</span>
+                </button>
+                <div class="acc-collapse">
+                  <div class="acc-collapse-inner">
+                    ${ord.userId ? `<div style="font-size:11.5px;color:var(--text-muted)"><b>ID Cliente:</b> ${escapeHtml(ord.userId)}</div>` : ''}
+                    <div style="font-size:13px"><b>Dirección:</b> ${escapeHtml(ord.address)}</div>
+                    <div style="font-size:13.5px;font-weight:800;color:var(--crimson-primary)">${formatUsd(ord.totalUsd)} • ${formatBs(ord.totalUsd, ord.rate)} (${escapeHtml(ord.paymentMethod)})</div>
+                    <button class="btn-outline" data-resend-order="${escapeHtml(ord.id)}">Ver / Reenviar WhatsApp</button>
+                  </div>
+                </div>
+              </div>`;
+          }).join('') : '<div class="empty-state">Todavía no has enviado facturas. Aparecerán guardadas aquí automáticamente.</div>';
+          bodyHtml = `<div class="stack-list">${state.orders.length ? '<button class="btn-outline" id="btn-clear-orders" style="color:#B00020">Limpiar Historial</button>' : ''}${ordersHtml}</div>`;
+        } else {
+          const prof = state.userProfile || {};
+          const topItems = Object.entries(prof.itemStats || {}).sort((a, b) => b[1] - a[1]).slice(0, 6);
+          const eventLabels = {
+            app_open: 'Apertura de App',
+            view_store: 'Visita a Local',
+            add_to_cart: 'Agregó al Pedido',
+            order_sent: 'Factura Enviada',
+            loyalty_unlocked: '🎁 Premio #7 Desbloqueado',
+            loyalty_redeemed: '🛵 Delivery #7 Canjeado'
+          };
+          const logsHtml = state.usageLogs.length ? state.usageLogs.slice(0, 40).map((log) => `
+            <div class="log-row">
+              <div>
+                <span class="log-badge">${escapeHtml(eventLabels[log.type] || log.type)}</span>
+                <div style="margin-top:4px;font-weight:600">${escapeHtml(log.summary)}</div>
+              </div>
+              <div style="text-align:right;font-size:11px;color:var(--text-muted);white-space:nowrap">
+                ${new Date(log.createdAt).toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' })}<br/>
+                ${new Date(log.createdAt).toLocaleDateString('es-VE')}
+              </div>
+            </div>`).join('') : '<div style="font-size:13px;color:var(--text-muted)">Sin eventos de uso registrados aún.</div>';
+
+          bodyHtml = `
+            <div class="stack-list">
+              <div class="panel-card">
+                <h3 class="panel-card-title">🕵️ Identificador Persistente del Dispositivo</h3>
+                <p style="margin:0;font-size:12.5px;color:var(--text-muted)">Asignado automáticamente al usuario de forma oculta para recordar su dirección, registrar su consumo y premiar cada 6 deliveries con el 7mo gratis.</p>
+                <div class="stat-grid">
+                  <div class="stat-card">
+                    <div class="stat-label">ID Aleatorio Asignado</div>
+                    <div class="stat-value" style="font-size:15px">${escapeHtml(prof.userId || 'N/A')}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">Sesiones Iniciadas</div>
+                    <div class="stat-value">${Number(prof.sessionCount || 1)}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">Pedidos Enviados</div>
+                    <div class="stat-value">${Number(prof.totalOrders || 0)}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">Consumo Acumulado</div>
+                    <div class="stat-value">${formatUsd(prof.totalSpentUsd || 0)}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">Fidelidad (Ciclo 6)</div>
+                    <div class="stat-value" style="font-size:14px">${prof.hasFreeDeliveryReward ? '🎁 #7 GRATIS ACTIVO' : `${Number(prof.loyaltyDeliveriesCount || 0)} / 6 pedidos`}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">Deliveries Gratis Usados</div>
+                    <div class="stat-value">${Number(prof.freeDeliveriesRedeemed || 0)}</div>
+                  </div>
+                </div>
+                <button class="btn-primary" id="btn-preview-loyalty">🔔 Ver Preview de Notificación #7</button>
+              </div>
+
+              ${topItems.length ? `
+                <div class="panel-card">
+                  <h3 class="panel-card-title">🍔 Productos Más Consumidos</h3>
+                  ${topItems.map(([name, qty]) => `
+                    <div class="log-row">
+                      <strong>${escapeHtml(name)}</strong>
+                      <span class="log-badge">${qty} uds</span>
+                    </div>`).join('')}
+                </div>` : ''}
+
+              <div class="panel-card">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <h3 class="panel-card-title">📊 Registro de Uso y Consumo</h3>
+                  ${state.usageLogs.length ? '<button class="chip" id="btn-clear-logs" style="padding:5px 10px;font-size:11.5px;color:#B00020">Limpiar</button>' : ''}
+                </div>
+                ${logsHtml}
+              </div>
+            </div>`;
+        }
+
+        return `
+          <div class="sub-topbar">
+            <div class="sub-topbar-left">
+              <button class="icon-btn" id="btn-back-from-admin" aria-label="Volver">${SVG_ICONS.back(20)}</button>
+              <div>
+                <div style="font-size:18px;font-weight:800">Panel Administrador</div>
+                <div style="font-size:12px;opacity:0.9">Acceso protegido • Base de datos local</div>
+              </div>
+            </div>
+            <button class="rate-pill" id="btn-lock-admin" style="font-size:12px;padding:6px 10px">🔒 Bloquear</button>
+          </div>
+          ${tabsHtml}
+          ${bodyHtml}`;
+      }
+
+      function openModal(html, bindFn) {
+        const root = document.getElementById('modal-root');
+        document.body.style.overflow = 'hidden';
+        root.innerHTML = `<div class="modal-backdrop" id="modal-backdrop"><div class="bottom-sheet">${html}</div></div>`;
+        const sheet = root.querySelector('.bottom-sheet');
+        if (sheet) sheet.scrollTop = 0;
+        document.getElementById('modal-backdrop').addEventListener('click', (e) => {
+          if (e.target.id === 'modal-backdrop') closeModal();
+        });
+        if (bindFn) bindFn(closeModal);
+      }
+
+      function closeModal() {
+        document.body.style.overflow = '';
+        document.getElementById('modal-root').innerHTML = '';
+      }
+
+      const LOYALTY_REWARD_MESSAGE = '🎉 ¡Gracias por confiar en nosotros!\n\nTu fidelidad nos impulsa a seguir mejorando cada día. Queremos celebrarlo contigo: ¡tu delivery número 7 es totalmente gratis! 🛵💨 Disfruta de tu próxima entrega por nuestra cuenta. Que quieres pedir?';
+
+      function openLoyaltyRewardModal(isPreview = false) {
+        if (!isPreview) {
+          try {
+            if ('Notification' in window && Notification.permission === 'granted') {
+              new Notification('Delivery Express Arismendi', {
+                body: LOYALTY_REWARD_MESSAGE,
+                icon: 'icons/icon-192.png'
+              });
+            }
+          } catch (_) {}
+        }
+
+        openModal(`
+          <div class="loyalty-modal-hero">
+            <img src="icons/logo.png" alt="Logo Delivery Express Arismendi" style="width:60px;height:60px;border-radius:16px;border:2px solid rgba(255,255,255,0.88);margin-bottom:8px;box-shadow:0 6px 16px rgba(0,0,0,0.22)" />
+            <div style="font-size:12px;font-weight:800;letter-spacing:0.6px;opacity:0.92">${isPreview ? 'VISTA PREVIA • ' : ''}PREMIO DE FIDELIDAD • ARISMENDI</div>
+            <h3 style="margin:4px 0 0;font-size:20px;font-weight:900">¡Delivery #7 Totalmente Gratis!</h3>
+          </div>
+          <div class="loyalty-msg-box">${escapeHtml(LOYALTY_REWARD_MESSAGE)}</div>
+          <button class="btn-primary" id="m-loyalty-ok" style="min-height:48px">${isPreview ? 'Cerrar Vista Previa' : '🍔 ¡Escoger qué pedir!'}</button>`,
+          (close) => {
+            const acknowledge = async () => {
+              if (!isPreview && state.userProfile && state.userProfile.loyaltyNotificationPending) {
+                state.userProfile.loyaltyNotificationPending = false;
+                await ArismendiDB.saveUserProfile(state.userProfile);
+              }
+              close();
+              if (!isPreview) {
+                if (state.view === 'checkout') {
+                  state.view = 'home';
+                }
+                render();
+              }
+            };
+            document.getElementById('m-loyalty-ok').onclick = acknowledge;
+            const backdrop = document.getElementById('modal-backdrop');
+            if (backdrop) {
+              backdrop.addEventListener('click', (e) => {
+                if (e.target.id === 'modal-backdrop') acknowledge();
+              });
+            }
+          }
+        );
+      }
+
+      function openAdminAuthModal(onUnlocked) {
+        openModal(`
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0">🔐 Acceso Administrador</h3>
+            <button class="chip" id="m-close">✕</button>
+          </div>
+          <p style="margin:0;font-size:13px;color:var(--text-muted)">Los ajustes y la tasa del día están protegidos. Ingresa la clave de administrador para continuar.</p>
+          <div class="field-group">
+            <label class="field-label" for="admin-pw-input">Clave de acceso</label>
+            <div class="pw-input-wrap">
+              <input id="admin-pw-input" class="input" type="password" placeholder="Ingresa la clave" autocomplete="off" />
+              <button type="button" class="pw-toggle-btn" id="btn-toggle-pw" aria-label="Mostrar u ocultar clave">👁️</button>
+            </div>
+          </div>
+          <div id="admin-pw-error" class="error-banner" style="display:none">Clave incorrecta. Intenta nuevamente.</div>
+          <div class="card-btn-row">
+            <button class="btn-outline" id="m-pw-cancel">Cancelar</button>
+            <button class="btn-primary" id="m-pw-submit">Desbloquear</button>
+          </div>`,
+          (close) => {
+            const input = document.getElementById('admin-pw-input');
+            const errBox = document.getElementById('admin-pw-error');
+            const toggleBtn = document.getElementById('btn-toggle-pw');
+            setTimeout(() => input.focus(), 60);
+            document.getElementById('m-close').onclick = close;
+            document.getElementById('m-pw-cancel').onclick = close;
+            toggleBtn.onclick = () => {
+              input.type = input.type === 'password' ? 'text' : 'password';
+            };
+            const tryUnlock = () => {
+              if (verifyAdminPassword(input.value)) {
+                state.isAdminUnlocked = true;
+                close();
+                showToast('Modo administrador desbloqueado');
+                if (onUnlocked) onUnlocked();
+              } else {
+                errBox.style.display = 'block';
+                input.value = '';
+                input.focus();
+              }
+            };
+            document.getElementById('m-pw-submit').onclick = tryUnlock;
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
+          }
+        );
+      }
+
+      function requestAdminAccess(onUnlocked) {
+        if (state.isAdminUnlocked) {
+          onUnlocked();
+        } else {
+          openAdminAuthModal(onUnlocked);
+        }
+      }
+
+      function openQuickRateModal() {
+        if (!state.isAdminUnlocked) {
+          return openAdminAuthModal(openQuickRateModal);
+        }
+        const current = state.config.exchangeRateBsPerUsd;
+        openModal(`
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0">💱 Tasa del Día (Bs/$)</h3>
+            <button class="chip" id="m-close">✕</button>
+          </div>
+          <p style="margin:0;font-size:13px;color:var(--text-muted)">Cambia la tasa para recalcular todos los precios en bolívares automáticamente.</p>
+          <input id="m-rate-input" class="input" type="number" step="0.01" value="${current}" />
+          <div id="m-rate-preview" style="font-size:13px;font-weight:700;color:var(--crimson-primary)">Ejemplo: $5.00 = ${formatBs(5, current)}</div>
+          <div class="card-btn-row">
+            <button class="btn-outline" id="m-open-admin">Config. Completa</button>
+            <button class="btn-primary" id="m-save-rate">Guardar Tasa</button>
+          </div>`,
+          (close) => {
+            const input = document.getElementById('m-rate-input');
+            const preview = document.getElementById('m-rate-preview');
+            input.addEventListener('input', () => {
+              const val = parseFloat(input.value);
+              preview.textContent = val > 0 ? `Ejemplo: $5.00 = ${formatBs(5, val)}` : 'Ingresa un monto válido';
+            });
+            document.getElementById('m-close').onclick = close;
+            document.getElementById('m-open-admin').onclick = () => { close(); state.view = 'admin'; state.adminTab = 'config'; render(); };
+            document.getElementById('m-save-rate').onclick = async () => {
+              const val = parseFloat(input.value);
+              if (!val || val <= 0) return showToast('Tasa inválida');
+              state.config.exchangeRateBsPerUsd = val;
+              await ArismendiDB.saveConfig(state.config);
+              GitHubSync.markUnpushedChanges();
+              close();
+              showToast(`Tasa actualizada a ${formatRate(val)}`);
+              render();
+            };
+          }
+        );
+      }
+
+      function openItemCustomizerModal(item) {
+        const rate = state.config.exchangeRateBsPerUsd;
+        let qty = 1;
+        let selected = [...item.ingredients];
+        openModal(`
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+            <div style="display:flex;gap:10px;align-items:center">
+              <div class="menu-item-icon">${getCategoryIcon(item.iconKey, '#D32F2F', 28)}</div>
+              <div><span class="cat-kicker">${escapeHtml(item.category)}</span><h3 style="margin:2px 0 0;font-size:19px">${escapeHtml(item.name)}</h3></div>
+            </div>
+            <button class="chip" id="m-close">✕</button>
+          </div>
+          <p style="margin:0;font-size:13px;color:var(--text-muted)">${escapeHtml(item.description)}</p>
+          <div style="background:var(--surface-variant);padding:10px 12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:13px;font-weight:700">Precio unitario</span>
+            <span style="font-weight:900;color:var(--crimson-primary)">${formatUsd(item.priceUsd)} • ${formatBs(item.priceUsd, rate)}</span>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:800;margin-bottom:8px">Ingredientes (toca para quitar o incluir):</div>
+            <div class="ing-chips">
+              ${item.ingredients.map((ing) => `<button class="ing-chip selected" data-ing="${escapeHtml(ing)}">✓ ${escapeHtml(ing)}</button>`).join('')}
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="m-item-note">Nota especial (opcional)</label>
+            <input id="m-item-note" class="input" type="text" placeholder="Ej: Sin cebolla, extra salsa de ajo" />
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div class="qty-stepper">
+              <button class="qty-btn" id="m-qty-dec">−</button>
+              <strong id="m-qty-val">${qty}</strong>
+              <button class="qty-btn" id="m-qty-inc">+</button>
+            </div>
+            <button class="btn-primary" id="m-add-confirm" style="min-height:50px">Agregar • ${formatUsd(item.priceUsd)} (${formatBs(item.priceUsd, rate)})</button>
+          </div>`,
+          (close) => {
+            const sheet = document.querySelector('.bottom-sheet');
+            document.getElementById('m-close').onclick = close;
+            sheet.querySelectorAll('[data-ing]').forEach((btn) => {
+              btn.onclick = () => {
+                const ing = btn.getAttribute('data-ing');
+                if (selected.includes(ing)) selected = selected.filter((x) => x !== ing);
+                else selected.push(ing);
+                btn.classList.toggle('selected');
+                btn.textContent = (selected.includes(ing) ? '✓ ' : '') + ing;
+              };
+            });
+            const updateTotals = () => {
+              document.getElementById('m-qty-val').textContent = qty;
+              document.getElementById('m-add-confirm').textContent = `Agregar • ${formatUsd(item.priceUsd * qty)} (${formatBs(item.priceUsd * qty, rate)})`;
+            };
+            document.getElementById('m-qty-dec').onclick = () => { if (qty > 1) { qty--; updateTotals(); } };
+            document.getElementById('m-qty-inc').onclick = () => { qty++; updateTotals(); };
+            document.getElementById('m-add-confirm').onclick = async () => {
+              const note = document.getElementById('m-item-note').value || '';
+              await addItemToCart(item, qty, selected, note);
+              close();
+            };
+          }
+        );
+      }
+
+      function openEditMenuItemModal(itemOrStoreId, isNew) {
+        const item = isNew ? { id: 'item_' + Date.now(), storeId: itemOrStoreId, name: '', category: 'Hamburguesas', description: '', priceUsd: 5.0, ingredients: ['Queso', 'Salsas'], iconKey: 'burger', isPopular: false } : itemOrStoreId;
+        const categories = ['Hamburguesas', 'Perros', 'Pepitos', 'Shawarmas', 'Pizzas', 'Pollo', 'Papas', 'Refrescos'];
+        let selectedIconKey = item.iconKey || 'burger';
+        openModal(`
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0">${isNew ? 'Nuevo Producto' : 'Editar ' + escapeHtml(item.name)}</h3>
+            <button class="chip" id="m-close">✕</button>
+          </div>
+          <div class="field-group"><label class="field-label">Nombre</label><input id="ed-name" class="input" type="text" value="${escapeHtml(item.name)}" /></div>
+          <div class="field-group"><label class="field-label">Categoría</label><select id="ed-cat" class="input">${categories.map((c) => `<option value="${c}" ${c === item.category ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+          <div class="field-group">
+            <label class="field-label">Ícono visual del producto</label>
+            <div class="icon-picker-grid">
+              ${FOOD_ICON_OPTIONS.map((o) => `
+                <button type="button" class="icon-pick-btn ${o.key === selectedIconKey ? 'selected' : ''}" data-item-icon="${o.key}">
+                  ${getCategoryIcon(o.key, '#D32F2F', 34)}
+                  <span>${o.label}</span>
+                </button>`).join('')}
+            </div>
+          </div>
+          <div class="field-group"><label class="field-label">Precio ($)</label><input id="ed-price" class="input" type="number" step="0.25" value="${item.priceUsd}" /></div>
+          <div class="field-group"><label class="field-label">Descripción</label><input id="ed-desc" class="input" type="text" value="${escapeHtml(item.description)}" /></div>
+          <div class="field-group"><label class="field-label">Ingredientes (separados por coma)</label><textarea id="ed-ings" class="input textarea">${escapeHtml((item.ingredients || []).join(', '))}</textarea></div>
+          <div class="card-btn-row">
+            ${!isNew ? '<button class="btn-outline" id="ed-delete" style="color:#B00020">🗑️ Eliminar</button>' : ''}
+            <button class="btn-primary" id="ed-save">Guardar</button>
+          </div>`,
+          (close) => {
+            document.getElementById('m-close').onclick = close;
+            document.querySelectorAll('[data-item-icon]').forEach((btn) => {
+              btn.onclick = () => {
+                selectedIconKey = btn.getAttribute('data-item-icon');
+                document.querySelectorAll('[data-item-icon]').forEach((b) => b.classList.toggle('selected', b === btn));
+              };
+            });
+            if (!isNew) {
+              document.getElementById('ed-delete').onclick = async () => {
+                await ArismendiDB.deleteMenuItem(item.id);
+                state.menuItems = state.menuItems.filter((x) => x.id !== item.id);
+                GitHubSync.markUnpushedChanges();
+                close(); showToast('Producto eliminado'); render();
+              };
+            }
+            document.getElementById('ed-save').onclick = async () => {
+              const name = document.getElementById('ed-name').value.trim();
+              const priceUsd = parseFloat(document.getElementById('ed-price').value);
+              if (!name || !priceUsd || priceUsd <= 0) return showToast('Completa nombre y precio válido');
+              const updated = {
+                ...item, name,
+                category: document.getElementById('ed-cat').value,
+                iconKey: selectedIconKey,
+                priceUsd,
+                description: document.getElementById('ed-desc').value.trim(),
+                ingredients: document.getElementById('ed-ings').value.split(',').map((s) => s.trim()).filter(Boolean)
+              };
+              await ArismendiDB.saveMenuItem(updated);
+              const idx = state.menuItems.findIndex((x) => x.id === updated.id);
+              if (idx >= 0) state.menuItems[idx] = updated; else state.menuItems.push(updated);
+              GitHubSync.markUnpushedChanges();
+              close(); showToast('Producto guardado'); render();
+            };
+          }
+        );
+      }
+
+      function openConfirmDeleteModal(title, message, onConfirm) {
+        openModal(`
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0;color:#B00020">🗑️ ${escapeHtml(title)}</h3>
+            <button class="chip" id="m-close">✕</button>
+          </div>
+          <p style="margin:0;font-size:13.5px;color:var(--text-muted)">${escapeHtml(message)}</p>
+          <div class="card-btn-row">
+            <button class="btn-outline" id="m-del-cancel">Cancelar</button>
+            <button class="btn-primary" id="m-del-confirm" style="background:#B00020">Sí, eliminar</button>
+          </div>`,
+          (close) => {
+            document.getElementById('m-close').onclick = close;
+            document.getElementById('m-del-cancel').onclick = close;
+            document.getElementById('m-del-confirm').onclick = async () => {
+              await onConfirm();
+              close();
+            };
+          }
+        );
+      }
+
+      function openNewStoreModal() {
+        let selectedIconKey = 'burger';
+        openModal(`
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0">Nuevo Local de Comida Rápida</h3>
+            <button class="chip" id="m-close">✕</button>
+          </div>
+          <div class="store-card" style="cursor:default">
+            <div class="store-card-banner" style="padding:12px 14px">
+              <div style="min-width:0">
+                <span class="store-badge">Nuevo Local</span>
+                <h4 id="st-preview-name" class="store-name" style="font-size:17px">Mi Nuevo Local</h4>
+                <div id="st-preview-tag" class="store-meta">Comida rápida y delivery express</div>
+              </div>
+              <div id="st-preview-icon" class="store-icon-box" style="width:58px;height:58px">${getCategoryIcon(selectedIconKey, '', 40)}</div>
+            </div>
+          </div>
+          <div class="field-group"><label class="field-label">Nombre del local</label><input id="st-name" class="input" type="text" placeholder="Ej: Grill Arismendi" /></div>
+          <div class="field-group"><label class="field-label">Especialidad</label><input id="st-tag" class="input" type="text" placeholder="Ej: Hamburguesas, Pepitos y Refrescos" /></div>
+          <div class="field-group">
+            <label class="field-label">Elige el ícono representativo del local</label>
+            <div class="icon-picker-grid">
+              ${FOOD_ICON_OPTIONS.map((o) => `
+                <button type="button" class="icon-pick-btn ${o.key === selectedIconKey ? 'selected' : ''}" data-store-icon="${o.key}">
+                  ${getCategoryIcon(o.key, '#D32F2F', 36)}
+                  <span>${o.label}</span>
+                </button>`).join('')}
+            </div>
+          </div>
+          <button class="btn-primary" id="st-save" style="min-height:48px">Crear Local</button>`,
+          (close) => {
+            const nameInput = document.getElementById('st-name');
+            const tagInput = document.getElementById('st-tag');
+            const prevName = document.getElementById('st-preview-name');
+            const prevTag = document.getElementById('st-preview-tag');
+            const prevIcon = document.getElementById('st-preview-icon');
+            nameInput.oninput = () => { prevName.textContent = nameInput.value.trim() || 'Mi Nuevo Local'; };
+            tagInput.oninput = () => { prevTag.textContent = tagInput.value.trim() || 'Comida rápida y delivery express'; };
+            document.querySelectorAll('[data-store-icon]').forEach((btn) => {
+              btn.onclick = () => {
+                selectedIconKey = btn.getAttribute('data-store-icon');
+                document.querySelectorAll('[data-store-icon]').forEach((b) => b.classList.toggle('selected', b === btn));
+                prevIcon.innerHTML = getCategoryIcon(selectedIconKey, '', 40);
+              };
+            });
+            document.getElementById('m-close').onclick = close;
+            document.getElementById('st-save').onclick = async () => {
+              const name = nameInput.value.trim();
+              if (!name) return showToast('Escribe el nombre del local');
+              const newStore = { id: 'store_' + Date.now(), name, badge: 'Nuevo Local', tagline: tagInput.value.trim() || 'Comida rápida y delivery express', etaMinutes: '20-30 min', rating: '5.0', iconKey: selectedIconKey };
+              await ArismendiDB.saveStore(newStore);
+              state.stores.push(newStore);
+              state.expandedAccordions['store_' + newStore.id] = true;
+              GitHubSync.markUnpushedChanges();
+              close(); showToast(`${name} guardado`); render();
+            };
+          }
+        );
+      }
+
+      async function addItemToCart(item, qty, selectedIngredients, note) {
+        const store = state.stores.find((s) => s.id === item.storeId);
+        const cleanNote = (note || '').trim();
+        const existing = state.cart.find((c) => c.menuItemId === item.id && JSON.stringify(c.selectedIngredients) === JSON.stringify(selectedIngredients) && c.note === cleanNote);
+        if (existing) existing.quantity += qty;
+        else state.cart.push({ cartItemId: 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6), menuItemId: item.id, storeId: item.storeId, storeName: store ? store.name : '', name: item.name, priceUsd: item.priceUsd, quantity: qty, allIngredients: item.ingredients, selectedIngredients, note: cleanNote });
+        await ArismendiDB.replaceCart(state.cart);
+        recordActivity('add_to_cart', `${qty}x ${item.name} (${store ? store.name : ''})`);
+        showToast(`${qty}x ${item.name} agregado`);
+        render();
+      }
+
+      function openWhatsAppUrlSafely(intlPhone, text) {
+        if (window.AndroidWhatsApp && typeof window.AndroidWhatsApp.sendInvoiceText === 'function') {
+          window.AndroidWhatsApp.sendInvoiceText(intlPhone, text);
+          return;
+        }
+        const url = `https://wa.me/${intlPhone}?text=${encodeURIComponent(text)}`;
+        const popup = window.open(url, '_blank');
+        if (!popup) {
+          setTimeout(() => { window.location.href = url; }, 120);
+        }
+      }
+
+      function bindEvents() {
+        const btnPwaInstall = document.getElementById('btn-pwa-install');
+        if (btnPwaInstall && state.deferredInstallPrompt) {
+          btnPwaInstall.onclick = async () => { state.deferredInstallPrompt.prompt(); await state.deferredInstallPrompt.userChoice; state.deferredInstallPrompt = null; render(); };
+        }
+        const btnIosGuide = document.getElementById('btn-ios-guide');
+        if (btnIosGuide) {
+          btnIosGuide.onclick = () => openModal(
+            `<h3 style="margin:0">Instalar en iPhone (Safari)</h3><p style="margin:0;font-size:13.5px;color:var(--text-muted)">1. Toca <b>Compartir</b>.<br/><br/>2. Toca <b>"Añadir a pantalla de inicio"</b>.<br/><br/>3. Pulsa <b>Añadir</b>.</p><button class="btn-primary" id="m-close-ios">Entendido</button>`,
+            (close) => { document.getElementById('m-close-ios').onclick = close; }
+          );
+        }
+
+        const goView = (nextView) => {
+          state.view = nextView;
+          window.scrollTo(0, 0);
+          render();
+        };
+        const byId = (id) => document.getElementById(id);
+        if (byId('btn-quick-rate')) byId('btn-quick-rate').onclick = () => requestAdminAccess(openQuickRateModal);
+        if (byId('btn-open-admin')) byId('btn-open-admin').onclick = () => requestAdminAccess(() => goView('admin'));
+        if (byId('btn-header-checkout')) byId('btn-header-checkout').onclick = () => goView('checkout');
+        if (byId('btn-open-checkout')) byId('btn-open-checkout').onclick = () => goView('checkout');
+        if (byId('btn-back-home')) byId('btn-back-home').onclick = () => goView('home');
+        if (byId('btn-back-from-checkout')) byId('btn-back-from-checkout').onclick = () => goView(state.selectedStoreId ? 'store' : 'home');
+        if (byId('btn-empty-go-home')) byId('btn-empty-go-home').onclick = () => goView('home');
+        if (byId('btn-back-from-admin')) byId('btn-back-from-admin').onclick = () => goView('home');
+        if (byId('btn-lock-admin')) byId('btn-lock-admin').onclick = () => {
+          state.isAdminUnlocked = false;
+          showToast('Ajustes bloqueados');
+          goView('home');
+        };
+
+        document.querySelectorAll('[data-open-store]').forEach((el) => {
+          el.onclick = () => {
+            state.selectedStoreId = el.getAttribute('data-open-store');
+            state.selectedCategory = 'Todos';
+            state.view = 'store';
+            window.scrollTo(0, 0);
+            const st = state.stores.find((s) => s.id === state.selectedStoreId);
+            if (st) recordActivity('view_store', `Abrió menú de ${st.name}`);
+            render();
+          };
+        });
+        document.querySelectorAll('[data-select-cat]').forEach((el) => {
+          el.onclick = () => { state.selectedCategory = el.getAttribute('data-select-cat'); render(); };
+        });
+        document.querySelectorAll('[data-quick-add]').forEach((el) => {
+          el.onclick = (e) => { e.stopPropagation(); const item = state.menuItems.find((i) => i.id === el.getAttribute('data-quick-add')); if (item) addItemToCart(item, 1, [...item.ingredients], ''); };
+        });
+        document.querySelectorAll('[data-customize-item]').forEach((el) => {
+          el.onclick = (e) => { if (e.target.closest('[data-quick-add]')) return; const item = state.menuItems.find((i) => i.id === el.getAttribute('data-customize-item')); if (item) openItemCustomizerModal(item); };
+        });
+
+        if (byId('btn-clear-cart')) byId('btn-clear-cart').onclick = async () => { state.cart = []; await ArismendiDB.replaceCart([]); render(); };
+        document.querySelectorAll('[data-cart-dec]').forEach((el) => {
+          el.onclick = async () => {
+            const id = el.getAttribute('data-cart-dec');
+            state.cart = state.cart.map((c) => (c.cartItemId === id ? { ...c, quantity: c.quantity - 1 } : c)).filter((c) => c.quantity > 0);
+            await ArismendiDB.replaceCart(state.cart); render();
+          };
+        });
+        document.querySelectorAll('[data-cart-inc]').forEach((el) => {
+          el.onclick = async () => {
+            const id = el.getAttribute('data-cart-inc');
+            state.cart = state.cart.map((c) => (c.cartItemId === id ? { ...c, quantity: c.quantity + 1 } : c));
+            await ArismendiDB.replaceCart(state.cart); render();
+          };
+        });
+
+        const refreshBubble = () => { const b = document.querySelector('.wa-preview-bubble'); if (b) b.textContent = buildWhatsAppInvoice('DEA-PREVIEW').text; };
+        if (byId('input-address')) byId('input-address').oninput = (e) => { state.deliveryInfo.address = e.target.value; refreshBubble(); persistDeliveryPreferences(); };
+        if (byId('input-ref')) byId('input-ref').oninput = (e) => { state.deliveryInfo.reference = e.target.value; refreshBubble(); persistDeliveryPreferences(); };
+        if (byId('input-name')) byId('input-name').oninput = (e) => { state.deliveryInfo.customerName = e.target.value; refreshBubble(); persistDeliveryPreferences(); };
+
+        document.querySelectorAll('[data-pay-method]').forEach((el) => { el.onclick = () => { state.deliveryInfo.paymentMethod = el.getAttribute('data-pay-method'); persistDeliveryPreferences(); render(); }; });
+        document.querySelectorAll('[data-bill-chip]').forEach((el) => { el.onclick = () => { state.deliveryInfo.cashBillNote = el.getAttribute('data-bill-chip'); render(); }; });
+        if (byId('input-cash-bill')) byId('input-cash-bill').oninput = (e) => { state.deliveryInfo.cashBillNote = e.target.value; refreshBubble(); };
+
+        if (byId('btn-copy-pm')) byId('btn-copy-pm').onclick = async () => {
+          const { totalUsd } = getCartTotals();
+          const pmText = `${state.config.pagoMovilBank}\nCédula: ${state.config.pagoMovilDoc}\nTeléfono: ${state.config.pagoMovilPhone}\nMonto: ${formatBs(totalUsd, state.config.exchangeRateBsPerUsd)}`;
+          if (navigator.clipboard) await navigator.clipboard.writeText(pmText);
+          showToast('Datos de Pago Móvil copiados');
+        };
+        if (byId('btn-copy-invoice')) byId('btn-copy-invoice').onclick = async () => {
+          if (navigator.clipboard) await navigator.clipboard.writeText(buildWhatsAppInvoice().text);
+          showToast('Factura copiada');
+        };
+        if (byId('btn-view-loyalty-msg')) byId('btn-view-loyalty-msg').onclick = openLoyaltyRewardModal;
+        if (byId('btn-send-whatsapp')) byId('btn-send-whatsapp').onclick = async () => {
+          if (!state.deliveryInfo.address.trim()) { showToast('Ingresa tu dirección de entrega'); byId('input-address')?.focus(); return; }
+          const { invoiceCode, text } = buildWhatsAppInvoice();
+          const { totalUsd } = getCartTotals();
+          const uid = (state.userProfile && state.userProfile.userId) || '';
+          const storeNames = [...new Set(state.cart.map((c) => c.storeName))].join(' / ');
+          const usedFreeReward = Boolean(state.userProfile && state.userProfile.hasFreeDeliveryReward);
+          const intlPhone = toWhatsAppIntlPhone(state.config.whatsappPhone);
+
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).catch(() => {});
+            }
+          } catch (_) {}
+
+          openWhatsAppUrlSafely(intlPhone, text);
+          showToast('Abriendo factura en WhatsApp...');
+
+          const orderRecord = {
+            id: 'ord_' + Date.now(),
+            userId: uid,
+            invoiceCode,
+            createdAt: Date.now(),
+            storeNames,
+            items: state.cart,
+            rate: state.config.exchangeRateBsPerUsd,
+            totalUsd,
+            freeDeliveryApplied: usedFreeReward,
+            paymentMethod: state.deliveryInfo.paymentMethod === 'PAGO_MOVIL' ? 'Pago Móvil' : 'Divisa Efectivo',
+            address: state.deliveryInfo.address.trim(),
+            invoiceText: text
+          };
+
+          let unlockedSeventhNow = false;
+          try {
+            await ArismendiDB.saveOrder(orderRecord);
+            state.orders.unshift(orderRecord);
+
+            if (state.userProfile) {
+              state.userProfile.totalOrders = Number(state.userProfile.totalOrders || 0) + 1;
+              state.userProfile.totalSpentUsd = Number(state.userProfile.totalSpentUsd || 0) + totalUsd;
+              state.userProfile.itemStats = state.userProfile.itemStats || {};
+              state.cart.forEach((c) => {
+                state.userProfile.itemStats[c.name] = Number(state.userProfile.itemStats[c.name] || 0) + Number(c.quantity || 1);
+              });
+              state.userProfile.savedDeliveryInfo = {
+                customerName: state.deliveryInfo.customerName || '',
+                address: state.deliveryInfo.address || '',
+                reference: state.deliveryInfo.reference || '',
+                paymentMethod: state.deliveryInfo.paymentMethod || 'PAGO_MOVIL'
+              };
+
+              if (usedFreeReward) {
+                state.userProfile.hasFreeDeliveryReward = false;
+                state.userProfile.loyaltyNotificationPending = false;
+                state.userProfile.loyaltyDeliveriesCount = 0;
+                state.userProfile.freeDeliveriesRedeemed = Number(state.userProfile.freeDeliveriesRedeemed || 0) + 1;
+              } else {
+                const nextCount = Number(state.userProfile.loyaltyDeliveriesCount || 0) + 1;
+                if (nextCount >= 6) {
+                  state.userProfile.loyaltyDeliveriesCount = 0;
+                  state.userProfile.hasFreeDeliveryReward = true;
+                  state.userProfile.loyaltyNotificationPending = true;
+                  unlockedSeventhNow = true;
+                } else {
+                  state.userProfile.loyaltyDeliveriesCount = nextCount;
+                }
+              }
+              await ArismendiDB.saveUserProfile(state.userProfile);
+            }
+
+            await recordActivity('order_sent', `${invoiceCode} • ${storeNames} • ${formatUsd(totalUsd)}${usedFreeReward ? ' (Delivery #7 Gratis)' : ''}`);
+            if (usedFreeReward) {
+              await recordActivity('loyalty_redeemed', `Canjeó su delivery número 7 gratis en ${invoiceCode}`);
+            } else if (unlockedSeventhNow) {
+              await recordActivity('loyalty_unlocked', 'Completó 6 pedidos: ¡Delivery #7 gratis activado!');
+            }
+          } catch (_) {}
+
+          render();
+          if (unlockedSeventhNow) {
+            openLoyaltyRewardModal();
+          }
+        };
+
+        document.querySelectorAll('[data-admin-tab]').forEach((el) => { el.onclick = () => { state.adminTab = el.getAttribute('data-admin-tab'); state.ghStatusBanner = null; window.scrollTo(0, 0); render(); }; });
+        document.querySelectorAll('[data-rate-delta]').forEach((el) => { el.onclick = () => { const i = byId('cfg-rate'); i.value = Math.max(1, (parseFloat(i.value) || 1200) + parseFloat(el.getAttribute('data-rate-delta'))); }; });
+        document.querySelectorAll('[data-rate-set]').forEach((el) => { el.onclick = () => { byId('cfg-rate').value = el.getAttribute('data-rate-set'); }; });
+
+        const collectConfigInputs = async () => {
+          if (!byId('cfg-rate')) return true;
+          const rate = parseFloat(byId('cfg-rate').value);
+          if (!rate || rate <= 0) { showToast('Tasa inválida'); return false; }
+          state.config = {
+            ...state.config,
+            id: 'business_config',
+            exchangeRateBsPerUsd: rate,
+            pagoMovilBank: byId('cfg-bank').value.trim(),
+            pagoMovilDoc: byId('cfg-doc').value.trim(),
+            pagoMovilPhone: byId('cfg-pm-phone').value.trim(),
+            whatsappPhone: byId('cfg-wa').value.trim() || '04245224500',
+            deliveryFeeUsd: Math.max(0, parseFloat(byId('cfg-delivery').value) || 0)
+          };
+          await ArismendiDB.saveConfig(state.config);
+          GitHubSync.markUnpushedChanges();
+          return true;
+        };
+
+        const collectGitHubInputs = async () => {
+          if (!byId('gh-owner')) return GitHubSync.getCreds();
+          return GitHubSync.saveCreds({
+            owner: byId('gh-owner').value,
+            repo: byId('gh-repo').value,
+            branch: byId('gh-branch').value,
+            filePath: byId('gh-path').value,
+            token: byId('gh-token').value
+          });
+        };
+
+        if (byId('btn-save-config')) byId('btn-save-config').onclick = async () => {
+          if (!(await collectConfigInputs())) return;
+          showToast('Configuración local guardada');
+          render();
+        };
+
+        if (byId('btn-toggle-gh-token') && byId('gh-token')) {
+          byId('btn-toggle-gh-token').onclick = () => {
+            const inp = byId('gh-token');
+            inp.type = inp.type === 'password' ? 'text' : 'password';
+          };
+        }
+
+        if (byId('btn-save-gh')) byId('btn-save-gh').onclick = async () => {
+          const saved = await collectGitHubInputs();
+          state.ghStatusBanner = { type: 'info', message: `Credenciales guardadas en este dispositivo (${saved.owner || 'sin usuario'}/${saved.repo || 'sin repo'}).` };
+          showToast('Credenciales de GitHub guardadas');
+          render();
+        };
+
+        if (byId('btn-test-gh')) byId('btn-test-gh').onclick = async () => {
+          const creds = await collectGitHubInputs();
+          state.isSyncingGitHub = true;
+          state.ghStatusBanner = { type: 'info', message: 'Verificando conexión con GitHub...' };
+          render();
+          try {
+            const info = await GitHubSync.testConnection(creds);
+            state.ghStatusBanner = {
+              type: 'ok',
+              message: `Conexión exitosa con ${info.fullName} (rama ${info.branch}${info.isPrivate ? ', privado' : ', público'}). Listo para subir cambios.`
+            };
+            showToast('Conexión con GitHub exitosa');
+          } catch (err) {
+            state.ghStatusBanner = { type: 'err', message: err && err.message ? err.message : 'Error al conectar con GitHub' };
+            showToast('Error al probar GitHub');
+          } finally {
+            state.isSyncingGitHub = false;
+            render();
+          }
+        };
+
+        const runPushToGitHub = async () => {
+          if (state.adminTab === 'config') {
+            if (!(await collectConfigInputs())) return;
+          }
+          const creds = await collectGitHubInputs();
+          if (!creds.owner || !creds.repo || !creds.token) {
+            state.adminTab = 'config';
+            state.ghStatusBanner = { type: 'err', message: 'Completa tus credenciales de GitHub (Usuario, Repositorio y Token PAT) antes de subir los cambios.' };
+            render();
+            setTimeout(() => {
+              const card = document.getElementById('gh-config-card');
+              if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 60);
+            return;
+          }
+          state.isSyncingGitHub = true;
+          state.ghStatusBanner = { type: 'info', message: 'Subiendo locales, menú, precios y tasa del día a GitHub...' };
+          render();
+          try {
+            const res = await GitHubSync.pushCatalog(creds);
+            state.ghStatusBanner = {
+              type: 'ok',
+              message: `✅ ¡Cambios subidos al repositorio! Commit ${res.commitSha || 'creado'}. Los clientes recibirán la actualización en segundos.`
+            };
+            showToast('Cambios publicados en GitHub');
+          } catch (err) {
+            state.ghStatusBanner = { type: 'err', message: err && err.message ? err.message : 'No se pudieron subir los cambios' };
+            showToast('Error al subir a GitHub');
+          } finally {
+            state.isSyncingGitHub = false;
+            render();
+          }
+        };
+
+        if (byId('btn-push-gh')) byId('btn-push-gh').onclick = runPushToGitHub;
+        if (byId('btn-push-gh-menu')) byId('btn-push-gh-menu').onclick = runPushToGitHub;
+
+        if (byId('btn-pull-gh')) byId('btn-pull-gh').onclick = async () => {
+          await collectGitHubInputs();
+          state.isSyncingGitHub = true;
+          state.ghStatusBanner = { type: 'info', message: 'Descargando catálogo desde GitHub...' };
+          render();
+          try {
+            const ok = await GitHubSync.pullRemoteCatalog(true);
+            state.ghStatusBanner = ok
+              ? { type: 'ok', message: '⬇️ Catálogo, locales, menú y tasa actualizados desde GitHub.' }
+              : { type: 'info', message: 'No hubo cambios nuevos por aplicar.' };
+            showToast(ok ? 'Catálogo actualizado desde GitHub' : 'Sin cambios nuevos');
+          } catch (err) {
+            state.ghStatusBanner = { type: 'err', message: err && err.message ? err.message : 'No se pudo descargar desde GitHub' };
+            showToast('Error al descargar de GitHub');
+          } finally {
+            state.isSyncingGitHub = false;
+            render();
+          }
+        };
+
+        if (byId('btn-export-db')) byId('btn-export-db').onclick = async () => {
+          const json = await ArismendiDB.exportBackup();
+          const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+          const a = document.createElement('a'); a.href = url; a.download = `arismendi-respaldo-${new Date().toISOString().slice(0, 10)}.json`; a.click(); URL.revokeObjectURL(url);
+          showToast('Respaldo descargado');
+        };
+        if (byId('btn-import-db') && byId('input-import-db')) {
+          byId('btn-import-db').onclick = () => byId('input-import-db').click();
+          byId('input-import-db').onchange = async () => {
+            const f = byId('input-import-db').files && byId('input-import-db').files[0];
+            if (!f) return;
+            await ArismendiDB.importBackup(await f.text());
+            Object.assign(state, await ArismendiDB.loadAllState());
+            GitHubSync.markUnpushedChanges();
+            showToast('Base de datos restaurada'); render();
+          };
+        }
+        document.querySelectorAll('[data-admin-edit-item]').forEach((el) => { el.onclick = () => { const item = state.menuItems.find((x) => x.id === el.getAttribute('data-admin-edit-item')); if (item) openEditMenuItemModal(item, false); }; });
+        document.querySelectorAll('[data-admin-delete-item]').forEach((el) => {
+          el.onclick = () => {
+            const item = state.menuItems.find((x) => x.id === el.getAttribute('data-admin-delete-item'));
+            if (!item) return;
+            openConfirmDeleteModal(
+              'Eliminar producto',
+              `¿Seguro que deseas eliminar "${item.name}" del menú?`,
+              async () => {
+                await ArismendiDB.deleteMenuItem(item.id);
+                state.menuItems = state.menuItems.filter((x) => x.id !== item.id);
+                state.cart = state.cart.filter((c) => c.menuItemId !== item.id);
+                await ArismendiDB.replaceCart(state.cart);
+                GitHubSync.markUnpushedChanges();
+                showToast(`${item.name} eliminado`);
+                render();
+              }
+            );
+          };
+        });
+        document.querySelectorAll('[data-admin-delete-store]').forEach((el) => {
+          el.onclick = () => {
+            const storeId = el.getAttribute('data-admin-delete-store');
+            const st = state.stores.find((s) => s.id === storeId);
+            if (!st) return;
+            const itemCount = state.menuItems.filter((i) => i.storeId === storeId).length;
+            openConfirmDeleteModal(
+              'Eliminar local',
+              `¿Seguro que deseas eliminar "${st.name}"? También se eliminarán ${itemCount} ${itemCount === 1 ? 'producto' : 'productos'} asociados.`,
+              async () => {
+                await ArismendiDB.deleteStore(storeId);
+                state.stores = state.stores.filter((s) => s.id !== storeId);
+                state.menuItems = state.menuItems.filter((i) => i.storeId !== storeId);
+                state.cart = state.cart.filter((c) => c.storeId !== storeId);
+                await ArismendiDB.replaceCart(state.cart);
+                if (state.selectedStoreId === storeId) {
+                  state.selectedStoreId = state.stores[0] ? state.stores[0].id : '';
+                }
+                GitHubSync.markUnpushedChanges();
+                showToast(`Local "${st.name}" eliminado`);
+                render();
+              }
+            );
+          };
+        });
+        document.querySelectorAll('[data-admin-add-item]').forEach((el) => { el.onclick = () => openEditMenuItemModal(el.getAttribute('data-admin-add-item'), true); });
+        if (byId('btn-admin-new-store')) byId('btn-admin-new-store').onclick = openNewStoreModal;
+        if (byId('btn-admin-reset-catalog')) byId('btn-admin-reset-catalog').onclick = async () => { await ArismendiDB.resetCatalogToDefault(); const l = await ArismendiDB.loadAllState(); state.stores = l.stores; state.menuItems = l.menuItems; GitHubSync.markUnpushedChanges(); showToast('Menú restaurado'); render(); };
+        if (byId('btn-clear-orders')) byId('btn-clear-orders').onclick = async () => { await ArismendiDB.clearOrders(); state.orders = []; showToast('Historial limpiado'); render(); };
+        if (byId('btn-clear-logs')) byId('btn-clear-logs').onclick = async () => { await ArismendiDB.clearUsageLogs(); state.usageLogs = []; showToast('Registro de uso limpiado'); render(); };
+        if (byId('btn-preview-loyalty')) byId('btn-preview-loyalty').onclick = () => openLoyaltyRewardModal(true);
+        document.querySelectorAll('[data-acc-toggle]').forEach((el) => {
+          el.onclick = () => {
+            const key = el.getAttribute('data-acc-toggle');
+            const nextOpen = !state.expandedAccordions[key];
+            state.expandedAccordions[key] = nextOpen;
+            const card = el.closest('.acc-card');
+            if (card) card.classList.toggle('open', nextOpen);
+          };
+        });
+        document.querySelectorAll('[data-resend-order]').forEach((el) => {
+          el.onclick = () => {
+            const ord = state.orders.find((o) => o.id === el.getAttribute('data-resend-order'));
+            if (ord) openWhatsAppUrlSafely(toWhatsAppIntlPhone(state.config.whatsappPhone), ord.invoiceText);
+          };
+        });
+      }
+
+      // Pantalla de bienvenida animada antes de iniciar la app
+      let splashDismissed = false;
+      let pendingLoyaltyAfterSplash = false;
+      function dismissSplashScreen() {
+        if (splashDismissed) return;
+        splashDismissed = true;
+        const splash = document.getElementById('splash-screen');
+        const appRoot = document.getElementById('app');
+        if (splash) {
+          splash.classList.add('splash-hide');
+          setTimeout(() => splash.remove(), 440);
+        }
+        if (appRoot) {
+          appRoot.classList.remove('view-accordion-enter');
+          void appRoot.offsetWidth;
+          appRoot.classList.add('view-accordion-enter');
+        }
+        if (pendingLoyaltyAfterSplash) {
+          pendingLoyaltyAfterSplash = false;
+          setTimeout(() => openLoyaltyRewardModal(), 260);
+        }
+      }
+
+      const splashEl = document.getElementById('splash-screen');
+      if (splashEl) {
+        splashEl.addEventListener('click', dismissSplashScreen);
+      }
+      setTimeout(dismissSplashScreen, 1950);
+
+      // Render inmediato al instante + sincronización asíncrona con IndexedDB
+      render();
+
+      if ((location.protocol === 'http:' || location.protocol === 'https:') && 'serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      }
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        state.deferredInstallPrompt = e;
+        if (state.view === 'home') render();
+      });
+
+      ArismendiDB.loadAllState().then(async (loaded) => {
+        state.config = loaded.config;
+        state.stores = loaded.stores;
+        state.menuItems = loaded.menuItems;
+        state.cart = loaded.cart;
+        state.orders = loaded.orders;
+        state.userProfile = loaded.userProfile;
+        state.usageLogs = loaded.usageLogs || [];
+
+        if (!state.hasEditedDelivery && state.userProfile && state.userProfile.savedDeliveryInfo) {
+          const saved = state.userProfile.savedDeliveryInfo;
+          state.deliveryInfo.customerName = saved.customerName || '';
+          state.deliveryInfo.address = saved.address || '';
+          state.deliveryInfo.reference = saved.reference || '';
+          if (saved.paymentMethod) state.deliveryInfo.paymentMethod = saved.paymentMethod;
+        }
+        if (state.userProfile) {
+          if (state.userProfile.loyaltyDeliveriesCount === undefined) {
+            const legacyTotal = Number(state.userProfile.totalOrders || 0);
+            const mod = legacyTotal % 7;
+            state.userProfile.loyaltyDeliveriesCount = mod === 6 ? 0 : mod;
+            if (legacyTotal > 0 && mod === 6) {
+              state.userProfile.hasFreeDeliveryReward = true;
+              state.userProfile.loyaltyNotificationPending = true;
+            }
+          }
+          state.userProfile.sessionCount = Number(state.userProfile.sessionCount || 0) + 1;
+          state.userProfile.lastActiveAt = Date.now();
+          await ArismendiDB.saveUserProfile(state.userProfile);
+        }
+        await recordActivity('app_open', 'Inicio de sesión en la aplicación');
+        render();
+        if (state.userProfile && state.userProfile.loyaltyNotificationPending) {
+          if (splashDismissed) openLoyaltyRewardModal();
+          else pendingLoyaltyAfterSplash = true;
+        }
+        GitHubSync.pullRemoteCatalog(false).then((updated) => {
+          if (updated) render();
+        }).catch(() => {});
+      }).catch(() => {});
+    })();
+  </script>
+</body>
+</html>

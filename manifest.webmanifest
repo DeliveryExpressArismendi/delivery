@@ -1,0 +1,26 @@
+{
+  "name": "Delivery Express Arismendi",
+  "short_name": "Arismendi",
+  "description": "Delivery de comida rápida con precios en Bolívares y Dólares a tasa del día y factura directa por WhatsApp.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#E80C12",
+  "theme_color": "#E80C12",
+  "lang": "es-VE",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
