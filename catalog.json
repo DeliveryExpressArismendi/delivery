@@ -10,10 +10,10 @@
     "pagoMovilDoc": "V-00000000",
     "pagoMovilPhone": "0424-5224500",
     "repoSync": {
-      "owner": "",
-      "repo": "",
+      "owner": "DeliveryExpressArismendi",
+      "repo": "delivery",
       "branch": "main",
-      "filePath": "docs/catalog.json"
+      "filePath": "catalog.json"
     }
   },
   "stores": [

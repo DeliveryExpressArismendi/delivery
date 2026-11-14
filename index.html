@@ -1128,10 +1128,10 @@
         pagoMovilDoc: 'V-00000000',
         pagoMovilPhone: '0424-5224500',
         repoSync: {
-          owner: '',
-          repo: '',
+          owner: 'DeliveryExpressArismendi',
+          repo: 'delivery',
           branch: 'main',
-          filePath: 'docs/catalog.json'
+          filePath: 'catalog.json'
         }
       };
 
@@ -1661,7 +1661,7 @@
             owner: String(cleanConfig.repoSync.owner || ''),
             repo: String(cleanConfig.repoSync.repo || ''),
             branch: String(cleanConfig.repoSync.branch || 'main'),
-            filePath: String(cleanConfig.repoSync.filePath || 'docs/catalog.json')
+            filePath: String(cleanConfig.repoSync.filePath || 'catalog.json')
           };
         }
         if (useMemoryFallback) {
@@ -1936,11 +1936,13 @@
           const meta = getMeta();
           const cfgRepo = (state.config && state.config.repoSync) || {};
           const detected = detectPagesRepo();
+          const def = ArismendiDB.DEFAULT_CONFIG.repoSync || {};
+          const hasSavedTarget = Boolean(meta.owner || cfgRepo.owner);
           return {
-            owner: (meta.owner || cfgRepo.owner || detected.owner || '').trim(),
-            repo: (meta.repo || cfgRepo.repo || detected.repo || '').trim(),
-            branch: (meta.branch || cfgRepo.branch || 'main').trim() || 'main',
-            filePath: (meta.filePath || cfgRepo.filePath || 'docs/catalog.json').trim().replace(/^\/+/, '') || 'docs/catalog.json',
+            owner: (meta.owner || cfgRepo.owner || detected.owner || def.owner || '').trim(),
+            repo: (meta.repo || cfgRepo.repo || detected.repo || def.repo || '').trim(),
+            branch: (meta.branch || cfgRepo.branch || def.branch || 'main').trim() || 'main',
+            filePath: (meta.filePath || (hasSavedTarget ? cfgRepo.filePath : '') || def.filePath || 'catalog.json').trim().replace(/^\/+/, '') || 'catalog.json',
             token: (meta.token || '').trim(),
             lastSyncAt: meta.lastSyncAt || 0,
             lastCommitSha: meta.lastCommitSha || '',
@@ -1954,7 +1956,7 @@
           const owner = String(fields.owner || '').trim();
           const repo = String(fields.repo || '').trim();
           const branch = String(fields.branch || 'main').trim() || 'main';
-          const filePath = String(fields.filePath || 'docs/catalog.json').trim().replace(/^\/+/, '') || 'docs/catalog.json';
+          const filePath = String(fields.filePath || 'catalog.json').trim().replace(/^\/+/, '') || 'catalog.json';
           const token = String(fields.token || '').trim();
           // El token solo se guarda localmente en el dispositivo del administrador, jamás en catalog.json
           saveMeta({ owner, repo, branch, filePath, token });
@@ -1972,7 +1974,7 @@
         }
 
         function encodeRepoPath(path) {
-          return String(path || 'docs/catalog.json')
+          return String(path || 'catalog.json')
             .replace(/^\/+/, '')
             .split('/')
             .filter(Boolean)
@@ -2032,7 +2034,7 @@
           if (!creds.owner) throw new Error('Ingresa el usuario u organización de GitHub.');
           if (!creds.repo) throw new Error('Ingresa el nombre del repositorio.');
           if (!creds.branch) throw new Error('Ingresa la rama (ej: main).');
-          if (!creds.filePath) throw new Error('Ingresa la ruta del archivo (ej: docs/catalog.json).');
+          if (!creds.filePath) throw new Error('Ingresa la ruta del archivo (ej: catalog.json).');
           if (requireToken && !creds.token) throw new Error('Ingresa tu Token Personal de GitHub (PAT) para subir cambios.');
         }
 
@@ -2143,7 +2145,7 @@
               owner: meta.owner || data.config.repoSync.owner || '',
               repo: meta.repo || data.config.repoSync.repo || '',
               branch: meta.branch || data.config.repoSync.branch || 'main',
-              filePath: meta.filePath || data.config.repoSync.filePath || 'docs/catalog.json'
+              filePath: meta.filePath || data.config.repoSync.filePath || 'catalog.json'
             });
           }
           saveMeta({
@@ -2811,11 +2813,11 @@
                 <h3 class="panel-card-title">🐙 Sincronización con GitHub (Publicar Cambios)</h3>
                 <p style="margin:0;font-size:12.5px;color:var(--text-muted)">Introduce tus credenciales de GitHub para subir locales nuevos, cambios de menú, precios y la tasa del día directamente a tu repositorio (<code>${escapeHtml(gh.filePath)}</code>). Tu token se guarda <b>solo en este teléfono</b> y nunca se sube al repositorio.</p>
                 ${ghFeedbackHtml}
-                <div class="field-group"><label class="field-label" for="gh-owner">Usuario u Organización GitHub (Owner)</label><input id="gh-owner" class="input" type="text" placeholder="Ej: tuusuario" value="${escapeHtml(gh.owner)}" autocomplete="off" /></div>
-                <div class="field-group"><label class="field-label" for="gh-repo">Nombre del Repositorio</label><input id="gh-repo" class="input" type="text" placeholder="Ej: delivery-arismendi" value="${escapeHtml(gh.repo)}" autocomplete="off" /></div>
+                <div class="field-group"><label class="field-label" for="gh-owner">Usuario u Organización GitHub (Owner)</label><input id="gh-owner" class="input" type="text" placeholder="Ej: DeliveryExpressArismendi" value="${escapeHtml(gh.owner)}" autocomplete="off" /></div>
+                <div class="field-group"><label class="field-label" for="gh-repo">Nombre del Repositorio</label><input id="gh-repo" class="input" type="text" placeholder="Ej: delivery" value="${escapeHtml(gh.repo)}" autocomplete="off" /></div>
                 <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px">
                   <div class="field-group"><label class="field-label" for="gh-branch">Rama</label><input id="gh-branch" class="input" type="text" placeholder="main" value="${escapeHtml(gh.branch)}" autocomplete="off" /></div>
-                  <div class="field-group"><label class="field-label" for="gh-path">Archivo de Catálogo</label><input id="gh-path" class="input" type="text" placeholder="docs/catalog.json" value="${escapeHtml(gh.filePath)}" autocomplete="off" /></div>
+                  <div class="field-group"><label class="field-label" for="gh-path">Archivo de Catálogo</label><input id="gh-path" class="input" type="text" placeholder="catalog.json" value="${escapeHtml(gh.filePath)}" autocomplete="off" /></div>
                 </div>
                 <div class="field-group">
                   <label class="field-label" for="gh-token">Token Personal de GitHub (PAT con permiso Contents: Read &amp; Write)</label>
