@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T22:03:01.061Z",
+  "updatedAt": "2026-11-14T22:54:53.673Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -37,6 +37,116 @@
     }
   ],
   "menuItems": [
+    {
+      "id": "item_1794693125664",
+      "storeId": "pili_burger",
+      "name": "Refresco 2L",
+      "category": "Refrescos",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693443775",
+      "storeId": "store_1794693424873",
+      "name": "Perro Normal",
+      "category": "Perros",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "hotdog",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693471143",
+      "storeId": "store_1794693424873",
+      "name": "Perro Especial",
+      "category": "Perros",
+      "description": "",
+      "priceUsd": 3,
+      "ingredients": [],
+      "iconKey": "hotdog",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693497263",
+      "storeId": "store_1794693424873",
+      "name": "Mini Hamburguesa",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "burger",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693513779",
+      "storeId": "store_1794693424873",
+      "name": "Hamburguesa Normal",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 5,
+      "ingredients": [],
+      "iconKey": "burger",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693528173",
+      "storeId": "store_1794693424873",
+      "name": "Hamburguesa Especial",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 8,
+      "ingredients": [],
+      "iconKey": "burger",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693542987",
+      "storeId": "store_1794693424873",
+      "name": "Shawarma",
+      "category": "Shawarmas",
+      "description": "",
+      "priceUsd": 6,
+      "ingredients": [],
+      "iconKey": "shawarma",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693565274",
+      "storeId": "store_1794693424873",
+      "name": "Pepito",
+      "category": "Pepitos",
+      "description": "",
+      "priceUsd": 7,
+      "ingredients": [],
+      "iconKey": "pepito",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693588274",
+      "storeId": "store_1794693424873",
+      "name": "Refresco 1L",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false
+    },
+    {
+      "id": "item_1794693682575",
+      "storeId": "store_1794693424873",
+      "name": "Refresco 2L",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false
+    },
     {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
@@ -147,116 +257,6 @@
         "Pepinillos"
       ],
       "iconKey": "shawarma",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693125664",
-      "storeId": "pili_burger",
-      "name": "Refresco 2L",
-      "category": "Refrescos",
-      "description": "",
-      "priceUsd": 2,
-      "ingredients": [],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693443775",
-      "storeId": "store_1794693424873",
-      "name": "Perro Normal",
-      "category": "Perros",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "hotdog",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693471143",
-      "storeId": "store_1794693424873",
-      "name": "Perro Especial",
-      "category": "Perros",
-      "description": "",
-      "priceUsd": 3,
-      "ingredients": [],
-      "iconKey": "hotdog",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693497263",
-      "storeId": "store_1794693424873",
-      "name": "Mini Hamburguesa",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 2,
-      "ingredients": [],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693513779",
-      "storeId": "store_1794693424873",
-      "name": "Hamburguesa Normal",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 5,
-      "ingredients": [],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693528173",
-      "storeId": "store_1794693424873",
-      "name": "Hamburguesa Especial",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 8,
-      "ingredients": [],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693542987",
-      "storeId": "store_1794693424873",
-      "name": "Shawarma",
-      "category": "Shawarmas",
-      "description": "",
-      "priceUsd": 6,
-      "ingredients": [],
-      "iconKey": "shawarma",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693565274",
-      "storeId": "store_1794693424873",
-      "name": "Pepito",
-      "category": "Pepitos",
-      "description": "",
-      "priceUsd": 7,
-      "ingredients": [],
-      "iconKey": "pepito",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693588274",
-      "storeId": "store_1794693424873",
-      "name": "Refresco 1L",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693682575",
-      "storeId": "store_1794693424873",
-      "name": "Refresco 2L",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 2,
-      "ingredients": [],
-      "iconKey": "soda",
       "isPopular": false
     }
   ]
