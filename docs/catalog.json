@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T21:47:30.830Z",
+  "updatedAt": "2026-11-14T21:49:09.340Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -18,15 +18,6 @@
   },
   "stores": [
     {
-      "id": "esquina_perro",
-      "name": "La Esquina del Perro",
-      "badge": "Entrega Rápida",
-      "tagline": "Perros calientes full equipo, combos y pepitos gratinados",
-      "etaMinutes": "15-25 min",
-      "rating": "4.8",
-      "iconKey": "hotdog"
-    },
-    {
       "id": "pili_burger",
       "name": "Pili Burger",
       "badge": "Más Popular",
@@ -34,113 +25,13 @@
       "etaMinutes": "20-30 min",
       "rating": "4.9",
       "iconKey": "burger"
-    },
-    {
-      "id": "rey_shawarma",
-      "name": "El Rey del Shawarma",
-      "badge": "Especialidad Árabe",
-      "tagline": "Auténtico trompo árabe, crema de ajo artesanal y pepitos",
-      "etaMinutes": "25-35 min",
-      "rating": "4.8",
-      "iconKey": "shawarma"
     }
   ],
   "menuItems": [
     {
-      "id": "esquina_combo_perros",
-      "storeId": "esquina_perro",
-      "name": "Combo 2 Perros + Refresco",
-      "category": "Perros",
-      "description": "Dos perros calientes clásicos con todo más un refresco de 355ml.",
-      "priceUsd": 5.5,
-      "ingredients": [
-        "2 Perros clásicos",
-        "Repollo y cebolla",
-        "Papas hilo",
-        "Queso rallado",
-        "Refresco 355ml",
-        "Salsas variadas"
-      ],
-      "iconKey": "hotdog",
-      "isPopular": true
-    },
-    {
-      "id": "esquina_hamburguesa",
-      "storeId": "esquina_perro",
-      "name": "Hamburguesa Callejera",
-      "category": "Hamburguesas",
-      "description": "Carne a la plancha con jamón, queso, repollo y papas ralladas.",
-      "priceUsd": 4.5,
-      "ingredients": [
-        "Carne a la plancha",
-        "Queso amarillo",
-        "Jamón",
-        "Repollo",
-        "Tomate",
-        "Papas ralladas",
-        "Salsa tártara"
-      ],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "esquina_pepito_gratinado",
-      "storeId": "esquina_perro",
-      "name": "Pepito Gratinado XL",
-      "category": "Pepitos",
-      "description": "35cm de puro sabor con lomo, pollo, maíz, tocineta y queso gratinado.",
-      "priceUsd": 9,
-      "ingredients": [
-        "Lomo de res",
-        "Pechuga de pollo",
-        "Tocineta",
-        "Maíz",
-        "Queso gratinado",
-        "Papas hilo",
-        "Salsa de ajo y rosada"
-      ],
-      "iconKey": "pepito",
-      "isPopular": false
-    },
-    {
-      "id": "esquina_perro_super",
-      "storeId": "esquina_perro",
-      "name": "Perro Súper Especial",
-      "category": "Perros",
-      "description": "Salchicha polaca con queso amarillo, tocineta y lluvia de papas hilo.",
-      "priceUsd": 3,
-      "ingredients": [
-        "Salchicha polaca",
-        "Queso amarillo",
-        "Tocineta",
-        "Repollo",
-        "Cebolla",
-        "Papas hilo",
-        "Queso rallado",
-        "Salsas de la casa"
-      ],
-      "iconKey": "hotdog",
-      "isPopular": true
-    },
-    {
-      "id": "esquina_refresco_15l",
-      "storeId": "esquina_perro",
-      "name": "Refresco 1.5L",
-      "category": "Refrescos",
-      "description": "Refresco familiar bien frío.",
-      "priceUsd": 3,
-      "ingredients": [
-        "Coca-Cola 1.5L",
-        "Frescolita 1.5L",
-        "Chinotto 1.5L"
-      ],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
-      "name": "Hamburguesa Clásica Pili",
+      "name": "Hamburguesa Normal",
       "category": "Hamburguesas",
       "description": "Pan brioche artesanal con carne a la parrilla y vegetales frescos.",
       "priceUsd": 5,
@@ -235,28 +126,12 @@
       "isPopular": false
     },
     {
-      "id": "pili_refresco_lata",
-      "storeId": "pili_burger",
-      "name": "Refresco Frío 355ml",
-      "category": "Refrescos",
-      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
-      "priceUsd": 1.5,
-      "ingredients": [
-        "Coca-Cola",
-        "Chinotto",
-        "Frescolita",
-        "Bien frío"
-      ],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
       "id": "pili_shawarma_arabe",
       "storeId": "pili_burger",
-      "name": "Shawarma Árabe Pili",
+      "name": "Shawarma",
       "category": "Shawarmas",
       "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
-      "priceUsd": 6.5,
+      "priceUsd": 7,
       "ingredients": [
         "Pollo y carne marinada",
         "Pan pita tostado",
@@ -265,75 +140,6 @@
         "Tomate",
         "Cebolla morada",
         "Pepinillos"
-      ],
-      "iconKey": "shawarma",
-      "isPopular": false
-    },
-    {
-      "id": "rey_pepito_arabe",
-      "storeId": "rey_shawarma",
-      "name": "Pepito Árabe Especial",
-      "category": "Pepitos",
-      "description": "Pan canilla tostado relleno de carne de shawarma y queso fundido.",
-      "priceUsd": 8.5,
-      "ingredients": [
-        "Carne estilo shawarma",
-        "Queso mozzarella fundido",
-        "Crema de ajo",
-        "Tomate",
-        "Papas hilo"
-      ],
-      "iconKey": "pepito",
-      "isPopular": false
-    },
-    {
-      "id": "rey_refresco_355",
-      "storeId": "rey_shawarma",
-      "name": "Refresco 355ml",
-      "category": "Refrescos",
-      "description": "Lata fría (Coca-Cola, Chinotto o Frescolita).",
-      "priceUsd": 1.5,
-      "ingredients": [
-        "Coca-Cola",
-        "Chinotto",
-        "Frescolita"
-      ],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "rey_shawarma_mixto",
-      "storeId": "rey_shawarma",
-      "name": "Shawarma Mixto Supremo",
-      "category": "Shawarmas",
-      "description": "Carne y pollo al trompo con papas fritas por dentro y doble crema de ajo.",
-      "priceUsd": 7,
-      "ingredients": [
-        "Carne al trompo",
-        "Pollo al trompo",
-        "Crema de ajo",
-        "Salsa tahini",
-        "Repollo morado",
-        "Tomate",
-        "Pepinillos",
-        "Papas fritas"
-      ],
-      "iconKey": "shawarma",
-      "isPopular": true
-    },
-    {
-      "id": "rey_shawarma_pollo",
-      "storeId": "rey_shawarma",
-      "name": "Shawarma de Pollo Clásico",
-      "category": "Shawarmas",
-      "description": "Pollo especiado estilo árabe en pan pita recién tostado.",
-      "priceUsd": 5.5,
-      "ingredients": [
-        "Pollo especiado",
-        "Crema de ajo",
-        "Lechuga",
-        "Tomate",
-        "Cebolla morada"
       ],
       "iconKey": "shawarma",
       "isPopular": false
