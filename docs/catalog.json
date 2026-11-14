@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T21:42:06.839Z",
+  "updatedAt": "2026-11-14T21:42:21.619Z",
   "config": {
     "id": "business_config",
-    "exchangeRateBsPerUsd": 1200,
+    "exchangeRateBsPerUsd": 1300,
     "whatsappPhone": "04245224500",
     "deliveryFeeUsd": 0,
     "pagoMovilBank": "Banco de Venezuela (0102)",
