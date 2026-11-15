@@ -1,7 +1,7 @@
 {
-  "version": 7,
-  "releaseTag": "v1.0.7",
-  "updatedAt": "2026-11-15T16:55:34.162Z",
+  "version": 5,
+  "releaseTag": "v1.0.5",
+  "updatedAt": "2026-11-15T16:55:41.298Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -101,10 +101,10 @@
     {
       "id": "pili_pepito_mixto",
       "storeId": "pili_burger",
-      "name": "Pepito Mixto Pili",
+      "name": "Pepito",
       "category": "Pepitos",
       "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
-      "priceUsd": 8,
+      "priceUsd": 7,
       "ingredients": [
         "Carne a la plancha",
         "Pollo a la plancha",
@@ -199,6 +199,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "c081aedf6553"
+  ]
 }
