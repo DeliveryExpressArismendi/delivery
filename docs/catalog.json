@@ -1,7 +1,7 @@
 {
   "version": 27,
   "releaseTag": "v1.0.27",
-  "updatedAt": "2026-11-15T18:13:50.147Z",
+  "updatedAt": "2026-11-15T18:16:58.949Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -336,7 +336,25 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794766448219",
+      "storeId": "store_1794766416133",
+      "name": "AREPA",
+      "category": "Arepas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [
+        "MECHADA",
+        "POLLO",
+        "JAMON CON QUESO",
+        "SALCHICHA",
+        "REINA PEPIADA"
+      ],
+      "iconKey": "arepa",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "564bb80698fd"
+  ]
 }
