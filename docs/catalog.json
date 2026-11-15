@@ -1,7 +1,7 @@
 {
   "version": 25,
   "releaseTag": "v1.0.25",
-  "updatedAt": "2026-11-15T18:12:01.988Z",
+  "updatedAt": "2026-11-15T18:12:04.598Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -46,7 +46,7 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "empanada",
-      "isOpen": false
+      "isOpen": true
     }
   ],
   "menuItems": [
