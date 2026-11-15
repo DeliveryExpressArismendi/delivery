@@ -1,7 +1,7 @@
 {
   "version": 17,
   "releaseTag": "v1.0.17",
-  "updatedAt": "2026-11-15T17:11:02.697Z",
+  "updatedAt": "2026-11-15T17:11:12.895Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -245,7 +245,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794762657097",
+      "storeId": "store_1794761464624",
+      "name": "Hamburguesa Especial",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 8,
+      "ingredients": [],
+      "iconKey": "burger",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "ee4d4a892612"
+  ]
 }
