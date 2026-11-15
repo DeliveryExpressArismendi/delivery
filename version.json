@@ -1,9 +1,9 @@
 {
-  "version": 12,
-  "releaseTag": "v1.0.12",
-  "stateHash": "d00857c27700",
-  "updatedAt": "2026-11-15T17:07:57.580Z",
-  "generatedAt": "2026-11-15T17:07:57.580Z",
+  "version": 13,
+  "releaseTag": "v1.0.13",
+  "stateHash": "1fd8c8f3c421",
+  "updatedAt": "2026-11-15T17:08:11.132Z",
+  "generatedAt": "2026-11-15T17:08:11.132Z",
   "generatedBy": "github-actions-robot",
   "summary": {
     "exchangeRateBsPerUsd": 1200,
@@ -12,8 +12,8 @@
     "storesTotal": 2,
     "storesOpen": 2,
     "storesClosed": 0,
-    "itemsTotal": 8,
-    "itemsAvailable": 8,
+    "itemsTotal": 9,
+    "itemsAvailable": 9,
     "itemsOutOfStock": 0
   }
 }
