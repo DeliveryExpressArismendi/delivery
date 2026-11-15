@@ -1,6 +1,7 @@
 {
-  "version": 3,
-  "updatedAt": "2026-11-15T16:40:47.407Z",
+  "version": 4,
+  "releaseTag": "v1.0.4",
+  "updatedAt": "2026-11-15T16:51:16.066Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -24,6 +25,16 @@
       "tagline": "Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos",
       "etaMinutes": "20-30 min",
       "rating": "4.9",
+      "iconKey": "burger",
+      "isOpen": true
+    },
+    {
+      "id": "store_1794761464624",
+      "name": "La Negra",
+      "badge": "Nuevo Local",
+      "tagline": "Comida rápida y delivery express",
+      "etaMinutes": "20-30 min",
+      "rating": "5.0",
       "iconKey": "burger",
       "isOpen": true
     }
@@ -75,6 +86,28 @@
       "stock": null
     },
     {
+      "id": "pili_pepito_mixto",
+      "storeId": "pili_burger",
+      "name": "Pepito Mixto Pili",
+      "category": "Pepitos",
+      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
+      "priceUsd": 8,
+      "ingredients": [
+        "Carne a la plancha",
+        "Pollo a la plancha",
+        "Tocineta",
+        "Queso blanco fundido",
+        "Maíz dulce",
+        "Aguacate",
+        "Papas hilo",
+        "Salsa de ajo y tártara"
+      ],
+      "iconKey": "pepito",
+      "isPopular": true,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_perro_caliente",
       "storeId": "pili_burger",
       "name": "Perro Caliente Pili",
@@ -98,44 +131,18 @@
       "stock": null
     },
     {
-      "id": "pili_pepito_mixto",
+      "id": "pili_refresco_15l",
       "storeId": "pili_burger",
-      "name": "Pepito Mixto Pili",
-      "category": "Pepitos",
-      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
-      "priceUsd": 8,
+      "name": "Refresco Familiar 1.5L",
+      "category": "Refrescos",
+      "description": "Botella familiar de 1.5 litros bien fría.",
+      "priceUsd": 3,
       "ingredients": [
-        "Carne a la plancha",
-        "Pollo a la plancha",
-        "Tocineta",
-        "Queso blanco fundido",
-        "Maíz dulce",
-        "Aguacate",
-        "Papas hilo",
-        "Salsa de ajo y tártara"
+        "Coca-Cola 1.5L",
+        "Chinotto 1.5L",
+        "Frescolita 1.5L"
       ],
-      "iconKey": "pepito",
-      "isPopular": true,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_shawarma_arabe",
-      "storeId": "pili_burger",
-      "name": "Shawarma Árabe Pili",
-      "category": "Shawarmas",
-      "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
-      "priceUsd": 6.5,
-      "ingredients": [
-        "Pollo y carne marinada",
-        "Pan pita tostado",
-        "Crema de ajo libanesa",
-        "Lechuga",
-        "Tomate",
-        "Cebolla morada",
-        "Pepinillos"
-      ],
-      "iconKey": "shawarma",
+      "iconKey": "soda",
       "isPopular": false,
       "available": true,
       "stock": null
@@ -159,23 +166,26 @@
       "stock": null
     },
     {
-      "id": "pili_refresco_15l",
+      "id": "pili_shawarma_arabe",
       "storeId": "pili_burger",
-      "name": "Refresco Familiar 1.5L",
-      "category": "Refrescos",
-      "description": "Botella familiar de 1.5 litros bien fría.",
-      "priceUsd": 3,
+      "name": "Shawarma Árabe Pili",
+      "category": "Shawarmas",
+      "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
+      "priceUsd": 6.5,
       "ingredients": [
-        "Coca-Cola 1.5L",
-        "Chinotto 1.5L",
-        "Frescolita 1.5L"
+        "Pollo y carne marinada",
+        "Pan pita tostado",
+        "Crema de ajo libanesa",
+        "Lechuga",
+        "Tomate",
+        "Cebolla morada",
+        "Pepinillos"
       ],
-      "iconKey": "soda",
+      "iconKey": "shawarma",
       "isPopular": false,
       "available": true,
       "stock": null
     }
   ],
-  "releaseTag": "v1.0.3",
-  "stateHash": "ece494176285"
+  "stateHash": "6ac7f4e13e66"
 }
