@@ -1,7 +1,7 @@
 {
-  "version": 20,
-  "releaseTag": "v1.0.20",
-  "updatedAt": "2026-11-15T17:14:17.790Z",
+  "version": 21,
+  "releaseTag": "v1.0.21",
+  "updatedAt": "2026-11-15T17:14:36.090Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -284,7 +284,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794762847608",
+      "storeId": "store_1794761464624",
+      "name": "Refresco 2L",
+      "category": "Refrescos",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "burger",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "0eb794774bed"
+  "stateHash": "2dedbf9de83d"
 }
