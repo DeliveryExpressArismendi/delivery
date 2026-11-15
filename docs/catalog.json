@@ -1,7 +1,7 @@
 {
   "version": 17,
   "releaseTag": "v1.0.17",
-  "updatedAt": "2026-11-15T17:11:12.895Z",
+  "updatedAt": "2026-11-15T17:11:23.277Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -223,7 +223,7 @@
     {
       "id": "item_1794762544329",
       "storeId": "store_1794761464624",
-      "name": "Mini Hamburguesas",
+      "name": "Mini Hamburguesa",
       "category": "Hamburguesas",
       "description": "",
       "priceUsd": 2,
