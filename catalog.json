@@ -1,7 +1,7 @@
 {
-  "version": 36,
-  "releaseTag": "v1.0.36",
-  "updatedAt": "2026-11-15T18:24:01.473Z",
+  "version": 37,
+  "releaseTag": "v1.0.37",
+  "updatedAt": "2026-11-15T18:24:18.364Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -440,7 +440,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794767032231",
+      "storeId": "store_1794766416133",
+      "name": "AREPA REINA PEPIADA",
+      "category": "Arepas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "arepa",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "7aba0e84d827"
+  "stateHash": "d63de601ed35"
 }
