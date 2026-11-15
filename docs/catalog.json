@@ -1,7 +1,7 @@
 {
   "version": 37,
   "releaseTag": "v1.0.37",
-  "updatedAt": "2026-11-15T18:24:46.871Z",
+  "updatedAt": "2026-11-15T18:24:50.316Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -412,7 +412,7 @@
       "ingredients": [],
       "iconKey": "arepa",
       "isPopular": false,
-      "available": false,
+      "available": true,
       "stock": null
     },
     {
