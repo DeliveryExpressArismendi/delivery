@@ -1,7 +1,7 @@
 {
   "version": 11,
   "releaseTag": "v1.0.11",
-  "updatedAt": "2026-11-15T17:06:29.613Z",
+  "updatedAt": "2026-11-15T17:07:29.021Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -140,7 +140,7 @@
       ],
       "iconKey": "hotdog",
       "isPopular": true,
-      "available": true,
+      "available": false,
       "stock": null
     },
     {
@@ -194,6 +194,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "d00857c27700"
+  ]
 }
