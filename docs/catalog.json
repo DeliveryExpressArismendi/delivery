@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-15T13:50:19.013Z",
+  "updatedAt": "2026-11-15T16:01:55.176Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -24,7 +24,8 @@
       "tagline": "Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos",
       "etaMinutes": "20-30 min",
       "rating": "4.9",
-      "iconKey": "burger"
+      "iconKey": "burger",
+      "isOpen": true
     }
   ],
   "menuItems": [
@@ -47,7 +48,9 @@
         "Salsa rosada"
       ],
       "iconKey": "burger",
-      "isPopular": true
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
       "id": "pili_hamburguesa_doble",
@@ -67,27 +70,9 @@
         "Salsa especial Pili"
       ],
       "iconKey": "burger",
-      "isPopular": true
-    },
-    {
-      "id": "pili_pepito_mixto",
-      "storeId": "pili_burger",
-      "name": "Pepito Mixto Pili",
-      "category": "Pepitos",
-      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
-      "priceUsd": 8,
-      "ingredients": [
-        "Carne a la plancha",
-        "Pollo a la plancha",
-        "Tocineta",
-        "Queso blanco fundido",
-        "Maíz dulce",
-        "Aguacate",
-        "Papas hilo",
-        "Salsa de ajo y tártara"
-      ],
-      "iconKey": "pepito",
-      "isPopular": true
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
       "id": "pili_perro_caliente",
@@ -108,38 +93,31 @@
         "Salsa de ajo"
       ],
       "iconKey": "hotdog",
-      "isPopular": true
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
-      "id": "pili_refresco_15l",
+      "id": "pili_pepito_mixto",
       "storeId": "pili_burger",
-      "name": "Refresco Familiar 1.5L",
-      "category": "Refrescos",
-      "description": "Botella familiar de 1.5 litros bien fría.",
-      "priceUsd": 3,
+      "name": "Pepito Mixto Pili",
+      "category": "Pepitos",
+      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
+      "priceUsd": 8,
       "ingredients": [
-        "Coca-Cola 1.5L",
-        "Chinotto 1.5L",
-        "Frescolita 1.5L"
+        "Carne a la plancha",
+        "Pollo a la plancha",
+        "Tocineta",
+        "Queso blanco fundido",
+        "Maíz dulce",
+        "Aguacate",
+        "Papas hilo",
+        "Salsa de ajo y tártara"
       ],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "pili_refresco_lata",
-      "storeId": "pili_burger",
-      "name": "Refresco Frío 355ml",
-      "category": "Refrescos",
-      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
-      "priceUsd": 1.5,
-      "ingredients": [
-        "Coca-Cola",
-        "Chinotto",
-        "Frescolita",
-        "Bien frío"
-      ],
-      "iconKey": "soda",
-      "isPopular": false
+      "iconKey": "pepito",
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
       "id": "pili_shawarma_arabe",
@@ -158,7 +136,44 @@
         "Pepinillos"
       ],
       "iconKey": "shawarma",
-      "isPopular": false
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_refresco_lata",
+      "storeId": "pili_burger",
+      "name": "Refresco Frío 355ml",
+      "category": "Refrescos",
+      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
+      "priceUsd": 1.5,
+      "ingredients": [
+        "Coca-Cola",
+        "Chinotto",
+        "Frescolita",
+        "Bien frío"
+      ],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_refresco_15l",
+      "storeId": "pili_burger",
+      "name": "Refresco Familiar 1.5L",
+      "category": "Refrescos",
+      "description": "Botella familiar de 1.5 litros bien fría.",
+      "priceUsd": 3,
+      "ingredients": [
+        "Coca-Cola 1.5L",
+        "Chinotto 1.5L",
+        "Frescolita 1.5L"
+      ],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ]
 }
