@@ -1,7 +1,7 @@
 {
-  "version": 34,
-  "releaseTag": "v1.0.34",
-  "updatedAt": "2026-11-15T18:23:04.852Z",
+  "version": 35,
+  "releaseTag": "v1.0.35",
+  "updatedAt": "2026-11-15T18:23:40.261Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -414,7 +414,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794766993780",
+      "storeId": "store_1794766416133",
+      "name": "AREPA JAMON CON QUESO",
+      "category": "Arepas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "arepa",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "0d47782e4a6f"
+  "stateHash": "076a2b9c2852"
 }
