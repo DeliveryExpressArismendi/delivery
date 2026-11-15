@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updatedAt": "2026-11-15T13:45:52.772Z",
+  "version": 2,
+  "updatedAt": "2026-11-15T15:30:00.000Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -18,22 +18,14 @@
   },
   "stores": [
     {
-      "id": "esquina_perro",
-      "name": "La Esquina del Perro",
-      "badge": "Entrega Rápida",
-      "tagline": "Perros calientes full equipo, combos y pepitos gratinados",
-      "etaMinutes": "15-25 min",
-      "rating": "4.8",
-      "iconKey": "hotdog"
-    },
-    {
       "id": "pili_burger",
       "name": "Pili Burger",
       "badge": "Más Popular",
       "tagline": "Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos",
       "etaMinutes": "20-30 min",
       "rating": "4.9",
-      "iconKey": "burger"
+      "iconKey": "burger",
+      "isOpen": true
     },
     {
       "id": "rey_shawarma",
@@ -42,108 +34,28 @@
       "tagline": "Auténtico trompo árabe, crema de ajo artesanal y pepitos",
       "etaMinutes": "25-35 min",
       "rating": "4.8",
-      "iconKey": "shawarma"
+      "iconKey": "shawarma",
+      "isOpen": true
+    },
+    {
+      "id": "esquina_perro",
+      "name": "La Esquina del Perro",
+      "badge": "Entrega Rápida",
+      "tagline": "Perros calientes full equipo, combos y pepitos gratinados",
+      "etaMinutes": "15-25 min",
+      "rating": "4.8",
+      "iconKey": "hotdog",
+      "isOpen": true
     }
   ],
   "menuItems": [
-    {
-      "id": "esquina_combo_perros",
-      "storeId": "esquina_perro",
-      "name": "Combo 2 Perros + Refresco",
-      "category": "Perros",
-      "description": "Dos perros calientes clásicos con todo más un refresco de 355ml.",
-      "priceUsd": 5.5,
-      "ingredients": [
-        "2 Perros clásicos",
-        "Repollo y cebolla",
-        "Papas hilo",
-        "Queso rallado",
-        "Refresco 355ml",
-        "Salsas variadas"
-      ],
-      "iconKey": "hotdog",
-      "isPopular": true
-    },
-    {
-      "id": "esquina_hamburguesa",
-      "storeId": "esquina_perro",
-      "name": "Hamburguesa Callejera",
-      "category": "Hamburguesas",
-      "description": "Carne a la plancha con jamón, queso, repollo y papas ralladas.",
-      "priceUsd": 4.5,
-      "ingredients": [
-        "Carne a la plancha",
-        "Queso amarillo",
-        "Jamón",
-        "Repollo",
-        "Tomate",
-        "Papas ralladas",
-        "Salsa tártara"
-      ],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "esquina_pepito_gratinado",
-      "storeId": "esquina_perro",
-      "name": "Pepito Gratinado XL",
-      "category": "Pepitos",
-      "description": "35cm de puro sabor con lomo, pollo, maíz, tocineta y queso gratinado.",
-      "priceUsd": 9,
-      "ingredients": [
-        "Lomo de res",
-        "Pechuga de pollo",
-        "Tocineta",
-        "Maíz",
-        "Queso gratinado",
-        "Papas hilo",
-        "Salsa de ajo y rosada"
-      ],
-      "iconKey": "pepito",
-      "isPopular": false
-    },
-    {
-      "id": "esquina_perro_super",
-      "storeId": "esquina_perro",
-      "name": "Perro Súper Especial",
-      "category": "Perros",
-      "description": "Salchicha polaca con queso amarillo, tocineta y lluvia de papas hilo.",
-      "priceUsd": 3,
-      "ingredients": [
-        "Salchicha polaca",
-        "Queso amarillo",
-        "Tocineta",
-        "Repollo",
-        "Cebolla",
-        "Papas hilo",
-        "Queso rallado",
-        "Salsas de la casa"
-      ],
-      "iconKey": "hotdog",
-      "isPopular": true
-    },
-    {
-      "id": "esquina_refresco_15l",
-      "storeId": "esquina_perro",
-      "name": "Refresco 1.5L",
-      "category": "Refrescos",
-      "description": "Refresco familiar bien frío.",
-      "priceUsd": 3,
-      "ingredients": [
-        "Coca-Cola 1.5L",
-        "Frescolita 1.5L",
-        "Chinotto 1.5L"
-      ],
-      "iconKey": "soda",
-      "isPopular": false
-    },
     {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Clásica Pili",
       "category": "Hamburguesas",
       "description": "Pan brioche artesanal con carne a la parrilla y vegetales frescos.",
-      "priceUsd": 5,
+      "priceUsd": 5.0,
       "ingredients": [
         "Carne de res 150g",
         "Queso amarillo",
@@ -156,7 +68,9 @@
         "Salsa rosada"
       ],
       "iconKey": "burger",
-      "isPopular": true
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
       "id": "pili_hamburguesa_doble",
@@ -176,27 +90,9 @@
         "Salsa especial Pili"
       ],
       "iconKey": "burger",
-      "isPopular": true
-    },
-    {
-      "id": "pili_pepito_mixto",
-      "storeId": "pili_burger",
-      "name": "Pepito Mixto Pili",
-      "category": "Pepitos",
-      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
-      "priceUsd": 8,
-      "ingredients": [
-        "Carne a la plancha",
-        "Pollo a la plancha",
-        "Tocineta",
-        "Queso blanco fundido",
-        "Maíz dulce",
-        "Aguacate",
-        "Papas hilo",
-        "Salsa de ajo y tártara"
-      ],
-      "iconKey": "pepito",
-      "isPopular": true
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
       "id": "pili_perro_caliente",
@@ -217,38 +113,31 @@
         "Salsa de ajo"
       ],
       "iconKey": "hotdog",
-      "isPopular": true
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
-      "id": "pili_refresco_15l",
+      "id": "pili_pepito_mixto",
       "storeId": "pili_burger",
-      "name": "Refresco Familiar 1.5L",
-      "category": "Refrescos",
-      "description": "Botella familiar de 1.5 litros bien fría.",
-      "priceUsd": 3,
+      "name": "Pepito Mixto Pili",
+      "category": "Pepitos",
+      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
+      "priceUsd": 8.0,
       "ingredients": [
-        "Coca-Cola 1.5L",
-        "Chinotto 1.5L",
-        "Frescolita 1.5L"
+        "Carne a la plancha",
+        "Pollo a la plancha",
+        "Tocineta",
+        "Queso blanco fundido",
+        "Maíz dulce",
+        "Aguacate",
+        "Papas hilo",
+        "Salsa de ajo y tártara"
       ],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "pili_refresco_lata",
-      "storeId": "pili_burger",
-      "name": "Refresco Frío 355ml",
-      "category": "Refrescos",
-      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
-      "priceUsd": 1.5,
-      "ingredients": [
-        "Coca-Cola",
-        "Chinotto",
-        "Frescolita",
-        "Bien frío"
-      ],
-      "iconKey": "soda",
-      "isPopular": false
+      "iconKey": "pepito",
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
       "id": "pili_shawarma_arabe",
@@ -267,39 +156,44 @@
         "Pepinillos"
       ],
       "iconKey": "shawarma",
-      "isPopular": false
+      "isPopular": false,
+      "available": true,
+      "stock": null
     },
     {
-      "id": "rey_pepito_arabe",
-      "storeId": "rey_shawarma",
-      "name": "Pepito Árabe Especial",
-      "category": "Pepitos",
-      "description": "Pan canilla tostado relleno de carne de shawarma y queso fundido.",
-      "priceUsd": 8.5,
-      "ingredients": [
-        "Carne estilo shawarma",
-        "Queso mozzarella fundido",
-        "Crema de ajo",
-        "Tomate",
-        "Papas hilo"
-      ],
-      "iconKey": "pepito",
-      "isPopular": false
-    },
-    {
-      "id": "rey_refresco_355",
-      "storeId": "rey_shawarma",
-      "name": "Refresco 355ml",
+      "id": "pili_refresco_lata",
+      "storeId": "pili_burger",
+      "name": "Refresco Frío 355ml",
       "category": "Refrescos",
-      "description": "Lata fría (Coca-Cola, Chinotto o Frescolita).",
+      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
       "priceUsd": 1.5,
       "ingredients": [
         "Coca-Cola",
         "Chinotto",
-        "Frescolita"
+        "Frescolita",
+        "Bien frío"
       ],
       "iconKey": "soda",
-      "isPopular": false
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_refresco_15l",
+      "storeId": "pili_burger",
+      "name": "Refresco Familiar 1.5L",
+      "category": "Refrescos",
+      "description": "Botella familiar de 1.5 litros bien fría.",
+      "priceUsd": 3.0,
+      "ingredients": [
+        "Coca-Cola 1.5L",
+        "Chinotto 1.5L",
+        "Frescolita 1.5L"
+      ],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     },
     {
       "id": "rey_shawarma_mixto",
@@ -307,7 +201,7 @@
       "name": "Shawarma Mixto Supremo",
       "category": "Shawarmas",
       "description": "Carne y pollo al trompo con papas fritas por dentro y doble crema de ajo.",
-      "priceUsd": 7,
+      "priceUsd": 7.0,
       "ingredients": [
         "Carne al trompo",
         "Pollo al trompo",
@@ -319,7 +213,9 @@
         "Papas fritas"
       ],
       "iconKey": "shawarma",
-      "isPopular": true
+      "isPopular": true,
+      "available": true,
+      "stock": null
     },
     {
       "id": "rey_shawarma_pollo",
@@ -336,7 +232,146 @@
         "Cebolla morada"
       ],
       "iconKey": "shawarma",
-      "isPopular": false
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "rey_pepito_arabe",
+      "storeId": "rey_shawarma",
+      "name": "Pepito Árabe Especial",
+      "category": "Pepitos",
+      "description": "Pan canilla tostado relleno de carne de shawarma y queso fundido.",
+      "priceUsd": 8.5,
+      "ingredients": [
+        "Carne estilo shawarma",
+        "Queso mozzarella fundido",
+        "Crema de ajo",
+        "Tomate",
+        "Papas hilo"
+      ],
+      "iconKey": "pepito",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "rey_refresco_355",
+      "storeId": "rey_shawarma",
+      "name": "Refresco 355ml",
+      "category": "Refrescos",
+      "description": "Lata fría (Coca-Cola, Chinotto o Frescolita).",
+      "priceUsd": 1.5,
+      "ingredients": [
+        "Coca-Cola",
+        "Chinotto",
+        "Frescolita"
+      ],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "esquina_perro_super",
+      "storeId": "esquina_perro",
+      "name": "Perro Súper Especial",
+      "category": "Perros",
+      "description": "Salchicha polaca con queso amarillo, tocineta y lluvia de papas hilo.",
+      "priceUsd": 3.0,
+      "ingredients": [
+        "Salchicha polaca",
+        "Queso amarillo",
+        "Tocineta",
+        "Repollo",
+        "Cebolla",
+        "Papas hilo",
+        "Queso rallado",
+        "Salsas de la casa"
+      ],
+      "iconKey": "hotdog",
+      "isPopular": true,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "esquina_combo_perros",
+      "storeId": "esquina_perro",
+      "name": "Combo 2 Perros + Refresco",
+      "category": "Perros",
+      "description": "Dos perros calientes clásicos con todo más un refresco de 355ml.",
+      "priceUsd": 5.5,
+      "ingredients": [
+        "2 Perros clásicos",
+        "Repollo y cebolla",
+        "Papas hilo",
+        "Queso rallado",
+        "Refresco 355ml",
+        "Salsas variadas"
+      ],
+      "iconKey": "hotdog",
+      "isPopular": true,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "esquina_pepito_gratinado",
+      "storeId": "esquina_perro",
+      "name": "Pepito Gratinado XL",
+      "category": "Pepitos",
+      "description": "35cm de puro sabor con lomo, pollo, maíz, tocineta y queso gratinado.",
+      "priceUsd": 9.0,
+      "ingredients": [
+        "Lomo de res",
+        "Pechuga de pollo",
+        "Tocineta",
+        "Maíz",
+        "Queso gratinado",
+        "Papas hilo",
+        "Salsa de ajo y rosada"
+      ],
+      "iconKey": "pepito",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "esquina_hamburguesa",
+      "storeId": "esquina_perro",
+      "name": "Hamburguesa Callejera",
+      "category": "Hamburguesas",
+      "description": "Carne a la plancha con jamón, queso, repollo y papas ralladas.",
+      "priceUsd": 4.5,
+      "ingredients": [
+        "Carne a la plancha",
+        "Queso amarillo",
+        "Jamón",
+        "Repollo",
+        "Tomate",
+        "Papas ralladas",
+        "Salsa tártara"
+      ],
+      "iconKey": "burger",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "esquina_refresco_15l",
+      "storeId": "esquina_perro",
+      "name": "Refresco 1.5L",
+      "category": "Refrescos",
+      "description": "Refresco familiar bien frío.",
+      "priceUsd": 3.0,
+      "ingredients": [
+        "Coca-Cola 1.5L",
+        "Frescolita 1.5L",
+        "Chinotto 1.5L"
+      ],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ]
 }

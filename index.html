@@ -1216,7 +1216,8 @@
           tagline: 'Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos',
           etaMinutes: '20-30 min',
           rating: '4.9',
-          iconKey: 'burger'
+          iconKey: 'burger',
+          isOpen: true
         },
         {
           id: 'rey_shawarma',
@@ -1225,7 +1226,8 @@
           tagline: 'Auténtico trompo árabe, crema de ajo artesanal y pepitos',
           etaMinutes: '25-35 min',
           rating: '4.8',
-          iconKey: 'shawarma'
+          iconKey: 'shawarma',
+          isOpen: true
         },
         {
           id: 'esquina_perro',
@@ -1234,7 +1236,8 @@
           tagline: 'Perros calientes full equipo, combos y pepitos gratinados',
           etaMinutes: '15-25 min',
           rating: '4.8',
-          iconKey: 'hotdog'
+          iconKey: 'hotdog',
+          isOpen: true
         }
       ];
 
@@ -2030,13 +2033,18 @@
           return Boolean(getCreds().token);
         }
 
+        function hasEverSynced() {
+          const m = getMeta();
+          return Boolean(m.lastRemoteUpdatedAt || m.lastRemoteFileSha || m.lastSyncAt);
+        }
+
         async function saveCreds(fields) {
           const owner = String(fields.owner || '').trim();
           const repo = String(fields.repo || '').trim();
           const branch = String(fields.branch || 'main').trim() || 'main';
           const filePath = String(fields.filePath || 'catalog.json').trim().replace(/^\/+/, '') || 'catalog.json';
           const token = String(fields.token || '').trim();
-          // El token solo se guarda localmente en el dispositivo del usuario, jamás en catalog.json
+          // El token solo se guarda localmente en el dispositivo del administrador, jamás en catalog.json
           saveMeta({ owner, repo, branch, filePath, token });
           state.config = {
             ...state.config,
@@ -2091,7 +2099,7 @@
           };
           delete cleanConfig.token;
           return {
-            version: 1,
+            version: 2,
             updatedAt: new Date().toISOString(),
             config: cleanConfig,
             stores: state.stores,
@@ -2100,10 +2108,8 @@
         }
 
         function buildHeaders(token, withJsonContentType = false) {
-          const h = {
-            Accept: 'application/vnd.github+json',
-            Authorization: 'Bearer ' + token
-          };
+          const h = { Accept: 'application/vnd.github+json' };
+          if (token) h.Authorization = 'Bearer ' + token;
           if (withJsonContentType) h['Content-Type'] = 'application/json';
           return h;
         }
@@ -2124,7 +2130,7 @@
           } catch (_) {}
           if (resp.status === 401) return 'Token inválido o expirado (401). Verifica tu PAT en GitHub.';
           if (resp.status === 403) return 'Sin permisos suficientes (403). Verifica que el token tenga permiso "Contents".';
-          if (resp.status === 404) return 'Repositorio, rama o usuario no encontrado (404). Verifica Owner, Repositorio y Rama.';
+          if (resp.status === 404) return 'Repositorio, rama o archivo no encontrado (404).';
           if (resp.status === 409 || resp.status === 422) return detail || 'Conflicto de versión al escribir el archivo en GitHub.';
           return detail ? `${fallbackMsg}: ${detail}` : `${fallbackMsg} (HTTP ${resp.status})`;
         }
@@ -2161,6 +2167,8 @@
           const data = await resp.json();
           return data && data.sha ? data.sha : null;
         }
+
+        let pushQueuePromise = Promise.resolve();
 
         async function pushCatalog(credsOverride) {
           const creds = credsOverride ? { ...getCreds(), ...credsOverride } : getCreds();
@@ -2209,6 +2217,83 @@
           return { commitSha, commitUrl, updatedAt: payload.updatedAt };
         }
 
+        function triggerAutoCloudPush(reasonLabel = 'Cambios') {
+          markUnpushedChanges();
+          const creds = getCreds();
+          if (!creds.owner || !creds.repo || !creds.token) {
+            return Promise.resolve({ pushed: false, reason: 'no_token' });
+          }
+          pushQueuePromise = pushQueuePromise
+            .catch(() => {})
+            .then(async () => {
+              state.isSyncingGitHub = true;
+              try {
+                const res = await pushCatalog(getCreds());
+                state.ghStatusBanner = {
+                  type: 'ok',
+                  message: `☁️ ${reasonLabel} publicado en GitHub (${res.commitSha || 'OK'}). Los demás dispositivos se actualizarán en segundos.`
+                };
+                showToast(`☁️ ${reasonLabel} transmitido a GitHub`);
+                if (state.view === 'admin') render();
+                return { pushed: true, ...res };
+              } catch (err) {
+                state.ghStatusBanner = {
+                  type: 'err',
+                  message: `Guardado local; pendiente subir a GitHub: ${err && err.message ? err.message : 'Error de red'}`
+                };
+                if (state.view === 'admin') render();
+                return { pushed: false, reason: 'error' };
+              } finally {
+                state.isSyncingGitHub = false;
+              }
+            });
+          return pushQueuePromise;
+        }
+
+        async function reconcileCartWithCatalog() {
+          if (!state.cart || !state.cart.length) return false;
+          let changed = false;
+          const nextCart = [];
+          for (const entry of state.cart) {
+            const liveItem = state.menuItems.find((i) => i.id === entry.menuItemId);
+            const liveStore = state.stores.find((s) => s.id === entry.storeId);
+            if (!liveItem || !liveStore || liveStore.isOpen === false) {
+              changed = true;
+              continue;
+            }
+            const itemAvail = liveItem.available !== false && (liveItem.stock === null || liveItem.stock === undefined || liveItem.stock === '' || Number(liveItem.stock) > 0);
+            if (!itemAvail) {
+              changed = true;
+              continue;
+            }
+            let nextQty = Number(entry.quantity || 1);
+            if (liveItem.stock !== null && liveItem.stock !== undefined && liveItem.stock !== '' && Number(liveItem.stock) > 0 && nextQty > Number(liveItem.stock)) {
+              nextQty = Number(liveItem.stock);
+              changed = true;
+            }
+            if (
+              Number(entry.priceUsd) !== Number(liveItem.priceUsd) ||
+              entry.name !== liveItem.name ||
+              entry.storeName !== liveStore.name
+            ) {
+              changed = true;
+            }
+            nextCart.push({
+              ...entry,
+              name: liveItem.name,
+              storeName: liveStore.name,
+              priceUsd: liveItem.priceUsd,
+              allIngredients: liveItem.ingredients,
+              quantity: nextQty
+            });
+          }
+          if (changed) {
+            state.cart = nextCart;
+            await ArismendiDB.replaceCart(nextCart);
+          }
+          return changed;
+        }
+
         async function applyPulledPayload(data, resolvedPath, remoteFileSha) {
           if (!data || !Array.isArray(data.stores) || !Array.isArray(data.menuItems) || !data.config) {
             return false;
@@ -2227,6 +2312,7 @@
           if (state.stores.length && !state.stores.some((s) => s.id === state.selectedStoreId)) {
             state.selectedStoreId = state.stores[0].id;
           }
+          await reconcileCartWithCatalog();
           if (cleanIncomingConfig.repoSync) {
             const meta = getMeta();
             saveMeta({
@@ -2238,7 +2324,7 @@
           }
           saveMeta({
             hasUnpushedChanges: false,
-            lastRemoteUpdatedAt: data.updatedAt || '',
+            lastRemoteUpdatedAt: data.updatedAt || ('synced_' + Date.now()),
             ...(remoteFileSha ? { lastRemoteFileSha: remoteFileSha } : {})
           });
           return true;
@@ -2250,71 +2336,90 @@
           return fetch(apiUrl, { headers: buildHeaders(creds.token), cache: 'no-store' });
         }
 
-        async function pullRemoteCatalog(forceManual = false, credsOverride = null) {
+        let lastPublicOutcome = 'ok';
+        function getLastPublicOutcome() { return lastPublicOutcome; }
+
+        async function pullRemoteCatalog(forceManual = false, credsOverride = null, options = {}) {
           const creds = credsOverride ? { ...getCreds(), ...credsOverride } : getCreds();
           if (!forceManual && creds.hasUnpushedChanges) return false;
 
-          // Cuando hay token, siempre consultamos la GitHub Contents API (sin caché CDN -> tiempo real)
-          if (creds.owner && creds.repo && creds.token) {
-            const pathCandidates = [creds.filePath];
-            const altPath = creds.filePath === 'catalog.json' ? 'docs/catalog.json' : 'catalog.json';
-            if (!pathCandidates.includes(altPath)) pathCandidates.push(altPath);
+          const pathCandidates = [creds.filePath];
+          const altPath = creds.filePath === 'catalog.json' ? 'docs/catalog.json' : 'catalog.json';
+          if (!pathCandidates.includes(altPath)) pathCandidates.push(altPath);
 
+          const shouldTryApi = Boolean(creds.owner && creds.repo && (creds.token || forceManual || options.useApi));
+          if (shouldTryApi) {
             let successResp = null;
             let resolvedPath = creds.filePath;
             let lastErrResp = null;
 
             for (const candidate of pathCandidates) {
-              const resp = await fetchContentsApi(creds, candidate);
-              if (resp.ok) {
-                successResp = resp;
-                resolvedPath = candidate;
+              try {
+                const resp = await fetchContentsApi(creds, candidate);
+                if (resp.ok) {
+                  successResp = resp;
+                  resolvedPath = candidate;
+                  lastPublicOutcome = 'ok';
+                  break;
+                }
+                lastErrResp = resp;
+                if (resp.status === 401) { lastPublicOutcome = 'unauthorized'; break; }
+                if (resp.status === 403) { lastPublicOutcome = 'rate_or_forbidden'; break; }
+              } catch (_) {
+                lastPublicOutcome = 'network_error';
                 break;
               }
-              lastErrResp = resp;
-              if (resp.status !== 404) break;
             }
 
-            if (!successResp) {
-              if (forceManual) {
-                throw new Error(await parseGhError(lastErrResp, 'No se pudo descargar el catálogo desde GitHub'));
+            if (successResp) {
+              const metaJson = await successResp.json();
+              if (!forceManual && metaJson && metaJson.sha && creds.lastRemoteFileSha && metaJson.sha === creds.lastRemoteFileSha) {
+                return false;
               }
-              return false;
+              const parsed = JSON.parse(base64ToUtf8(metaJson.content));
+              if (!forceManual && parsed && parsed.updatedAt && creds.lastRemoteUpdatedAt && parsed.updatedAt === creds.lastRemoteUpdatedAt && (!metaJson.sha || metaJson.sha === creds.lastRemoteFileSha)) {
+                return false;
+              }
+              return applyPulledPayload(parsed, resolvedPath, metaJson && metaJson.sha ? metaJson.sha : '');
             }
 
-            const metaJson = await successResp.json();
-            if (!forceManual && metaJson && metaJson.sha && metaJson.sha === creds.lastRemoteFileSha) {
-              return false;
+            if (creds.token && forceManual && lastErrResp) {
+              throw new Error(await parseGhError(lastErrResp, 'No se pudo descargar el catálogo desde GitHub'));
             }
-            const parsed = JSON.parse(base64ToUtf8(metaJson.content));
-            if (!forceManual && parsed && parsed.updatedAt && parsed.updatedAt === creds.lastRemoteUpdatedAt && (!metaJson.sha || metaJson.sha === creds.lastRemoteFileSha)) {
-              return false;
+            if (lastErrResp && lastErrResp.status === 404 && !creds.token) {
+              lastPublicOutcome = 'not_found_or_private';
             }
-            return applyPulledPayload(parsed, resolvedPath, metaJson && metaJson.sha ? metaJson.sha : '');
           }
 
-          const candidates = [];
+          // Respaldo público sin límite de API (raw.githubusercontent.com + Pages local)
+          const rawCandidates = [];
           if (creds.owner && creds.repo) {
-            const rawPath = encodeRepoPath(creds.filePath);
-            candidates.push(`https://raw.githubusercontent.com/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/${encodeURIComponent(creds.branch)}/${rawPath}?t=${Date.now()}`);
+            for (const p of pathCandidates) {
+              rawCandidates.push({
+                path: p,
+                url: `https://raw.githubusercontent.com/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/${encodeURIComponent(creds.branch)}/${encodeRepoPath(p)}?t=${Date.now()}`
+              });
+            }
           }
           if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
-            candidates.push(`./catalog.json?t=${Date.now()}`);
+            rawCandidates.push({ path: creds.filePath, url: `./catalog.json?t=${Date.now()}` });
           }
-          if (!candidates.length) {
-            if (forceManual) throw new Error('Configura el Usuario, Repositorio y Token de GitHub.');
+          if (!rawCandidates.length) {
+            if (forceManual) throw new Error('Configura el Usuario y Repositorio de GitHub.');
             return false;
           }
 
           let latestData = null;
-          for (const url of candidates) {
+          let latestPath = creds.filePath;
+          for (const entry of rawCandidates) {
             try {
-              const resp = await fetch(url, { cache: 'no-store' });
+              const resp = await fetch(entry.url, { cache: 'no-store' });
               if (!resp.ok) continue;
               const data = await resp.json();
               if (data && Array.isArray(data.stores) && Array.isArray(data.menuItems) && data.config) {
-                if (!latestData || String(data.updatedAt || '') > String(latestData.updatedAt || '')) {
+                if (!latestData || String(data.updatedAt || '') >= String(latestData.updatedAt || '')) {
                   latestData = data;
+                  latestPath = entry.path;
                 }
               }
             } catch (_) {}
@@ -2324,17 +2429,21 @@
             if (forceManual) throw new Error('No se encontró catalog.json en el repositorio.');
             return false;
           }
-          if (!forceManual && latestData.updatedAt && latestData.updatedAt === creds.lastRemoteUpdatedAt) {
+          lastPublicOutcome = 'ok';
+          if (!forceManual && creds.lastRemoteUpdatedAt && latestData.updatedAt && String(latestData.updatedAt) <= String(creds.lastRemoteUpdatedAt)) {
             return false;
           }
-          return applyPulledPayload(latestData, creds.filePath, '');
+          return applyPulledPayload(latestData, latestPath, '');
         }
 
         return {
           getCreds,
           hasSavedToken,
+          hasEverSynced,
+          getLastPublicOutcome,
           saveCreds,
           markUnpushedChanges,
+          triggerAutoCloudPush,
           testConnection,
           pushCatalog,
           pullRemoteCatalog
@@ -2574,6 +2683,21 @@
           </div>`;
       }
 
+      function isItemAvailable(item) {
+        if (!item) return false;
+        if (item.available === false) return false;
+        if (item.stock !== null && item.stock !== undefined && item.stock !== '' && Number(item.stock) <= 0) return false;
+        return true;
+      }
+
+      function getItemStockLabel(item) {
+        if (!isItemAvailable(item)) return 'Agotado';
+        if (item.stock !== null && item.stock !== undefined && item.stock !== '') {
+          return `Stock: ${Number(item.stock)}`;
+        }
+        return 'Disponible';
+      }
+
       function renderHomeView() {
         const rate = state.config.exchangeRateBsPerUsd;
         const { count } = getCartTotals();
@@ -2582,11 +2706,12 @@
         const storesHtml = state.stores.map((st) => {
           const storeItems = state.menuItems.filter((i) => i.storeId === st.id);
           const minUsd = storeItems.length ? Math.min(...storeItems.map((i) => i.priceUsd)) : 0;
+          const isStoreOpen = st.isOpen !== false;
           return `
-            <div class="store-card" data-open-store="${escapeHtml(st.id)}">
+            <div class="store-card" data-open-store="${escapeHtml(st.id)}" style="${isStoreOpen ? '' : 'opacity:0.75'}">
               <div class="store-card-banner">
                 <div>
-                  <span class="store-badge">${escapeHtml(st.badge || 'Comida Rápida')}</span>
+                  <span class="store-badge">${escapeHtml(isStoreOpen ? (st.badge || 'Comida Rápida') : '🔴 Cerrado temporalmente')}</span>
                   <h3 class="store-name">${escapeHtml(st.name)}</h3>
                   <div class="store-meta">${escapeHtml(st.etaMinutes || '20-30 min')} • ${storeItems.length} productos • ★ ${escapeHtml(st.rating || '4.9')}</div>
                 </div>
@@ -2602,11 +2727,13 @@
             </div>`;
         }).join('');
 
-        const highlightsHtml = piliItems.map((item) => `
-          <div class="quick-card" data-customize-item="${escapeHtml(item.id)}">
+        const highlightsHtml = piliItems.map((item) => {
+          const avail = isItemAvailable(item);
+          return `
+          <div class="quick-card" data-customize-item="${escapeHtml(item.id)}" style="${avail ? '' : 'opacity:0.65'}">
             <div>
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-                <span class="cat-kicker">${escapeHtml(item.category)}</span>
+                <span class="cat-kicker">${escapeHtml(avail ? item.category : 'Agotado')}</span>
                 ${getCategoryIcon(item.iconKey, '', 32)}
               </div>
               <div style="font-weight:800;font-size:15px">${escapeHtml(item.name)}</div>
@@ -2617,9 +2744,10 @@
                 <span class="price-usd" style="font-size:16px">${formatUsd(item.priceUsd)}</span>
                 <span class="price-bs">${formatBs(item.priceUsd, rate)}</span>
               </div>
-              <button class="btn-primary" style="flex:0;min-height:38px;padding:0 12px" data-quick-add="${escapeHtml(item.id)}">+</button>
+              <button class="btn-primary" style="flex:0;min-height:38px;padding:0 12px" data-quick-add="${escapeHtml(item.id)}" ${avail ? '' : 'disabled'}>${avail ? '+' : 'Agotado'}</button>
             </div>
-          </div>`).join('');
+          </div>`;
+        }).join('');
 
         return `
           <header class="hero-header">
@@ -2639,7 +2767,7 @@
             <div class="hero-pills-row">
               <button class="rate-pill" id="btn-quick-rate">💱 Tasa: ${formatRate(rate)}${state.isAdminUnlocked ? ' ✎' : ''}</button>
               <span class="wa-badge-pill">WhatsApp: ${escapeHtml(state.config.whatsappPhone)}</span>
-              ${GitHubSync.hasSavedToken() ? '<button class="wa-badge-pill" id="btn-live-sync" style="cursor:pointer;border:1px solid rgba(255,255,255,0.28)" title="Sincronizar cambios en tiempo real">🟢 En vivo ↻</button>' : ''}
+              <button class="wa-badge-pill" id="btn-live-sync" style="cursor:pointer;border:1px solid rgba(255,255,255,0.28)" title="Sincronizar cambios desde GitHub">🟢 En vivo ↻</button>
             </div>
             <p class="hero-desc">Comida rápida directo a tu puerta con factura en Bolívares y Dólares a la tasa del día. Sin registros obligatorios.</p>
           </header>
@@ -2678,8 +2806,13 @@
           `<button class="chip ${cat === state.selectedCategory ? 'active' : ''}" data-select-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</button>`
         ).join('');
 
-        const itemsHtml = filtered.map((item) => `
-          <div class="menu-card" data-customize-item="${escapeHtml(item.id)}">
+        const isStoreOpen = store.isOpen !== false;
+        const itemsHtml = filtered.map((item) => {
+          const avail = isStoreOpen && isItemAvailable(item);
+          const hasFiniteStock = item.stock !== null && item.stock !== undefined && item.stock !== '';
+          const stockNum = hasFiniteStock ? Number(item.stock) : null;
+          return `
+          <div class="menu-card" data-customize-item="${escapeHtml(item.id)}" style="${avail ? '' : 'opacity:0.65'}">
             <div class="menu-card-top">
               <div style="display:flex;gap:12px;align-items:flex-start;flex:1">
                 <div class="menu-item-icon">${getCategoryIcon(item.iconKey, '', 38)}</div>
@@ -2687,6 +2820,7 @@
                   <div>
                     <span class="cat-kicker">${escapeHtml(item.category)}</span>
                     ${item.isPopular ? '<span class="popular-tag">Top</span>' : ''}
+                    ${!isItemAvailable(item) ? '<span class="popular-tag" style="background:#FFEBEE;color:#B00020">Agotado</span>' : (hasFiniteStock && stockNum <= 5 ? `<span class="popular-tag" style="background:#FFF8E1;color:#8D5800">Quedan ${stockNum}</span>` : '')}
                   </div>
                   <h3 class="menu-item-title">${escapeHtml(item.name)}</h3>
                 </div>
@@ -2700,9 +2834,10 @@
             <div class="ingredients-box"><strong>Ingredientes:</strong> ${escapeHtml(item.ingredients.join(' • '))}</div>
             <div class="card-btn-row">
               <button class="btn-outline" data-customize-item="${escapeHtml(item.id)}">Ingredientes</button>
-              <button class="btn-primary" data-quick-add="${escapeHtml(item.id)}">+ Agregar</button>
+              <button class="btn-primary" data-quick-add="${escapeHtml(item.id)}" ${avail ? '' : 'disabled'}>${isStoreOpen ? (isItemAvailable(item) ? '+ Agregar' : 'Agotado') : 'Local cerrado'}</button>
             </div>
-          </div>`).join('');
+          </div>`;
+        }).join('');
 
         return `
           <div class="sub-topbar">
@@ -2710,11 +2845,12 @@
               <button class="icon-btn" id="btn-back-home" aria-label="Volver">${SVG_ICONS.back(20)}</button>
               <div>
                 <div style="font-size:18px;font-weight:800">${escapeHtml(store.name)}</div>
-                <div style="font-size:12px;opacity:0.9">${escapeHtml(store.etaMinutes)} • ★ ${escapeHtml(store.rating)}</div>
+                <div style="font-size:12px;opacity:0.9">${escapeHtml(store.etaMinutes)} • ★ ${escapeHtml(store.rating)}${isStoreOpen ? '' : ' • Cerrado'}</div>
               </div>
             </div>
             <button class="rate-pill" id="btn-quick-rate" style="font-size:12px;padding:6px 10px">${formatRate(rate)}</button>
           </div>
+          ${!isStoreOpen ? '<div class="error-banner" style="margin:12px 14px 0">🔴 Este local está cerrado temporalmente. Revisa otro local o vuelve más tarde.</div>' : ''}
           <div class="chips-row">${chipsHtml}</div>
           <div class="stack-list">${itemsHtml || '<div class="empty-state">No hay productos en esta categoría.</div>'}</div>
           ${renderFloatingCartBar()}`;
@@ -2974,20 +3110,26 @@
             const accKey = `store_${st.id}`;
             if (state.expandedAccordions[accKey] === undefined) state.expandedAccordions[accKey] = sIdx === 0;
             const isOpen = Boolean(state.expandedAccordions[accKey]);
-            const rows = items.map((item) => `
+            const storeActive = st.isOpen !== false;
+            const rows = items.map((item) => {
+              const avail = isItemAvailable(item);
+              const stockLbl = getItemStockLabel(item);
+              return `
               <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--outline)">
                 <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
                   ${getCategoryIcon(item.iconKey, '#D32F2F', 26)}
                   <div style="min-width:0">
                     <div style="font-weight:700;font-size:13.5px;word-break:break-word">${escapeHtml(item.name)}</div>
-                    <div style="font-size:12px;color:var(--text-muted)">${formatUsd(item.priceUsd)} • ${item.ingredients.length} ingredientes</div>
+                    <div style="font-size:12px;color:var(--text-muted)">${formatUsd(item.priceUsd)} • <span style="font-weight:700;color:${avail ? '#1B5E20' : '#B00020'}">${escapeHtml(stockLbl)}</span></div>
                   </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-                  <button class="chip" data-admin-edit-item="${escapeHtml(item.id)}" style="padding:6px 10px;font-size:12px">Editar</button>
-                  <button class="chip btn-danger-chip" data-admin-delete-item="${escapeHtml(item.id)}" aria-label="Eliminar ${escapeHtml(item.name)}" style="padding:6px 9px;font-size:12px">🗑️</button>
+                <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+                  <button class="chip ${avail ? '' : 'btn-danger-chip'}" data-admin-toggle-item="${escapeHtml(item.id)}" style="padding:6px 8px;font-size:11.5px" title="Cambiar disponibilidad en inventario">${avail ? '✓ Disp.' : '🚫 Agotado'}</button>
+                  <button class="chip" data-admin-edit-item="${escapeHtml(item.id)}" style="padding:6px 9px;font-size:12px">Editar</button>
+                  <button class="chip btn-danger-chip" data-admin-delete-item="${escapeHtml(item.id)}" aria-label="Eliminar ${escapeHtml(item.name)}" style="padding:6px 8px;font-size:12px">🗑️</button>
                 </div>
-              </div>`).join('');
+              </div>`;
+            }).join('');
             return `
               <div class="acc-card ${isOpen ? 'open' : ''}">
                 <button type="button" class="acc-trigger" data-acc-toggle="${escapeHtml(accKey)}">
@@ -2996,6 +3138,7 @@
                 </button>
                 <div class="admin-store-toolbar">
                   <button class="chip" data-admin-add-item="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">+ Producto</button>
+                  <button class="chip ${storeActive ? '' : 'btn-danger-chip'}" data-admin-toggle-store="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">${storeActive ? '🟢 Abierto' : '🔴 Cerrado'}</button>
                   <button class="chip btn-danger-chip" data-admin-delete-store="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">🗑️ Eliminar local</button>
                 </div>
                 <div class="acc-collapse">
@@ -3286,10 +3429,10 @@
               if (!val || val <= 0) return showToast('Tasa inválida');
               state.config.exchangeRateBsPerUsd = val;
               await ArismendiDB.saveConfig(state.config);
-              GitHubSync.markUnpushedChanges();
               close();
               showToast(`Tasa actualizada a ${formatRate(val)}`);
               render();
+              GitHubSync.triggerAutoCloudPush('Tasa del día');
             };
           }
         );
@@ -3297,6 +3440,8 @@
 
       function openItemCustomizerModal(item) {
         const rate = state.config.exchangeRateBsPerUsd;
+        const store = state.stores.find((s) => s.id === item.storeId);
+        const canOrder = (!store || store.isOpen !== false) && isItemAvailable(item);
         let qty = 1;
         let selected = [...item.ingredients];
         openModal(`
@@ -3312,6 +3457,7 @@
             <span style="font-size:13px;font-weight:700">Precio unitario</span>
             <span style="font-weight:900;color:var(--crimson-primary)">${formatUsd(item.priceUsd)} • ${formatBs(item.priceUsd, rate)}</span>
           </div>
+          ${!canOrder ? '<div class="error-banner">Este producto no está disponible actualmente (agotado o local cerrado).</div>' : ''}
           <div>
             <div style="font-size:13px;font-weight:800;margin-bottom:8px">Ingredientes (toca para quitar o incluir):</div>
             <div class="ing-chips">
@@ -3328,7 +3474,7 @@
               <strong id="m-qty-val">${qty}</strong>
               <button class="qty-btn" id="m-qty-inc">+</button>
             </div>
-            <button class="btn-primary" id="m-add-confirm" style="min-height:50px">Agregar • ${formatUsd(item.priceUsd)} (${formatBs(item.priceUsd, rate)})</button>
+            <button class="btn-primary" id="m-add-confirm" style="min-height:50px" ${canOrder ? '' : 'disabled'}>${canOrder ? `Agregar • ${formatUsd(item.priceUsd)} (${formatBs(item.priceUsd, rate)})` : 'No disponible'}</button>
           </div>`,
           (close) => {
             const sheet = document.querySelector('.bottom-sheet');
@@ -3344,11 +3490,14 @@
             });
             const updateTotals = () => {
               document.getElementById('m-qty-val').textContent = qty;
-              document.getElementById('m-add-confirm').textContent = `Agregar • ${formatUsd(item.priceUsd * qty)} (${formatBs(item.priceUsd * qty, rate)})`;
+              if (canOrder) {
+                document.getElementById('m-add-confirm').textContent = `Agregar • ${formatUsd(item.priceUsd * qty)} (${formatBs(item.priceUsd * qty, rate)})`;
+              }
             };
             document.getElementById('m-qty-dec').onclick = () => { if (qty > 1) { qty--; updateTotals(); } };
             document.getElementById('m-qty-inc').onclick = () => { qty++; updateTotals(); };
             document.getElementById('m-add-confirm').onclick = async () => {
+              if (!canOrder) return;
               const note = document.getElementById('m-item-note').value || '';
               await addItemToCart(item, qty, selected, note);
               close();
@@ -3358,9 +3507,10 @@
       }
 
       function openEditMenuItemModal(itemOrStoreId, isNew) {
-        const item = isNew ? { id: 'item_' + Date.now(), storeId: itemOrStoreId, name: '', category: 'Hamburguesas', description: '', priceUsd: 5.0, ingredients: ['Queso', 'Salsas'], iconKey: 'burger', isPopular: false } : itemOrStoreId;
+        const item = isNew ? { id: 'item_' + Date.now(), storeId: itemOrStoreId, name: '', category: 'Hamburguesas', description: '', priceUsd: 5.0, ingredients: ['Queso', 'Salsas'], iconKey: 'burger', isPopular: false, available: true, stock: null } : itemOrStoreId;
         const categories = ['Hamburguesas', 'Perros', 'Pepitos', 'Shawarmas', 'Pizzas', 'Pollo', 'Papas', 'Refrescos'];
         let selectedIconKey = item.iconKey || 'burger';
+        const hasStockVal = item.stock !== null && item.stock !== undefined && item.stock !== '';
         openModal(`
           <div style="display:flex;justify-content:space-between;align-items:center">
             <h3 style="margin:0">${isNew ? 'Nuevo Producto' : 'Editar ' + escapeHtml(item.name)}</h3>
@@ -3378,7 +3528,17 @@
                 </button>`).join('')}
             </div>
           </div>
-          <div class="field-group"><label class="field-label">Precio ($)</label><input id="ed-price" class="input" type="number" step="0.25" value="${item.priceUsd}" /></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="field-group"><label class="field-label">Precio ($)</label><input id="ed-price" class="input" type="number" step="0.25" value="${item.priceUsd}" /></div>
+            <div class="field-group"><label class="field-label">Inventario (vacío = ilimitado)</label><input id="ed-stock" class="input" type="number" min="0" step="1" placeholder="Ilimitado" value="${hasStockVal ? Number(item.stock) : ''}" /></div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Disponibilidad en menú</label>
+            <select id="ed-available" class="input">
+              <option value="true" ${item.available !== false ? 'selected' : ''}>✓ Disponible para clientes</option>
+              <option value="false" ${item.available === false ? 'selected' : ''}>🚫 Agotado / Pausado</option>
+            </select>
+          </div>
           <div class="field-group"><label class="field-label">Descripción</label><input id="ed-desc" class="input" type="text" value="${escapeHtml(item.description)}" /></div>
           <div class="field-group"><label class="field-label">Ingredientes (separados por coma)</label><textarea id="ed-ings" class="input textarea">${escapeHtml((item.ingredients || []).join(', '))}</textarea></div>
           <div class="card-btn-row">
@@ -3397,27 +3557,33 @@
               document.getElementById('ed-delete').onclick = async () => {
                 await ArismendiDB.deleteMenuItem(item.id);
                 state.menuItems = state.menuItems.filter((x) => x.id !== item.id);
-                GitHubSync.markUnpushedChanges();
                 close(); showToast('Producto eliminado'); render();
+                GitHubSync.triggerAutoCloudPush('Producto eliminado');
               };
             }
             document.getElementById('ed-save').onclick = async () => {
               const name = document.getElementById('ed-name').value.trim();
               const priceUsd = parseFloat(document.getElementById('ed-price').value);
               if (!name || !priceUsd || priceUsd <= 0) return showToast('Completa nombre y precio válido');
+              const rawStock = document.getElementById('ed-stock').value.trim();
+              const stockVal = rawStock === '' ? null : Math.max(0, Math.floor(Number(rawStock)));
+              let availVal = document.getElementById('ed-available').value === 'true';
+              if (stockVal !== null && stockVal <= 0) availVal = false;
               const updated = {
                 ...item, name,
                 category: document.getElementById('ed-cat').value,
                 iconKey: selectedIconKey,
                 priceUsd,
+                available: availVal,
+                stock: stockVal,
                 description: document.getElementById('ed-desc').value.trim(),
                 ingredients: document.getElementById('ed-ings').value.split(',').map((s) => s.trim()).filter(Boolean)
               };
               await ArismendiDB.saveMenuItem(updated);
               const idx = state.menuItems.findIndex((x) => x.id === updated.id);
               if (idx >= 0) state.menuItems[idx] = updated; else state.menuItems.push(updated);
-              GitHubSync.markUnpushedChanges();
               close(); showToast('Producto guardado'); render();
+              GitHubSync.triggerAutoCloudPush('Producto e inventario');
             };
           }
         );
@@ -3494,12 +3660,12 @@
             document.getElementById('st-save').onclick = async () => {
               const name = nameInput.value.trim();
               if (!name) return showToast('Escribe el nombre del local');
-              const newStore = { id: 'store_' + Date.now(), name, badge: 'Nuevo Local', tagline: tagInput.value.trim() || 'Comida rápida y delivery express', etaMinutes: '20-30 min', rating: '5.0', iconKey: selectedIconKey };
+              const newStore = { id: 'store_' + Date.now(), name, badge: 'Nuevo Local', tagline: tagInput.value.trim() || 'Comida rápida y delivery express', etaMinutes: '20-30 min', rating: '5.0', iconKey: selectedIconKey, isOpen: true };
               await ArismendiDB.saveStore(newStore);
               state.stores.push(newStore);
               state.expandedAccordions['store_' + newStore.id] = true;
-              GitHubSync.markUnpushedChanges();
               close(); showToast(`${name} guardado`); render();
+              GitHubSync.triggerAutoCloudPush('Nuevo local');
             };
           }
         );
@@ -3507,6 +3673,14 @@
 
       async function addItemToCart(item, qty, selectedIngredients, note) {
         const store = state.stores.find((s) => s.id === item.storeId);
+        if (store && store.isOpen === false) {
+          showToast('Este local está cerrado temporalmente');
+          return;
+        }
+        if (!isItemAvailable(item)) {
+          showToast('Este producto está agotado');
+          return;
+        }
         const cleanNote = (note || '').trim();
         const existing = state.cart.find((c) => c.menuItemId === item.id && JSON.stringify(c.selectedIngredients) === JSON.stringify(selectedIngredients) && c.note === cleanNote);
         if (existing) existing.quantity += qty;
@@ -3551,11 +3725,11 @@
         if (byId('btn-quick-rate')) byId('btn-quick-rate').onclick = () => requestAdminAccess(openQuickRateModal);
         if (byId('btn-open-admin')) byId('btn-open-admin').onclick = () => requestAdminAccess(() => goView('admin'));
         if (byId('btn-live-sync')) byId('btn-live-sync').onclick = async () => {
-          showToast('Sincronizando catálogo en tiempo real...');
+          showToast('Sincronizando cambios desde GitHub...');
           try {
-            const ok = await GitHubSync.pullRemoteCatalog(true);
+            const ok = await GitHubSync.pullRemoteCatalog(true, null, { useApi: true });
             render();
-            showToast(ok ? '✅ Menú, locales y tasa actualizados' : '✅ Ya estás al día');
+            showToast(ok ? '✅ Catálogo, inventario y tasa actualizados' : '✅ Ya estás al día');
           } catch (err) {
             showToast(err && err.message ? err.message : 'No se pudo sincronizar');
           }
@@ -3752,6 +3926,7 @@
           if (!(await collectConfigInputs())) return;
           showToast('Configuración local guardada');
           render();
+          GitHubSync.triggerAutoCloudPush('Configuración y tasa');
         };
 
         if (byId('btn-toggle-gh-token') && byId('gh-token')) {
@@ -3805,13 +3980,13 @@
             return;
           }
           state.isSyncingGitHub = true;
-          state.ghStatusBanner = { type: 'info', message: 'Subiendo locales, menú, precios y tasa del día a GitHub...' };
+          state.ghStatusBanner = { type: 'info', message: 'Subiendo locales, menú, inventario, precios y tasa del día a GitHub...' };
           render();
           try {
             const res = await GitHubSync.pushCatalog(creds);
             state.ghStatusBanner = {
               type: 'ok',
-              message: `✅ ¡Cambios subidos al repositorio! Commit ${res.commitSha || 'creado'}. Los clientes recibirán la actualización en segundos.`
+              message: `✅ ¡Cambios subidos al repositorio! Commit ${res.commitSha || 'creado'}. Todos los dispositivos recibirán la actualización en segundos.`
             };
             showToast('Cambios publicados en GitHub');
           } catch (err) {
@@ -3832,9 +4007,9 @@
           state.ghStatusBanner = { type: 'info', message: 'Descargando catálogo desde GitHub...' };
           render();
           try {
-            const ok = await GitHubSync.pullRemoteCatalog(true);
+            const ok = await GitHubSync.pullRemoteCatalog(true, null, { useApi: true });
             state.ghStatusBanner = ok
-              ? { type: 'ok', message: '⬇️ Catálogo, locales, menú y tasa actualizados desde GitHub.' }
+              ? { type: 'ok', message: '⬇️ Catálogo, locales, menú, inventario y tasa actualizados desde GitHub.' }
               : { type: 'info', message: 'No hubo cambios nuevos por aplicar.' };
             showToast(ok ? 'Catálogo actualizado desde GitHub' : 'Sin cambios nuevos');
           } catch (err) {
@@ -3859,11 +4034,38 @@
             if (!f) return;
             await ArismendiDB.importBackup(await f.text());
             Object.assign(state, await ArismendiDB.loadAllState());
-            GitHubSync.markUnpushedChanges();
             showToast('Base de datos restaurada'); render();
+            GitHubSync.triggerAutoCloudPush('Respaldo importado');
           };
         }
         document.querySelectorAll('[data-admin-edit-item]').forEach((el) => { el.onclick = () => { const item = state.menuItems.find((x) => x.id === el.getAttribute('data-admin-edit-item')); if (item) openEditMenuItemModal(item, false); }; });
+        document.querySelectorAll('[data-admin-toggle-item]').forEach((el) => {
+          el.onclick = async () => {
+            const item = state.menuItems.find((x) => x.id === el.getAttribute('data-admin-toggle-item'));
+            if (!item) return;
+            const currentlyAvail = isItemAvailable(item);
+            const nextAvail = !currentlyAvail;
+            const nextStock = nextAvail && item.stock !== null && Number(item.stock) <= 0 ? null : item.stock;
+            const updated = { ...item, available: nextAvail, stock: nextStock };
+            await ArismendiDB.saveMenuItem(updated);
+            state.menuItems = state.menuItems.map((x) => (x.id === updated.id ? updated : x));
+            showToast(`${updated.name}: ${nextAvail ? 'Disponible' : 'Agotado'}`);
+            render();
+            GitHubSync.triggerAutoCloudPush(`Inventario (${updated.name})`);
+          };
+        });
+        document.querySelectorAll('[data-admin-toggle-store]').forEach((el) => {
+          el.onclick = async () => {
+            const st = state.stores.find((s) => s.id === el.getAttribute('data-admin-toggle-store'));
+            if (!st) return;
+            const updated = { ...st, isOpen: st.isOpen === false };
+            await ArismendiDB.saveStore(updated);
+            state.stores = state.stores.map((s) => (s.id === updated.id ? updated : s));
+            showToast(`${updated.name}: ${updated.isOpen ? 'Abierto' : 'Cerrado'}`);
+            render();
+            GitHubSync.triggerAutoCloudPush(`Estado de ${updated.name}`);
+          };
+        });
         document.querySelectorAll('[data-admin-delete-item]').forEach((el) => {
           el.onclick = () => {
             const item = state.menuItems.find((x) => x.id === el.getAttribute('data-admin-delete-item'));
@@ -3876,9 +4078,9 @@
                 state.menuItems = state.menuItems.filter((x) => x.id !== item.id);
                 state.cart = state.cart.filter((c) => c.menuItemId !== item.id);
                 await ArismendiDB.replaceCart(state.cart);
-                GitHubSync.markUnpushedChanges();
                 showToast(`${item.name} eliminado`);
                 render();
+                GitHubSync.triggerAutoCloudPush('Producto eliminado');
               }
             );
           };
@@ -3901,16 +4103,16 @@
                 if (state.selectedStoreId === storeId) {
                   state.selectedStoreId = state.stores[0] ? state.stores[0].id : '';
                 }
-                GitHubSync.markUnpushedChanges();
                 showToast(`Local "${st.name}" eliminado`);
                 render();
+                GitHubSync.triggerAutoCloudPush('Local eliminado');
               }
             );
           };
         });
         document.querySelectorAll('[data-admin-add-item]').forEach((el) => { el.onclick = () => openEditMenuItemModal(el.getAttribute('data-admin-add-item'), true); });
         if (byId('btn-admin-new-store')) byId('btn-admin-new-store').onclick = openNewStoreModal;
-        if (byId('btn-admin-reset-catalog')) byId('btn-admin-reset-catalog').onclick = async () => { await ArismendiDB.resetCatalogToDefault(); const l = await ArismendiDB.loadAllState(); state.stores = l.stores; state.menuItems = l.menuItems; GitHubSync.markUnpushedChanges(); showToast('Menú restaurado'); render(); };
+        if (byId('btn-admin-reset-catalog')) byId('btn-admin-reset-catalog').onclick = async () => { await ArismendiDB.resetCatalogToDefault(); const l = await ArismendiDB.loadAllState(); state.stores = l.stores; state.menuItems = l.menuItems; showToast('Menú restaurado'); render(); GitHubSync.triggerAutoCloudPush('Menú restaurado'); };
         if (byId('btn-clear-orders')) byId('btn-clear-orders').onclick = async () => { await ArismendiDB.clearOrders(); state.orders = []; showToast('Historial limpiado'); render(); };
         if (byId('btn-clear-logs')) byId('btn-clear-logs').onclick = async () => { await ArismendiDB.clearUsageLogs(); state.usageLogs = []; showToast('Registro de uso limpiado'); render(); };
         if (byId('btn-preview-loyalty')) byId('btn-preview-loyalty').onclick = () => openLoyaltyRewardModal(true);
@@ -3931,26 +4133,33 @@
         });
       }
 
-      // Pantalla obligatoria inicial para ingresar el Token Personal de GitHub (en usuarios nuevos)
+      // Sincronización automática en la nube en tiempo real para TODOS los dispositivos instalados
       let realtimeSyncTimer = null;
+      let lastApiCheckAt = 0;
       function startRealtimeSyncLoop() {
         if (realtimeSyncTimer) return;
-        const runBackgroundPull = async () => {
+        const runBackgroundPull = async (forceApiCheck = false) => {
           if (document.hidden || state.isSyncingGitHub) return;
-          if (!GitHubSync.hasSavedToken()) return;
+          const hasTok = GitHubSync.hasSavedToken();
+          const now = Date.now();
+          // Con token: usa Contents API cada 15s (5,000 req/hr). Sin token: Contents API cada 75s (<48 req/hr) + raw/Pages cada 20s.
+          const minApiInterval = hasTok ? 12000 : 75000;
+          const useApi = hasTok || (forceApiCheck && (now - lastApiCheckAt >= 30000)) || (now - lastApiCheckAt >= minApiInterval);
+          if (useApi) lastApiCheckAt = now;
           try {
-            const updated = await GitHubSync.pullRemoteCatalog(false);
+            const updated = await GitHubSync.pullRemoteCatalog(false, null, { useApi });
             if (updated) {
               render();
-              showToast('🔄 Catálogo y precios actualizados en tiempo real');
+              showToast('🔄 Catálogo, inventario y precios actualizados desde GitHub');
             }
           } catch (_) {}
         };
-        realtimeSyncTimer = setInterval(runBackgroundPull, 15000);
+        realtimeSyncTimer = setInterval(() => runBackgroundPull(false), 15000);
         document.addEventListener('visibilitychange', () => {
-          if (!document.hidden) runBackgroundPull();
+          if (!document.hidden) runBackgroundPull(true);
         });
-        window.addEventListener('online', runBackgroundPull);
+        window.addEventListener('focus', () => runBackgroundPull(true));
+        window.addEventListener('online', () => runBackgroundPull(true));
       }
 
       function openMandatoryStartupTokenGate() {
@@ -3965,7 +4174,7 @@
                 <img src="icons/logo.png" alt="Logo Delivery Express Arismendi" class="startup-gate-logo" />
                 <div style="font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--crimson-primary);text-transform:uppercase">Delivery Express Arismendi</div>
                 <h2 id="gate-title" style="margin:0;font-size:21px;font-weight:900;color:var(--text-main)">Conectar con GitHub</h2>
-                <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.4">Para iniciar la aplicación y recibir los locales, menú y precios en tiempo real, introduce tu <b>Token Personal de GitHub</b>.</p>
+                <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.4">El repositorio requiere autenticación para descargar el catálogo inicial. Introduce el <b>Token Personal de GitHub</b>.</p>
               </div>
 
               <div class="startup-repo-summary">
@@ -4062,11 +4271,11 @@
 
           submitBtn.disabled = true;
           submitBtn.textContent = '⏳ Sincronizando con GitHub...';
-          setGateStatus('Conectando con el repositorio y descargando menú y tasa en tiempo real...', false);
+          setGateStatus('Conectando con el repositorio y descargando catálogo en tiempo real...', false);
 
           try {
             await GitHubSync.testConnection(enteredCreds, false);
-            await GitHubSync.pullRemoteCatalog(true, enteredCreds);
+            await GitHubSync.pullRemoteCatalog(true, enteredCreds, { useApi: true });
             const finalPath = (state.config && state.config.repoSync && state.config.repoSync.filePath) || enteredCreds.filePath;
             await GitHubSync.saveCreds({ ...enteredCreds, filePath: finalPath });
             root.innerHTML = '';
@@ -4092,19 +4301,20 @@
 
       // Pantalla de bienvenida animada antes de iniciar la app
       let splashDismissed = false;
-      let dbBootCompleted = false;
+      let initialBootReady = false;
       let pendingLoyaltyAfterSplash = false;
 
       function onBootReadyAndSplashDone() {
-        if (!splashDismissed || !dbBootCompleted) return;
-        if (!GitHubSync.hasSavedToken()) {
+        if (!splashDismissed || !initialBootReady) return;
+        startRealtimeSyncLoop();
+        const outcome = GitHubSync.getLastPublicOutcome();
+        if (!GitHubSync.hasSavedToken() && !GitHubSync.hasEverSynced() && (outcome === 'unauthorized' || outcome === 'not_found_or_private')) {
           openMandatoryStartupTokenGate();
-        } else {
-          startRealtimeSyncLoop();
-          if (pendingLoyaltyAfterSplash) {
-            pendingLoyaltyAfterSplash = false;
-            setTimeout(() => openLoyaltyRewardModal(), 260);
-          }
+          return;
+        }
+        if (pendingLoyaltyAfterSplash) {
+          pendingLoyaltyAfterSplash = false;
+          setTimeout(() => openLoyaltyRewardModal(), 260);
         }
       }
 
@@ -4131,7 +4341,7 @@
       }
       setTimeout(dismissSplashScreen, 1950);
 
-      // Render inmediato al instante + sincronización asíncrona con IndexedDB
+      // Render inmediato al instante + sincronización asíncrona con IndexedDB y GitHub
       render();
 
       if ((location.protocol === 'http:' || location.protocol === 'https:') && 'serviceWorker' in navigator) {
@@ -4174,19 +4384,26 @@
           await ArismendiDB.saveUserProfile(state.userProfile);
         }
         await recordActivity('app_open', 'Inicio de sesión en la aplicación');
-        render();
         if (state.userProfile && state.userProfile.loyaltyNotificationPending) {
           pendingLoyaltyAfterSplash = true;
         }
-        dbBootCompleted = true;
+        render();
+
+        // Desde instalación desde cero: descarga inmediatamente configuración, locales, productos, precios, inventario, tasa y delivery desde GitHub
+        const splashHint = document.querySelector('.splash-skip-hint');
+        if (splashHint) splashHint.textContent = 'Sincronizando catálogo y tasa desde la nube...';
+        try {
+          lastApiCheckAt = Date.now();
+          const updated = await GitHubSync.pullRemoteCatalog(false, null, { useApi: true });
+          if (updated) {
+            render();
+            if (splashDismissed) showToast('☁️ Catálogo descargado desde GitHub');
+          }
+        } catch (_) {}
+        initialBootReady = true;
         onBootReadyAndSplashDone();
-        if (GitHubSync.hasSavedToken()) {
-          GitHubSync.pullRemoteCatalog(false).then((updated) => {
-            if (updated) render();
-          }).catch(() => {});
-        }
       }).catch(() => {
-        dbBootCompleted = true;
+        initialBootReady = true;
         onBootReadyAndSplashDone();
       });
     })();
