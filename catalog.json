@@ -1,7 +1,7 @@
 {
-  "version": 15,
-  "releaseTag": "v1.0.15",
-  "updatedAt": "2026-11-15T17:09:14.204Z",
+  "version": 16,
+  "releaseTag": "v1.0.16",
+  "updatedAt": "2026-11-15T17:09:34.582Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -219,7 +219,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794762544329",
+      "storeId": "store_1794761464624",
+      "name": "Mini Hamburguesas",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "burger",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "b1af1f2a6416"
+  "stateHash": "953a9dd05d1e"
 }
