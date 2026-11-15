@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-15T13:49:12.019Z",
+  "updatedAt": "2026-11-15T13:50:19.013Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -25,15 +25,6 @@
       "etaMinutes": "20-30 min",
       "rating": "4.9",
       "iconKey": "burger"
-    },
-    {
-      "id": "rey_shawarma",
-      "name": "El Rey del Shawarma",
-      "badge": "Especialidad Árabe",
-      "tagline": "Auténtico trompo árabe, crema de ajo artesanal y pepitos",
-      "etaMinutes": "25-35 min",
-      "rating": "4.8",
-      "iconKey": "shawarma"
     }
   ],
   "menuItems": [
@@ -165,75 +156,6 @@
         "Tomate",
         "Cebolla morada",
         "Pepinillos"
-      ],
-      "iconKey": "shawarma",
-      "isPopular": false
-    },
-    {
-      "id": "rey_pepito_arabe",
-      "storeId": "rey_shawarma",
-      "name": "Pepito Árabe Especial",
-      "category": "Pepitos",
-      "description": "Pan canilla tostado relleno de carne de shawarma y queso fundido.",
-      "priceUsd": 8.5,
-      "ingredients": [
-        "Carne estilo shawarma",
-        "Queso mozzarella fundido",
-        "Crema de ajo",
-        "Tomate",
-        "Papas hilo"
-      ],
-      "iconKey": "pepito",
-      "isPopular": false
-    },
-    {
-      "id": "rey_refresco_355",
-      "storeId": "rey_shawarma",
-      "name": "Refresco 355ml",
-      "category": "Refrescos",
-      "description": "Lata fría (Coca-Cola, Chinotto o Frescolita).",
-      "priceUsd": 1.5,
-      "ingredients": [
-        "Coca-Cola",
-        "Chinotto",
-        "Frescolita"
-      ],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "rey_shawarma_mixto",
-      "storeId": "rey_shawarma",
-      "name": "Shawarma Mixto Supremo",
-      "category": "Shawarmas",
-      "description": "Carne y pollo al trompo con papas fritas por dentro y doble crema de ajo.",
-      "priceUsd": 7,
-      "ingredients": [
-        "Carne al trompo",
-        "Pollo al trompo",
-        "Crema de ajo",
-        "Salsa tahini",
-        "Repollo morado",
-        "Tomate",
-        "Pepinillos",
-        "Papas fritas"
-      ],
-      "iconKey": "shawarma",
-      "isPopular": true
-    },
-    {
-      "id": "rey_shawarma_pollo",
-      "storeId": "rey_shawarma",
-      "name": "Shawarma de Pollo Clásico",
-      "category": "Shawarmas",
-      "description": "Pollo especiado estilo árabe en pan pita recién tostado.",
-      "priceUsd": 5.5,
-      "ingredients": [
-        "Pollo especiado",
-        "Crema de ajo",
-        "Lechuga",
-        "Tomate",
-        "Cebolla morada"
       ],
       "iconKey": "shawarma",
       "isPopular": false
