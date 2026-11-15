@@ -1,7 +1,7 @@
 {
-  "version": 8,
-  "releaseTag": "v1.0.8",
-  "updatedAt": "2026-11-15T16:55:56.056Z",
+  "version": 9,
+  "releaseTag": "v1.0.9",
+  "updatedAt": "2026-11-15T16:57:12.418Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -123,10 +123,10 @@
     {
       "id": "pili_perro_caliente",
       "storeId": "pili_burger",
-      "name": "Perro Caliente Pili",
+      "name": "Perro Normal",
       "category": "Perros",
       "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
-      "priceUsd": 2.5,
+      "priceUsd": 1,
       "ingredients": [
         "Salchicha al vapor",
         "Pan suave",
@@ -146,10 +146,10 @@
     {
       "id": "pili_refresco_15l",
       "storeId": "pili_burger",
-      "name": "Refresco Familiar 1.5L",
+      "name": "Refresco Familiar 1L",
       "category": "Refrescos",
       "description": "Botella familiar de 1.5 litros bien fría.",
-      "priceUsd": 3,
+      "priceUsd": 1,
       "ingredients": [
         "Coca-Cola 1.5L",
         "Chinotto 1.5L",
@@ -161,30 +161,12 @@
       "stock": null
     },
     {
-      "id": "pili_refresco_lata",
-      "storeId": "pili_burger",
-      "name": "Refresco Frío 355ml",
-      "category": "Refrescos",
-      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
-      "priceUsd": 1.5,
-      "ingredients": [
-        "Coca-Cola",
-        "Chinotto",
-        "Frescolita",
-        "Bien frío"
-      ],
-      "iconKey": "soda",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
       "id": "pili_shawarma_arabe",
       "storeId": "pili_burger",
-      "name": "Shawarma Árabe Pili",
+      "name": "Shawarma",
       "category": "Shawarmas",
       "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
-      "priceUsd": 6.5,
+      "priceUsd": 6,
       "ingredients": [
         "Pollo y carne marinada",
         "Pan pita tostado",
@@ -200,5 +182,5 @@
       "stock": null
     }
   ],
-  "stateHash": "3610cc8235f8"
+  "stateHash": "a0c58782d641"
 }
