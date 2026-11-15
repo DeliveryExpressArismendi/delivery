@@ -1,0 +1,245 @@
+name: 🤖 Arismendi Auto-Version & Release Bot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'catalog.json'
+      - 'docs/catalog.json'
+      - 'index.html'
+      - 'docs/index.html'
+      - 'manifest.webmanifest'
+      - 'docs/manifest.webmanifest'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: arismendi-auto-release
+  cancel-in-progress: false
+
+jobs:
+  auto_version_release:
+    if: "github.event_name == 'workflow_dispatch' || (!contains(github.event.head_commit.message, '[skip ci]') && github.actor != 'github-actions[bot]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🤖 Generar nueva versión de catálogo, inventario y Service Worker
+        id: bot
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SHORT_SHA: ${{ github.sha }}
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+          const crypto = require('crypto');
+
+          const candidateDirs = ['.', 'docs'].filter((dir) =>
+            fs.existsSync(path.join(dir, 'catalog.json'))
+          );
+
+          if (candidateDirs.length === 0) {
+            console.log('No se encontró catalog.json en raíz ni en docs/. Saliendo.');
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'changed=false\n');
+            process.exit(0);
+          }
+
+          let maxVersion = 2;
+          let primaryData = null;
+          let primaryDir = candidateDirs[0];
+
+          for (const dir of candidateDirs) {
+            const cat = JSON.parse(fs.readFileSync(path.join(dir, 'catalog.json'), 'utf8'));
+            const verPath = path.join(dir, 'version.json');
+            const prevVer = fs.existsSync(verPath)
+              ? JSON.parse(fs.readFileSync(verPath, 'utf8'))
+              : {};
+            maxVersion = Math.max(
+              maxVersion,
+              Number(cat.version || 2),
+              Number(prevVer.version || 2)
+            );
+            if (!primaryData || String(cat.updatedAt || '') >= String(primaryData.updatedAt || '')) {
+              primaryData = cat;
+              primaryDir = dir;
+            }
+          }
+
+          const normalizeState = (cat) => ({
+            config: cat.config || {},
+            stores: Array.isArray(cat.stores) ? cat.stores : [],
+            menuItems: Array.isArray(cat.menuItems) ? cat.menuItems : []
+          });
+
+          const stateHash = crypto
+            .createHash('sha256')
+            .update(JSON.stringify(normalizeState(primaryData)))
+            .digest('hex')
+            .slice(0, 12);
+
+          const primaryVerPath = path.join(primaryDir, 'version.json');
+          const prevPrimaryVer = fs.existsSync(primaryVerPath)
+            ? JSON.parse(fs.readFileSync(primaryVerPath, 'utf8'))
+            : {};
+
+          const nextVersion = maxVersion + 1;
+          const releaseTag = `v1.0.${nextVersion}`;
+          const nowIso = new Date().toISOString();
+
+          const stores = Array.isArray(primaryData.stores) ? primaryData.stores : [];
+          const items = Array.isArray(primaryData.menuItems) ? primaryData.menuItems : [];
+          const cfg = primaryData.config || {};
+
+          const isItemAvail = (item) => {
+            if (!item || item.available === false) return false;
+            if (item.stock !== null && item.stock !== undefined && item.stock !== '' && Number(item.stock) <= 0) {
+              return false;
+            }
+            return true;
+          };
+
+          const openStores = stores.filter((s) => s.isOpen !== false);
+          const closedStores = stores.filter((s) => s.isOpen === false);
+          const availItems = items.filter(isItemAvail);
+          const outItems = items.filter((i) => !isItemAvail(i));
+
+          const updatedCatalog = {
+            ...primaryData,
+            version: nextVersion,
+            releaseTag,
+            stateHash,
+            updatedAt: nowIso
+          };
+
+          const versionManifest = {
+            version: nextVersion,
+            releaseTag,
+            stateHash,
+            updatedAt: updatedCatalog.updatedAt,
+            generatedAt: nowIso,
+            generatedBy: 'github-actions-robot',
+            summary: {
+              exchangeRateBsPerUsd: Number(cfg.exchangeRateBsPerUsd || 0),
+              deliveryFeeUsd: Number(cfg.deliveryFeeUsd || 0),
+              whatsappPhone: String(cfg.whatsappPhone || ''),
+              storesTotal: stores.length,
+              storesOpen: openStores.length,
+              storesClosed: closedStores.length,
+              itemsTotal: items.length,
+              itemsAvailable: availItems.length,
+              itemsOutOfStock: outItems.length
+            }
+          };
+
+          for (const dir of candidateDirs) {
+            fs.writeFileSync(
+              path.join(dir, 'catalog.json'),
+              JSON.stringify(updatedCatalog, null, 2) + '\n',
+              'utf8'
+            );
+            fs.writeFileSync(
+              path.join(dir, 'version.json'),
+              JSON.stringify(versionManifest, null, 2) + '\n',
+              'utf8'
+            );
+
+            const swPath = path.join(dir, 'sw.js');
+            if (fs.existsSync(swPath)) {
+              let swContent = fs.readFileSync(swPath, 'utf8');
+              swContent = swContent.replace(
+                /const CACHE_NAME\s*=\s*['"][^'"]+['"]\s*;/,
+                `const CACHE_NAME = 'arismendi-express-${releaseTag}';`
+              );
+              fs.writeFileSync(swPath, swContent, 'utf8');
+            }
+          }
+
+          const storeLines = stores.map((st) => {
+            const count = items.filter((i) => i.storeId === st.id).length;
+            const icon = st.isOpen !== false ? '🟢 Abierto' : '🔴 Cerrado';
+            return `- **${st.name}**: ${icon} (${count} productos)`;
+          });
+
+          const outLines = outItems.slice(0, 15).map((i) => `- 🚫 ${i.name} ($${Number(i.priceUsd || 0).toFixed(2)})`);
+          const lowStockLines = items
+            .filter((i) => i.available !== false && i.stock !== null && i.stock !== undefined && i.stock !== '' && Number(i.stock) > 0)
+            .slice(0, 15)
+            .map((i) => `- 📦 ${i.name}: **${Number(i.stock)}** unid. ($${Number(i.priceUsd || 0).toFixed(2)})`);
+
+          const releaseNotes = [
+            `## 🤖 Actualización Automática ${releaseTag}`,
+            '',
+            `- 💱 **Tasa del día:** ${Number(cfg.exchangeRateBsPerUsd || 0)} Bs/$`,
+            `- 🛵 **Delivery:** $${Number(cfg.deliveryFeeUsd || 0).toFixed(2)}`,
+            `- 🏪 **Locales:** ${openStores.length} abiertos / ${closedStores.length} cerrados (Total: ${stores.length})`,
+            `- 🍔 **Productos:** ${availItems.length} disponibles / ${outItems.length} agotados (Total: ${items.length})`,
+            `- 🔒 **Hash de estado:** \`${stateHash}\``,
+            '',
+            '### Estado de Locales',
+            ...(storeLines.length ? storeLines : ['- Sin locales registrados']),
+            ...(lowStockLines.length ? ['', '### Inventario con Stock Controlado', ...lowStockLines] : []),
+            ...(outLines.length ? ['', '### Productos Agotados', ...outLines] : [])
+          ].join('\n');
+
+          fs.writeFileSync('/tmp/release_notes.md', releaseNotes, 'utf8');
+
+          const out = [
+            'changed=true',
+            `release_tag=${releaseTag}`,
+            `version_num=${nextVersion}`,
+            `rate=${Number(cfg.exchangeRateBsPerUsd || 0)}`,
+            `primary_dir=${primaryDir}`
+          ].join('\n') + '\n';
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, out);
+          console.log(`Versión generada: ${releaseTag} (Hash: ${stateHash})`);
+          EOF
+
+      - name: 💾 Publicar nueva versión en el repositorio
+        if: steps.bot.outputs.changed == 'true'
+        run: |
+          git config user.name "Arismendi Release Bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sin cambios en archivos para confirmar."
+          else
+            git commit -m "🤖 Auto-Versión ${{ steps.bot.outputs.release_tag }} • Tasa ${{ steps.bot.outputs.rate }} Bs/$ [skip ci]"
+            git pull --rebase origin main || true
+            git push origin HEAD:main
+          fi
+
+      - name: 🚀 Crear GitHub Release automático
+        if: steps.bot.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ steps.bot.outputs.release_tag }}
+          PRIMARY_DIR: ${{ steps.bot.outputs.primary_dir }}
+        run: |
+          if git rev-parse "$RELEASE_TAG" >/dev/null 2>&1; then
+            RELEASE_TAG="${RELEASE_TAG}-r${{ github.run_number }}"
+          fi
+          ASSETS=""
+          if [ -f "${PRIMARY_DIR}/catalog.json" ]; then
+            ASSETS="${ASSETS} ${PRIMARY_DIR}/catalog.json"
+          fi
+          if [ -f "${PRIMARY_DIR}/version.json" ]; then
+            ASSETS="${ASSETS} ${PRIMARY_DIR}/version.json"
+          fi
+          gh release create "$RELEASE_TAG" \
+            --target main \
+            --title "Delivery Express Arismendi $RELEASE_TAG" \
+            --notes-file /tmp/release_notes.md \
+            ${ASSETS}
