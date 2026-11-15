@@ -1,7 +1,7 @@
 {
   "version": 4,
   "releaseTag": "v1.0.4",
-  "updatedAt": "2026-11-15T16:51:16.066Z",
+  "updatedAt": "2026-11-15T16:51:37.146Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -185,7 +185,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794761474232",
+      "storeId": "store_1794761464624",
+      "name": "Perro Normal",
+      "category": "Perros",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "hotdog",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "6ac7f4e13e66"
+  ]
 }
