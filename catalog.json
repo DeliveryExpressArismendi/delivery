@@ -1,7 +1,7 @@
 {
-  "version": 18,
-  "releaseTag": "v1.0.18",
-  "updatedAt": "2026-11-15T17:11:37.052Z",
+  "version": 19,
+  "releaseTag": "v1.0.19",
+  "updatedAt": "2026-11-15T17:12:52.433Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -258,7 +258,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794762743987",
+      "storeId": "store_1794761464624",
+      "name": "Pepito",
+      "category": "Pepitos",
+      "description": "",
+      "priceUsd": 7,
+      "ingredients": [],
+      "iconKey": "pepito",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "a16ed3a30915"
+  "stateHash": "0f480b90d0c2"
 }
