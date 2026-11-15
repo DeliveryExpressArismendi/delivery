@@ -1137,8 +1137,48 @@
       const LS_KEY = 'arismendi_fallback_db_v2';
       const LEGACY_LS_KEY = 'arismendi_fallback_db_v1';
       const LS_UID_KEY = 'arismendi_uid_v1';
+      const LS_DELETED_STORES_KEY = 'arismendi_deleted_stores_v1';
       let dbPromise = null;
       let useMemoryFallback = false;
+
+      function getDeletedStoreIds() {
+        try {
+          if (window.localStorage) {
+            const raw = localStorage.getItem(LS_DELETED_STORES_KEY);
+            if (raw) {
+              const arr = JSON.parse(raw);
+              if (Array.isArray(arr)) return arr;
+            }
+          }
+        } catch (_) {}
+        return [];
+      }
+
+      function saveDeletedStoreIds(ids) {
+        try {
+          if (window.localStorage) {
+            localStorage.setItem(LS_DELETED_STORES_KEY, JSON.stringify([...new Set(ids)]));
+          }
+        } catch (_) {}
+      }
+
+      function markStoreDeleted(storeId) {
+        if (!storeId) return;
+        const ids = getDeletedStoreIds();
+        if (!ids.includes(storeId)) {
+          ids.push(storeId);
+          saveDeletedStoreIds(ids);
+        }
+      }
+
+      function unmarkStoreDeleted(storeId) {
+        if (!storeId) return;
+        saveDeletedStoreIds(getDeletedStoreIds().filter((id) => id !== storeId));
+      }
+
+      function clearDeletedStoreIds() {
+        saveDeletedStoreIds([]);
+      }
 
       function createRandomUserId() {
         const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -1208,222 +1248,13 @@
         }
       };
 
-      const SEED_STORES = [
-        {
-          id: 'pili_burger',
-          name: 'Pili Burger',
-          badge: 'Más Popular',
-          tagline: 'Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos',
-          etaMinutes: '20-30 min',
-          rating: '4.9',
-          iconKey: 'burger',
-          isOpen: true
-        },
-        {
-          id: 'rey_shawarma',
-          name: 'El Rey del Shawarma',
-          badge: 'Especialidad Árabe',
-          tagline: 'Auténtico trompo árabe, crema de ajo artesanal y pepitos',
-          etaMinutes: '25-35 min',
-          rating: '4.8',
-          iconKey: 'shawarma',
-          isOpen: true
-        },
-        {
-          id: 'esquina_perro',
-          name: 'La Esquina del Perro',
-          badge: 'Entrega Rápida',
-          tagline: 'Perros calientes full equipo, combos y pepitos gratinados',
-          etaMinutes: '15-25 min',
-          rating: '4.8',
-          iconKey: 'hotdog',
-          isOpen: true
-        }
-      ];
-
-      const SEED_MENU_ITEMS = [
-        {
-          id: 'pili_hamburguesa_clasica',
-          storeId: 'pili_burger',
-          name: 'Hamburguesa Clásica Pili',
-          category: 'Hamburguesas',
-          description: 'Pan brioche artesanal con carne a la parrilla y vegetales frescos.',
-          priceUsd: 5.0,
-          ingredients: ['Carne de res 150g', 'Queso amarillo', 'Jamón', 'Lechuga', 'Tomate', 'Cebolla', 'Papas ralladas', 'Salsa de ajo', 'Salsa rosada'],
-          iconKey: 'burger',
-          isPopular: true
-        },
-        {
-          id: 'pili_hamburguesa_doble',
-          storeId: 'pili_burger',
-          name: 'Hamburguesa Doble Especial',
-          category: 'Hamburguesas',
-          description: 'Doble carne jugosa, doble cheddar, tocineta crocante y huevo.',
-          priceUsd: 7.5,
-          ingredients: ['Doble carne de res', 'Doble queso cheddar', 'Tocineta crocante', 'Huevo frito', 'Lechuga', 'Tomate', 'Papas ralladas', 'Salsa especial Pili'],
-          iconKey: 'burger',
-          isPopular: true
-        },
-        {
-          id: 'pili_perro_caliente',
-          storeId: 'pili_burger',
-          name: 'Perro Caliente Pili',
-          category: 'Perros',
-          description: 'Clásico perro caliente callejero bien resuelto y con salsas al gusto.',
-          priceUsd: 2.5,
-          ingredients: ['Salchicha al vapor', 'Pan suave', 'Repollo', 'Cebolla picada', 'Papas hilo', 'Queso blanco rallado', 'Kétchup', 'Mostaza', 'Salsa de ajo'],
-          iconKey: 'hotdog',
-          isPopular: true
-        },
-        {
-          id: 'pili_pepito_mixto',
-          storeId: 'pili_burger',
-          name: 'Pepito Mixto Pili',
-          category: 'Pepitos',
-          description: 'Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.',
-          priceUsd: 8.0,
-          ingredients: ['Carne a la plancha', 'Pollo a la plancha', 'Tocineta', 'Queso blanco fundido', 'Maíz dulce', 'Aguacate', 'Papas hilo', 'Salsa de ajo y tártara'],
-          iconKey: 'pepito',
-          isPopular: true
-        },
-        {
-          id: 'pili_shawarma_arabe',
-          storeId: 'pili_burger',
-          name: 'Shawarma Árabe Pili',
-          category: 'Shawarmas',
-          description: 'Pan pita dorado al grill con pollo o carne marinada y crema de ajo.',
-          priceUsd: 6.5,
-          ingredients: ['Pollo y carne marinada', 'Pan pita tostado', 'Crema de ajo libanesa', 'Lechuga', 'Tomate', 'Cebolla morada', 'Pepinillos'],
-          iconKey: 'shawarma',
-          isPopular: false
-        },
-        {
-          id: 'pili_refresco_lata',
-          storeId: 'pili_burger',
-          name: 'Refresco Frío 355ml',
-          category: 'Refrescos',
-          description: 'Bebida gaseosa bien fría para acompañar tu comida.',
-          priceUsd: 1.5,
-          ingredients: ['Coca-Cola', 'Chinotto', 'Frescolita', 'Bien frío'],
-          iconKey: 'soda',
-          isPopular: false
-        },
-        {
-          id: 'pili_refresco_15l',
-          storeId: 'pili_burger',
-          name: 'Refresco Familiar 1.5L',
-          category: 'Refrescos',
-          description: 'Botella familiar de 1.5 litros bien fría.',
-          priceUsd: 3.0,
-          ingredients: ['Coca-Cola 1.5L', 'Chinotto 1.5L', 'Frescolita 1.5L'],
-          iconKey: 'soda',
-          isPopular: false
-        },
-        {
-          id: 'rey_shawarma_mixto',
-          storeId: 'rey_shawarma',
-          name: 'Shawarma Mixto Supremo',
-          category: 'Shawarmas',
-          description: 'Carne y pollo al trompo con papas fritas por dentro y doble crema de ajo.',
-          priceUsd: 7.0,
-          ingredients: ['Carne al trompo', 'Pollo al trompo', 'Crema de ajo', 'Salsa tahini', 'Repollo morado', 'Tomate', 'Pepinillos', 'Papas fritas'],
-          iconKey: 'shawarma',
-          isPopular: true
-        },
-        {
-          id: 'rey_shawarma_pollo',
-          storeId: 'rey_shawarma',
-          name: 'Shawarma de Pollo Clásico',
-          category: 'Shawarmas',
-          description: 'Pollo especiado estilo árabe en pan pita recién tostado.',
-          priceUsd: 5.5,
-          ingredients: ['Pollo especiado', 'Crema de ajo', 'Lechuga', 'Tomate', 'Cebolla morada'],
-          iconKey: 'shawarma',
-          isPopular: false
-        },
-        {
-          id: 'rey_pepito_arabe',
-          storeId: 'rey_shawarma',
-          name: 'Pepito Árabe Especial',
-          category: 'Pepitos',
-          description: 'Pan canilla tostado relleno de carne de shawarma y queso fundido.',
-          priceUsd: 8.5,
-          ingredients: ['Carne estilo shawarma', 'Queso mozzarella fundido', 'Crema de ajo', 'Tomate', 'Papas hilo'],
-          iconKey: 'pepito',
-          isPopular: false
-        },
-        {
-          id: 'rey_refresco_355',
-          storeId: 'rey_shawarma',
-          name: 'Refresco 355ml',
-          category: 'Refrescos',
-          description: 'Lata fría (Coca-Cola, Chinotto o Frescolita).',
-          priceUsd: 1.5,
-          ingredients: ['Coca-Cola', 'Chinotto', 'Frescolita'],
-          iconKey: 'soda',
-          isPopular: false
-        },
-        {
-          id: 'esquina_perro_super',
-          storeId: 'esquina_perro',
-          name: 'Perro Súper Especial',
-          category: 'Perros',
-          description: 'Salchicha polaca con queso amarillo, tocineta y lluvia de papas hilo.',
-          priceUsd: 3.0,
-          ingredients: ['Salchicha polaca', 'Queso amarillo', 'Tocineta', 'Repollo', 'Cebolla', 'Papas hilo', 'Queso rallado', 'Salsas de la casa'],
-          iconKey: 'hotdog',
-          isPopular: true
-        },
-        {
-          id: 'esquina_combo_perros',
-          storeId: 'esquina_perro',
-          name: 'Combo 2 Perros + Refresco',
-          category: 'Perros',
-          description: 'Dos perros calientes clásicos con todo más un refresco de 355ml.',
-          priceUsd: 5.5,
-          ingredients: ['2 Perros clásicos', 'Repollo y cebolla', 'Papas hilo', 'Queso rallado', 'Refresco 355ml', 'Salsas variadas'],
-          iconKey: 'hotdog',
-          isPopular: true
-        },
-        {
-          id: 'esquina_pepito_gratinado',
-          storeId: 'esquina_perro',
-          name: 'Pepito Gratinado XL',
-          category: 'Pepitos',
-          description: '35cm de puro sabor con lomo, pollo, maíz, tocineta y queso gratinado.',
-          priceUsd: 9.0,
-          ingredients: ['Lomo de res', 'Pechuga de pollo', 'Tocineta', 'Maíz', 'Queso gratinado', 'Papas hilo', 'Salsa de ajo y rosada'],
-          iconKey: 'pepito',
-          isPopular: false
-        },
-        {
-          id: 'esquina_hamburguesa',
-          storeId: 'esquina_perro',
-          name: 'Hamburguesa Callejera',
-          category: 'Hamburguesas',
-          description: 'Carne a la plancha con jamón, queso, repollo y papas ralladas.',
-          priceUsd: 4.5,
-          ingredients: ['Carne a la plancha', 'Queso amarillo', 'Jamón', 'Repollo', 'Tomate', 'Papas ralladas', 'Salsa tártara'],
-          iconKey: 'burger',
-          isPopular: false
-        },
-        {
-          id: 'esquina_refresco_15l',
-          storeId: 'esquina_perro',
-          name: 'Refresco 1.5L',
-          category: 'Refrescos',
-          description: 'Refresco familiar bien frío.',
-          priceUsd: 3.0,
-          ingredients: ['Coca-Cola 1.5L', 'Frescolita 1.5L', 'Chinotto 1.5L'],
-          iconKey: 'soda',
-          isPopular: false
-        }
-      ];
+      const SEED_STORES = [];
+      const SEED_MENU_ITEMS = [];
 
       let memoryDb = {
         config: { ...DEFAULT_CONFIG },
-        stores: JSON.parse(JSON.stringify(SEED_STORES)),
-        menuItems: JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+        stores: [],
+        menuItems: [],
         cart: [],
         orders: [],
         userProfile: makeDefaultProfile(),
@@ -1433,8 +1264,8 @@
       function getSeedSnapshot() {
         return {
           config: { ...DEFAULT_CONFIG },
-          stores: JSON.parse(JSON.stringify(SEED_STORES)),
-          menuItems: JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+          stores: [],
+          menuItems: [],
           cart: [],
           orders: [],
           userProfile: makeDefaultProfile(getOrCreatePersistentUserId()),
@@ -1443,6 +1274,7 @@
       }
 
       function readFallback() {
+        const deletedSet = new Set(getDeletedStoreIds());
         try {
           const raw = window.localStorage && (localStorage.getItem(LS_KEY) || localStorage.getItem(LEGACY_LS_KEY));
           if (raw) {
@@ -1451,8 +1283,8 @@
             try { if (window.localStorage) localStorage.setItem(LS_UID_KEY, uid); } catch (_) {}
             memoryDb = {
               config: parsed.config || { ...DEFAULT_CONFIG },
-              stores: Array.isArray(parsed.stores) && parsed.stores.length ? parsed.stores : JSON.parse(JSON.stringify(SEED_STORES)),
-              menuItems: Array.isArray(parsed.menuItems) && parsed.menuItems.length ? parsed.menuItems : JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+              stores: Array.isArray(parsed.stores) ? parsed.stores.filter((s) => !deletedSet.has(s.id)) : [],
+              menuItems: Array.isArray(parsed.menuItems) ? parsed.menuItems.filter((i) => !deletedSet.has(i.storeId)) : [],
               cart: Array.isArray(parsed.cart) ? parsed.cart : [],
               orders: Array.isArray(parsed.orders) ? parsed.orders : [],
               userProfile: parsed.userProfile ? { ...makeDefaultProfile(uid), ...parsed.userProfile } : makeDefaultProfile(uid),
@@ -1533,14 +1365,6 @@
       async function seedIfEmpty() {
         const existingConfig = await withStore('config', 'readonly', (s) => s.get('business_config'));
         if (!existingConfig) await put('config', DEFAULT_CONFIG);
-        const existingStores = await getAll('stores');
-        if (!existingStores || existingStores.length === 0) {
-          for (const st of SEED_STORES) await put('stores', st);
-        }
-        const existingItems = await getAll('menu_items');
-        if (!existingItems || existingItems.length === 0) {
-          for (const item of SEED_MENU_ITEMS) await put('menu_items', item);
-        }
         const existingProfile = await withStore('user_profile', 'readonly', (s) => s.get('current_user'));
         if (!existingProfile) {
           await put('user_profile', makeDefaultProfile(getOrCreatePersistentUserId()));
@@ -1550,6 +1374,7 @@
       }
 
       async function loadAllState() {
+        const deletedSet = new Set(getDeletedStoreIds());
         try {
           await seedIfEmpty();
           const [config, stores, menuItems, cart, orders, userProfile, usageLogs] = await Promise.all([
@@ -1561,12 +1386,14 @@
             withStore('user_profile', 'readonly', (s) => s.get('current_user')),
             getAll('usage_logs')
           ]);
+          const cleanStores = Array.isArray(stores) ? stores.filter((s) => !deletedSet.has(s.id)) : [];
+          const cleanItems = Array.isArray(menuItems) ? menuItems.filter((i) => !deletedSet.has(i.storeId)) : [];
           const safeOrders = (orders || []).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
           const safeLogs = (usageLogs || []).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)).slice(0, 200);
           return {
             config: config || { ...DEFAULT_CONFIG },
-            stores: stores && stores.length ? stores : JSON.parse(JSON.stringify(SEED_STORES)),
-            menuItems: menuItems && menuItems.length ? menuItems : JSON.parse(JSON.stringify(SEED_MENU_ITEMS)),
+            stores: cleanStores,
+            menuItems: cleanItems,
             cart: cart || [],
             orders: safeOrders,
             userProfile: userProfile || makeDefaultProfile(getOrCreatePersistentUserId()),
@@ -1609,6 +1436,7 @@
       }
 
       async function saveStore(storeObj) {
+        if (storeObj && storeObj.id) unmarkStoreDeleted(storeObj.id);
         if (useMemoryFallback) {
           const idx = memoryDb.stores.findIndex((s) => s.id === storeObj.id);
           if (idx >= 0) memoryDb.stores[idx] = storeObj; else memoryDb.stores.push(storeObj);
@@ -1638,6 +1466,7 @@
       }
 
       async function deleteStore(storeId) {
+        markStoreDeleted(storeId);
         if (useMemoryFallback) {
           memoryDb.stores = memoryDb.stores.filter((s) => s.id !== storeId);
           memoryDb.menuItems = memoryDb.menuItems.filter((i) => i.storeId !== storeId);
@@ -1675,16 +1504,15 @@
       }
 
       async function resetCatalogToDefault() {
+        clearDeletedStoreIds();
         if (useMemoryFallback) {
-          memoryDb.stores = JSON.parse(JSON.stringify(SEED_STORES));
-          memoryDb.menuItems = JSON.parse(JSON.stringify(SEED_MENU_ITEMS));
+          memoryDb.stores = [];
+          memoryDb.menuItems = [];
           writeFallback();
           return;
         }
         await clearStore('stores');
         await clearStore('menu_items');
-        for (const st of SEED_STORES) await put('stores', st);
-        for (const item of SEED_MENU_ITEMS) await put('menu_items', item);
       }
 
       async function exportBackup() {
@@ -1727,7 +1555,7 @@
         }
       }
 
-      async function applyRemoteCatalog(payload) {
+      async function applyRemoteCatalog(payload, options = {}) {
         if (!payload || typeof payload !== 'object') return;
         const cleanConfig = payload.config
           ? { ...DEFAULT_CONFIG, ...payload.config, id: 'business_config' }
@@ -1740,27 +1568,40 @@
             filePath: String(cleanConfig.repoSync.filePath || 'catalog.json')
           };
         }
+        if (options.isManualPull) {
+          clearDeletedStoreIds();
+        }
+        const deletedSet = options.isManualPull ? new Set() : new Set(getDeletedStoreIds());
+        const incomingStores = Array.isArray(payload.stores)
+          ? payload.stores.filter((s) => !deletedSet.has(s.id))
+          : null;
+        const incomingItems = Array.isArray(payload.menuItems)
+          ? payload.menuItems.filter((i) => !deletedSet.has(i.storeId))
+          : null;
+
         if (useMemoryFallback) {
           if (cleanConfig) memoryDb.config = cleanConfig;
-          if (Array.isArray(payload.stores) && payload.stores.length) memoryDb.stores = payload.stores;
-          if (Array.isArray(payload.menuItems)) memoryDb.menuItems = payload.menuItems;
+          if (incomingStores !== null) memoryDb.stores = incomingStores;
+          if (incomingItems !== null) memoryDb.menuItems = incomingItems;
           writeFallback();
           return;
         }
         if (cleanConfig) await saveConfig(cleanConfig);
-        if (Array.isArray(payload.stores) && payload.stores.length) {
+        if (incomingStores !== null) {
           await clearStore('stores');
-          for (const st of payload.stores) await put('stores', st);
+          for (const st of incomingStores) await put('stores', st);
         }
-        if (Array.isArray(payload.menuItems)) {
+        if (incomingItems !== null) {
           await clearStore('menu_items');
-          for (const it of payload.menuItems) await put('menu_items', it);
+          for (const it of incomingItems) await put('menu_items', it);
         }
       }
 
       return {
         DEFAULT_CONFIG,
         getSeedSnapshot,
+        getDeletedStoreIds,
+        clearDeletedStoreIds,
         loadAllState,
         saveConfig,
         saveUserProfile,
@@ -1948,7 +1789,7 @@
         orders: [],
         userProfile: seedSnap.userProfile,
         usageLogs: [],
-        selectedStoreId: 'pili_burger',
+        selectedStoreId: '',
         selectedCategory: 'Todos',
         deliveryInfo: {
           customerName: '',
@@ -1963,8 +1804,7 @@
         isSyncingGitHub: false,
         ghStatusBanner: null,
         expandedAccordions: {
-          checkout_invoice: true,
-          store_pili_burger: true
+          checkout_invoice: true
         }
       };
 
@@ -2025,6 +1865,9 @@
             lastCommitUrl: meta.lastCommitUrl || '',
             lastRemoteUpdatedAt: meta.lastRemoteUpdatedAt || '',
             lastRemoteFileSha: meta.lastRemoteFileSha || '',
+            lastRemoteVersion: Number(meta.lastRemoteVersion || 2),
+            lastRemoteReleaseTag: meta.lastRemoteReleaseTag || 'v1.0.2',
+            lastRemoteStateHash: meta.lastRemoteStateHash || '',
             hasUnpushedChanges: Boolean(meta.hasUnpushedChanges)
           };
         }
@@ -2098,8 +1941,11 @@
             }
           };
           delete cleanConfig.token;
+          const meta = getMeta();
+          const currentVer = Math.max(2, Number(meta.lastRemoteVersion || 2));
           return {
-            version: 2,
+            version: currentVer,
+            releaseTag: meta.lastRemoteReleaseTag || `v1.0.${currentVer}`,
             updatedAt: new Date().toISOString(),
             config: cleanConfig,
             stores: state.stores,
@@ -2206,10 +2052,13 @@
           const commitSha = (result && result.commit && result.commit.sha) ? result.commit.sha.slice(0, 7) : '';
           const commitUrl = (result && result.commit && result.commit.html_url) ? result.commit.html_url : '';
           const newFileSha = (result && result.content && result.content.sha) ? result.content.sha : '';
+          ArismendiDB.clearDeletedStoreIds();
           saveMeta({
             hasUnpushedChanges: false,
             lastSyncAt: Date.now(),
             lastRemoteUpdatedAt: payload.updatedAt,
+            lastRemoteVersion: payload.version || 2,
+            lastRemoteReleaseTag: payload.releaseTag || `v1.0.${payload.version || 2}`,
             lastRemoteFileSha: newFileSha,
             lastCommitSha: commitSha,
             lastCommitUrl: commitUrl
@@ -2294,7 +2143,7 @@
           return changed;
         }
 
-        async function applyPulledPayload(data, resolvedPath, remoteFileSha) {
+        async function applyPulledPayload(data, resolvedPath, remoteFileSha, isManualPull = false) {
           if (!data || !Array.isArray(data.stores) || !Array.isArray(data.menuItems) || !data.config) {
             return false;
           }
@@ -2305,12 +2154,15 @@
               filePath: resolvedPath
             };
           }
-          await ArismendiDB.applyRemoteCatalog({ ...data, config: cleanIncomingConfig });
+          await ArismendiDB.applyRemoteCatalog({ ...data, config: cleanIncomingConfig }, { isManualPull });
+          const deletedSet = isManualPull ? new Set() : new Set(ArismendiDB.getDeletedStoreIds());
           state.config = cleanIncomingConfig;
-          state.stores = data.stores;
-          state.menuItems = data.menuItems;
+          state.stores = data.stores.filter((s) => !deletedSet.has(s.id));
+          state.menuItems = data.menuItems.filter((i) => !deletedSet.has(i.storeId));
           if (state.stores.length && !state.stores.some((s) => s.id === state.selectedStoreId)) {
             state.selectedStoreId = state.stores[0].id;
+          } else if (!state.stores.length) {
+            state.selectedStoreId = '';
           }
           await reconcileCartWithCatalog();
           if (cleanIncomingConfig.repoSync) {
@@ -2322,11 +2174,23 @@
               filePath: resolvedPath || meta.filePath || cleanIncomingConfig.repoSync.filePath || 'catalog.json'
             });
           }
+          const prevVer = Number(getMeta().lastRemoteVersion || 0);
+          const incomingVer = Number(data.version || 2);
+          const incomingTag = String(data.releaseTag || `v1.0.${incomingVer}`);
           saveMeta({
             hasUnpushedChanges: false,
+            lastSyncAt: Date.now(),
             lastRemoteUpdatedAt: data.updatedAt || ('synced_' + Date.now()),
+            lastRemoteVersion: incomingVer,
+            lastRemoteReleaseTag: incomingTag,
+            ...(data.stateHash ? { lastRemoteStateHash: String(data.stateHash) } : {}),
             ...(remoteFileSha ? { lastRemoteFileSha: remoteFileSha } : {})
           });
+          if (incomingVer > prevVer && 'serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistration().then((reg) => {
+              if (reg) reg.update().catch(() => {});
+            }).catch(() => {});
+          }
           return true;
         }
 
@@ -2339,15 +2203,69 @@
         let lastPublicOutcome = 'ok';
         function getLastPublicOutcome() { return lastPublicOutcome; }
 
+        function hasVersionChanged(creds, remoteData) {
+          if (!remoteData) return false;
+          const rVer = Number(remoteData.version || 0);
+          const lVer = Number(creds.lastRemoteVersion || 0);
+          if (rVer > lVer) return true;
+          if (remoteData.stateHash && creds.lastRemoteStateHash && String(remoteData.stateHash) !== String(creds.lastRemoteStateHash)) return true;
+          if (remoteData.releaseTag && creds.lastRemoteReleaseTag && String(remoteData.releaseTag) !== String(creds.lastRemoteReleaseTag) && rVer >= lVer) return true;
+          if (!creds.lastRemoteUpdatedAt) return true;
+          if (remoteData.updatedAt && String(remoteData.updatedAt) > String(creds.lastRemoteUpdatedAt)) return true;
+          return false;
+        }
+
+        async function checkRemoteVersionManifest(creds) {
+          const baseCandidates = [];
+          const verFile = creds.filePath && creds.filePath.includes('/')
+            ? creds.filePath.replace(/[^/]+$/, 'version.json')
+            : 'version.json';
+          const verPaths = [verFile];
+          const altVer = verFile === 'version.json' ? 'docs/version.json' : 'version.json';
+          if (!verPaths.includes(altVer)) verPaths.push(altVer);
+
+          if (creds.owner && creds.repo) {
+            for (const p of verPaths) {
+              baseCandidates.push(`https://raw.githubusercontent.com/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/${encodeURIComponent(creds.branch)}/${encodeRepoPath(p)}?t=${Date.now()}`);
+            }
+          }
+          if (window.location.hostname && window.location.hostname.endsWith('.github.io')) {
+            baseCandidates.push(`./version.json?t=${Date.now()}`);
+          }
+          let latestVer = null;
+          for (const url of baseCandidates) {
+            try {
+              const r = await fetch(url, { cache: 'no-store' });
+              if (!r.ok) continue;
+              const j = await r.json();
+              if (j && (j.version || j.updatedAt)) {
+                if (!latestVer || Number(j.version || 0) > Number(latestVer.version || 0) || String(j.updatedAt || '') > String(latestVer.updatedAt || '')) {
+                  latestVer = j;
+                }
+              }
+            } catch (_) {}
+          }
+          return latestVer;
+        }
+
         async function pullRemoteCatalog(forceManual = false, credsOverride = null, options = {}) {
           const creds = credsOverride ? { ...getCreds(), ...credsOverride } : getCreds();
           if (!forceManual && creds.hasUnpushedChanges) return false;
+          if (navigator.onLine === false) {
+            lastPublicOutcome = 'network_error';
+            if (forceManual) throw new Error('Sin conexión a internet. Conéctate para sincronizar con la nube.');
+            return false;
+          }
 
           const pathCandidates = [creds.filePath];
           const altPath = creds.filePath === 'catalog.json' ? 'docs/catalog.json' : 'catalog.json';
           if (!pathCandidates.includes(altPath)) pathCandidates.push(altPath);
 
-          const shouldTryApi = Boolean(creds.owner && creds.repo && (creds.token || forceManual || options.useApi));
+          // Verifica rápido si el robot de GitHub publicó una versión nueva en version.json
+          const manifestInfo = await checkRemoteVersionManifest(creds);
+          const manifestHasUpdate = hasVersionChanged(creds, manifestInfo);
+
+          const shouldTryApi = Boolean(creds.owner && creds.repo && (creds.token || forceManual || options.useApi || manifestHasUpdate));
           if (shouldTryApi) {
             let successResp = null;
             let resolvedPath = creds.filePath;
@@ -2373,14 +2291,14 @@
 
             if (successResp) {
               const metaJson = await successResp.json();
-              if (!forceManual && metaJson && metaJson.sha && creds.lastRemoteFileSha && metaJson.sha === creds.lastRemoteFileSha) {
+              if (!forceManual && !manifestHasUpdate && metaJson && metaJson.sha && creds.lastRemoteFileSha && metaJson.sha === creds.lastRemoteFileSha) {
                 return false;
               }
               const parsed = JSON.parse(base64ToUtf8(metaJson.content));
-              if (!forceManual && parsed && parsed.updatedAt && creds.lastRemoteUpdatedAt && parsed.updatedAt === creds.lastRemoteUpdatedAt && (!metaJson.sha || metaJson.sha === creds.lastRemoteFileSha)) {
+              if (!forceManual && !hasVersionChanged(creds, parsed) && (!metaJson.sha || metaJson.sha === creds.lastRemoteFileSha)) {
                 return false;
               }
-              return applyPulledPayload(parsed, resolvedPath, metaJson && metaJson.sha ? metaJson.sha : '');
+              return applyPulledPayload(parsed, resolvedPath, metaJson && metaJson.sha ? metaJson.sha : '', forceManual);
             }
 
             if (creds.token && forceManual && lastErrResp) {
@@ -2391,7 +2309,7 @@
             }
           }
 
-          // Respaldo público sin límite de API (raw.githubusercontent.com + Pages local)
+          // Respaldo público sin límite de API (raw.githubusercontent.com + Pages real en github.io)
           const rawCandidates = [];
           if (creds.owner && creds.repo) {
             for (const p of pathCandidates) {
@@ -2401,7 +2319,7 @@
               });
             }
           }
-          if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+          if (window.location.hostname && window.location.hostname.endsWith('.github.io')) {
             rawCandidates.push({ path: creds.filePath, url: `./catalog.json?t=${Date.now()}` });
           }
           if (!rawCandidates.length) {
@@ -2417,7 +2335,9 @@
               if (!resp.ok) continue;
               const data = await resp.json();
               if (data && Array.isArray(data.stores) && Array.isArray(data.menuItems) && data.config) {
-                if (!latestData || String(data.updatedAt || '') >= String(latestData.updatedAt || '')) {
+                const betterVer = latestData && Number(data.version || 0) > Number(latestData.version || 0);
+                const sameVerNewerTime = latestData && Number(data.version || 0) === Number(latestData.version || 0) && String(data.updatedAt || '') >= String(latestData.updatedAt || '');
+                if (!latestData || betterVer || sameVerNewerTime) {
                   latestData = data;
                   latestPath = entry.path;
                 }
@@ -2426,14 +2346,15 @@
           }
 
           if (!latestData) {
-            if (forceManual) throw new Error('No se encontró catalog.json en el repositorio.');
+            lastPublicOutcome = 'network_error';
+            if (forceManual) throw new Error('No se pudo descargar el catálogo desde la nube.');
             return false;
           }
           lastPublicOutcome = 'ok';
-          if (!forceManual && creds.lastRemoteUpdatedAt && latestData.updatedAt && String(latestData.updatedAt) <= String(creds.lastRemoteUpdatedAt)) {
+          if (!forceManual && !hasVersionChanged(creds, latestData)) {
             return false;
           }
-          return applyPulledPayload(latestData, latestPath, '');
+          return applyPulledPayload(latestData, latestPath, '', forceManual);
         }
 
         return {
@@ -2701,7 +2622,12 @@
       function renderHomeView() {
         const rate = state.config.exchangeRateBsPerUsd;
         const { count } = getCartTotals();
-        const piliItems = state.menuItems.filter((i) => i.storeId === 'pili_burger').slice(0, 5);
+        const popularItems = state.menuItems
+          .filter((i) => i.isPopular && state.stores.some((s) => s.id === i.storeId))
+          .slice(0, 5);
+        const fallbackFeatured = popularItems.length
+          ? popularItems
+          : state.menuItems.filter((i) => state.stores.some((s) => s.id === i.storeId)).slice(0, 5);
 
         const storesHtml = state.stores.map((st) => {
           const storeItems = state.menuItems.filter((i) => i.storeId === st.id);
@@ -2727,7 +2653,7 @@
             </div>`;
         }).join('');
 
-        const highlightsHtml = piliItems.map((item) => {
+        const highlightsHtml = fallbackFeatured.map((item) => {
           const avail = isItemAvailable(item);
           return `
           <div class="quick-card" data-customize-item="${escapeHtml(item.id)}" style="${avail ? '' : 'opacity:0.65'}">
@@ -2767,7 +2693,7 @@
             <div class="hero-pills-row">
               <button class="rate-pill" id="btn-quick-rate">💱 Tasa: ${formatRate(rate)}${state.isAdminUnlocked ? ' ✎' : ''}</button>
               <span class="wa-badge-pill">WhatsApp: ${escapeHtml(state.config.whatsappPhone)}</span>
-              <button class="wa-badge-pill" id="btn-live-sync" style="cursor:pointer;border:1px solid rgba(255,255,255,0.28)" title="Sincronizar cambios desde GitHub">🟢 En vivo ↻</button>
+              <button class="wa-badge-pill" id="btn-live-sync" style="cursor:pointer;border:1px solid rgba(255,255,255,0.28)" title="Sincronizar cambios desde GitHub">🟢 ${escapeHtml(GitHubSync.getCreds().lastRemoteReleaseTag || 'En vivo')} ↻</button>
             </div>
             <p class="hero-desc">Comida rápida directo a tu puerta con factura en Bolívares y Dólares a la tasa del día. Sin registros obligatorios.</p>
           </header>
@@ -2784,11 +2710,17 @@
             <h2 class="section-title">🍔 Locales de Comida Rápida</h2>
             <p class="section-subtitle">Escoge tu local favorito y personaliza los ingredientes</p>
           </div>
-          <div class="stack-list">${storesHtml || '<div class="empty-state">No hay locales registrados aún.</div>'}</div>
-          ${piliItems.length ? `
+          <div class="stack-list">${storesHtml || `
+            <div class="empty-state" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 18px">
+              <div style="font-size:28px">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? '📡' : '🏪'}</div>
+              <div style="font-weight:800;font-size:15px;color:var(--text-main)">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? 'Sin conexión con la nube' : 'No hay locales disponibles'}</div>
+              <div style="font-size:13px;color:var(--text-muted);line-height:1.45">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? 'Conéctate a internet para descargar automáticamente los locales, precios, inventario y la tasa del día desde GitHub.' : 'Puedes actualizar desde la nube o crear un local nuevo en Modo Administrador.'}</div>
+              <button class="btn-primary" id="btn-retry-cloud" style="max-width:260px">🔄 Reintentar desde GitHub</button>
+            </div>`}</div>
+          ${fallbackFeatured.length ? `
             <div class="section-head" style="display:flex;justify-content:space-between;align-items:center">
-              <h2 class="section-title" style="font-size:17px">🔥 Destacados Pili Burger</h2>
-              <button class="chip" style="padding:5px 11px;font-size:12px" data-open-store="pili_burger">Ver todo</button>
+              <h2 class="section-title" style="font-size:17px">🔥 Destacados del Día</h2>
+              ${fallbackFeatured[0] ? `<button class="chip" style="padding:5px 11px;font-size:12px" data-open-store="${escapeHtml(fallbackFeatured[0].storeId)}">Ver local</button>` : ''}
             </div>
             <div class="h-scroll">${highlightsHtml}</div>` : ''}
           ${renderFloatingCartBar()}`;
@@ -2871,7 +2803,7 @@
             <div class="empty-state">
               <div style="margin-bottom:12px"><img src="icons/logo.png" alt="Delivery Express Arismendi" style="width:68px;height:68px;border-radius:18px;box-shadow:0 6px 16px rgba(211,47,47,0.24)" /></div>
               <h3 style="margin:0 0 6px;color:var(--text-main)">Tu pedido está vacío</h3>
-              <p style="margin:0 0 16px">Escoge un local como Pili Burger y agrega tus productos para generar la factura por WhatsApp.</p>
+              <p style="margin:0 0 16px">Escoge tu local favorito y agrega tus productos para generar la factura por WhatsApp.</p>
               <button class="btn-primary" id="btn-empty-go-home" style="max-width:220px;margin:0 auto">Explorar Locales</button>
             </div>`;
         }
@@ -3026,7 +2958,7 @@
              </div>`
           : (gh.lastSyncAt
             ? `<div style="background:#E8F5E9;border:1px solid #66BB6A;color:#1B5E20;border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:700">
-                 ✅ Repositorio sincronizado • Última subida: ${new Date(gh.lastSyncAt).toLocaleString('es-VE')}${gh.lastCommitSha ? ` (${escapeHtml(gh.lastCommitSha)})` : ''}
+                 ✅ Repositorio sincronizado • 🤖 Versión nube: <b>${escapeHtml(gh.lastRemoteReleaseTag || 'v1.0.2')}</b> • Última sync: ${new Date(gh.lastSyncAt).toLocaleString('es-VE')}${gh.lastCommitSha ? ` (${escapeHtml(gh.lastCommitSha)})` : ''}
                </div>`
             : '');
         const ghFeedbackHtml = state.ghStatusBanner
@@ -3093,6 +3025,10 @@
                 </div>
                 <button class="btn-primary" id="btn-push-gh" style="min-height:48px" ${state.isSyncingGitHub ? 'disabled' : ''}>${state.isSyncingGitHub ? '⏳ Subiendo cambios a GitHub...' : '🚀 Subir Todos los Cambios a GitHub'}</button>
                 <button class="btn-outline" id="btn-pull-gh" ${state.isSyncingGitHub ? 'disabled' : ''}>⬇️ Descargar Catálogo desde GitHub</button>
+                <div style="background:#F5F7FA;border:1px solid var(--outline);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text-muted);line-height:1.45">
+                  🤖 <strong style="color:var(--text-main)">Robot Auto-Versión en GitHub (${escapeHtml(gh.lastRemoteReleaseTag || 'v1.0.2')}):</strong><br/>
+                  Cada cambio en stock, local, precios, delivery o tasa genera automáticamente una nueva versión (<code>version.json</code> + Release + caché <code>sw.js</code>) para que todas las apps descarguen el estado actual al instante.
+                </div>
               </div>
               <div class="panel-card">
                 <h3 class="panel-card-title">💾 Base de Datos (Respaldo JSON)</h3>
@@ -3147,7 +3083,7 @@
                   </div>
                 </div>
               </div>`;
-          }).join('') : '<div class="empty-state">No hay locales registrados. Agrega uno nuevo o restaura el menú base.</div>';
+          }).join('') : '<div class="empty-state">No hay locales registrados. Agrega un local nuevo o sincroniza desde GitHub.</div>';
           bodyHtml = `
             <div class="stack-list">
               ${ghSyncBadge}
@@ -3155,7 +3091,7 @@
               <button class="btn-primary" id="btn-push-gh-menu" style="min-height:46px" ${state.isSyncingGitHub ? 'disabled' : ''}>${state.isSyncingGitHub ? '⏳ Subiendo a GitHub...' : '🚀 Subir Cambios de Locales y Menú a GitHub'}</button>
               <div style="display:flex;gap:10px">
                 <button class="btn-primary" id="btn-admin-new-store">+ Nuevo Local</button>
-                <button class="btn-outline" id="btn-admin-reset-catalog">Restaurar Menú Base</button>
+                <button class="btn-outline" id="btn-admin-pull-menu" ${state.isSyncingGitHub ? 'disabled' : ''}>⬇️ Sincronizar Menú</button>
               </div>
               ${storeGroups}
             </div>`;
@@ -3724,16 +3660,18 @@
         const byId = (id) => document.getElementById(id);
         if (byId('btn-quick-rate')) byId('btn-quick-rate').onclick = () => requestAdminAccess(openQuickRateModal);
         if (byId('btn-open-admin')) byId('btn-open-admin').onclick = () => requestAdminAccess(() => goView('admin'));
-        if (byId('btn-live-sync')) byId('btn-live-sync').onclick = async () => {
+        const triggerManualSync = async () => {
           showToast('Sincronizando cambios desde GitHub...');
           try {
             const ok = await GitHubSync.pullRemoteCatalog(true, null, { useApi: true });
             render();
-            showToast(ok ? '✅ Catálogo, inventario y tasa actualizados' : '✅ Ya estás al día');
+            showToast(ok ? '✅ Catálogo, locales, stock y tasa actualizados' : '✅ Ya estás al día');
           } catch (err) {
             showToast(err && err.message ? err.message : 'No se pudo sincronizar');
           }
         };
+        if (byId('btn-live-sync')) byId('btn-live-sync').onclick = triggerManualSync;
+        if (byId('btn-retry-cloud')) byId('btn-retry-cloud').onclick = triggerManualSync;
         if (byId('btn-header-checkout')) byId('btn-header-checkout').onclick = () => goView('checkout');
         if (byId('btn-open-checkout')) byId('btn-open-checkout').onclick = () => goView('checkout');
         if (byId('btn-back-home')) byId('btn-back-home').onclick = () => goView('home');
@@ -4096,6 +4034,7 @@
               `¿Seguro que deseas eliminar "${st.name}"? También se eliminarán ${itemCount} ${itemCount === 1 ? 'producto' : 'productos'} asociados.`,
               async () => {
                 await ArismendiDB.deleteStore(storeId);
+                GitHubSync.markUnpushedChanges();
                 state.stores = state.stores.filter((s) => s.id !== storeId);
                 state.menuItems = state.menuItems.filter((i) => i.storeId !== storeId);
                 state.cart = state.cart.filter((c) => c.storeId !== storeId);
@@ -4112,7 +4051,7 @@
         });
         document.querySelectorAll('[data-admin-add-item]').forEach((el) => { el.onclick = () => openEditMenuItemModal(el.getAttribute('data-admin-add-item'), true); });
         if (byId('btn-admin-new-store')) byId('btn-admin-new-store').onclick = openNewStoreModal;
-        if (byId('btn-admin-reset-catalog')) byId('btn-admin-reset-catalog').onclick = async () => { await ArismendiDB.resetCatalogToDefault(); const l = await ArismendiDB.loadAllState(); state.stores = l.stores; state.menuItems = l.menuItems; showToast('Menú restaurado'); render(); GitHubSync.triggerAutoCloudPush('Menú restaurado'); };
+        if (byId('btn-admin-pull-menu')) byId('btn-admin-pull-menu').onclick = triggerManualSync;
         if (byId('btn-clear-orders')) byId('btn-clear-orders').onclick = async () => { await ArismendiDB.clearOrders(); state.orders = []; showToast('Historial limpiado'); render(); };
         if (byId('btn-clear-logs')) byId('btn-clear-logs').onclick = async () => { await ArismendiDB.clearUsageLogs(); state.usageLogs = []; showToast('Registro de uso limpiado'); render(); };
         if (byId('btn-preview-loyalty')) byId('btn-preview-loyalty').onclick = () => openLoyaltyRewardModal(true);
@@ -4149,8 +4088,9 @@
           try {
             const updated = await GitHubSync.pullRemoteCatalog(false, null, { useApi });
             if (updated) {
+              const verTag = GitHubSync.getCreds().lastRemoteReleaseTag || 'nueva';
               render();
-              showToast('🔄 Catálogo, inventario y precios actualizados desde GitHub');
+              showToast(`🔄 Versión ${verTag} descargada: precios, stock y locales actualizados`);
             }
           } catch (_) {}
         };

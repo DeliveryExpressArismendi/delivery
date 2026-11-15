@@ -1,4 +1,4 @@
-const CACHE_NAME = 'arismendi-express-v15';
+const CACHE_NAME = 'arismendi-express-v1.0.2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -32,18 +32,13 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const reqUrl = new URL(event.request.url);
-  if (reqUrl.pathname.endsWith('/catalog.json') || reqUrl.hostname === 'api.github.com' || reqUrl.hostname === 'raw.githubusercontent.com') {
-    event.respondWith(
-      fetch(event.request, { cache: 'no-store' })
-        .then((response) => {
-          if (response && response.status === 200 && reqUrl.origin === self.location.origin) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-          }
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
+  if (
+    reqUrl.pathname.endsWith('/catalog.json') ||
+    reqUrl.pathname.endsWith('/version.json') ||
+    reqUrl.hostname === 'api.github.com' ||
+    reqUrl.hostname === 'raw.githubusercontent.com'
+  ) {
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
     return;
   }
 

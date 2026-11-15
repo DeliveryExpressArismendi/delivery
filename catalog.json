@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "releaseTag": "v1.0.2",
   "updatedAt": "2026-11-15T15:30:00.000Z",
   "config": {
     "id": "business_config",
