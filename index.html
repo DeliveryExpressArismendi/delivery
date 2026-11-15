@@ -905,8 +905,11 @@
 
     .icon-picker-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
       gap: 8px;
+      max-height: 230px;
+      overflow-y: auto;
+      padding: 2px;
     }
 
     .icon-pick-btn {
@@ -1740,6 +1743,85 @@
             <path d="M16 26c6 4 26 4 32 0l-4 27H20l-4-27z" fill="#E53935" stroke="#8E0000" stroke-width="2.2" stroke-linejoin="round"/>
             <circle cx="32" cy="40" r="5" fill="#FFC107" stroke="#FFF" stroke-width="1.5"/>
           </svg>`,
+        empanada: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="52" rx="22" ry="3.5" fill="#000" fill-opacity="0.12"/>
+            <path d="M10 38c3-14 14-22 26-22 10 0 18 7 18 17 0 9-9 16-22 16-12 0-20-4-22-11z" fill="#F4B03E" stroke="#9C5408" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M13 38c3 5 11 9 20 9 10 0 17-5 19-11" stroke="#C86F0F" stroke-width="3" stroke-linecap="round" stroke-dasharray="3.2 3.8"/>
+            <path d="M21 25c5-4 12-5 19-3" stroke="#FFE09E" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="29" cy="31" r="1.8" fill="#D98218"/>
+            <circle cx="38" cy="29" r="1.5" fill="#D98218"/>
+            <circle cx="35" cy="37" r="1.7" fill="#D98218"/>
+          </svg>`,
+        arepa: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="53" rx="22" ry="3.5" fill="#000" fill-opacity="0.12"/>
+            <ellipse cx="32" cy="34" rx="23" ry="17" fill="#F6C15A" stroke="#9E5E12" stroke-width="2.4"/>
+            <path d="M15 38c6 6 28 6 34 0-3 6-10 10-17 10s-14-4-17-10z" fill="#FFFDF4" stroke="#E0B654" stroke-width="1.5"/>
+            <path d="M18 39c5 3 10 2 14 4 5-2 9-1 14-4" stroke="#FFE066" stroke-width="3" stroke-linecap="round"/>
+            <path d="M21 24c4-2 8-2 11 0M36 25c3-1.5 7-1 10 1M24 31c5-1.5 11-1.5 16 0" stroke="#A65E14" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="27" cy="27" r="1.4" fill="#8D4C0E"/>
+            <circle cx="39" cy="29" r="1.5" fill="#8D4C0E"/>
+          </svg>`,
+        belleza: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="20" ry="3" fill="#000" fill-opacity="0.12"/>
+            <rect x="28" y="20" width="22" height="31" rx="6" fill="#FCE4EC" stroke="#AD1457" stroke-width="2.2"/>
+            <rect x="33" y="13" width="12" height="7" rx="2" fill="#FFD54F" stroke="#AD1457" stroke-width="1.8"/>
+            <path d="M35 10h8v3h-8z" fill="#F48FB1" stroke="#AD1457" stroke-width="1.6"/>
+            <circle cx="39" cy="36" r="6" fill="#F8BBD0" stroke="#C2185B" stroke-width="1.6"/>
+            <path d="M39 33l1.3 2.5 2.7.4-2 1.9.5 2.7-2.5-1.3-2.5 1.3.5-2.7-2-1.9 2.7-.4z" fill="#E91E63"/>
+            <rect x="12" y="33" width="12" height="20" rx="2.5" fill="#263238" stroke="#111" stroke-width="2"/>
+            <rect x="13.5" y="25" width="9" height="8" rx="1.5" fill="#FFD54F" stroke="#8E6500" stroke-width="1.6"/>
+            <path d="M15 25V16c0-2 6-5 6-2v11h-6z" fill="#E53935" stroke="#8E0000" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>`,
+        medicina: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="20" ry="3" fill="#000" fill-opacity="0.12"/>
+            <rect x="14" y="18" width="24" height="34" rx="5" fill="#FFFFFF" stroke="#B71C1C" stroke-width="2.2"/>
+            <rect x="17" y="10" width="18" height="8" rx="2.5" fill="#E53935" stroke="#8E0000" stroke-width="2"/>
+            <path d="M26 27v12M20 33h12" stroke="#D32F2F" stroke-width="4.2" stroke-linecap="round"/>
+            <g transform="rotate(-32 45 41)">
+              <rect x="38" y="30" width="14" height="22" rx="7" fill="#FFFFFF" stroke="#1565C0" stroke-width="2"/>
+              <path d="M38 41h14v4a7 7 0 0 1-14 0v-4z" fill="#E53935" stroke="#8E0000" stroke-width="1.8"/>
+              <path d="M38 37a7 7 0 0 1 14 0v4H38v-4z" fill="#42A5F5" stroke="#1565C0" stroke-width="1.8"/>
+            </g>
+          </svg>`,
+        electronica: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="20" ry="3" fill="#000" fill-opacity="0.12"/>
+            <rect x="14" y="10" width="26" height="44" rx="5" fill="#263238" stroke="#111" stroke-width="2.2"/>
+            <rect x="17" y="15" width="20" height="32" rx="2.5" fill="#29B6F6"/>
+            <path d="M28 21l-5 10h5l-2 9 7-11h-5l0-8z" fill="#FFF176" stroke="#F57F17" stroke-width="1.2" stroke-linejoin="round"/>
+            <circle cx="27" cy="50.5" r="1.6" fill="#CFD8DC"/>
+            <path d="M36 33c0-8 6-13 13-13s11 5 11 12" stroke="#D32F2F" stroke-width="3.2" stroke-linecap="round"/>
+            <rect x="34" y="32" width="6" height="12" rx="3" fill="#E53935" stroke="#8E0000" stroke-width="1.8"/>
+            <rect x="52" y="32" width="6" height="12" rx="3" fill="#E53935" stroke="#8E0000" stroke-width="1.8"/>
+          </svg>`,
+        dulces: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="55" rx="20" ry="3.2" fill="#000" fill-opacity="0.12"/>
+            <circle cx="29" cy="31" r="17" fill="#F5B86E" stroke="#8D5524" stroke-width="2.2"/>
+            <path d="M12.5 29c2-9 9-15 16.5-15 8 0 15 6 16.5 14-3 3-6 0-9 2.5-3 2.5-6-1-9 1.5-3 2-6-1.5-9 1-2.5 1.8-4.5-.5-6-4z" fill="#F06292" stroke="#AD1457" stroke-width="1.8"/>
+            <circle cx="29" cy="31" r="5" fill="#FFF8F7" stroke="#8D5524" stroke-width="2"/>
+            <path d="M21 20l3 2M34 19l-2 3M39 26l-3 1" stroke="#FFF176" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M24 25l2-2M36 22l2 2" stroke="#4FC3F7" stroke-width="2.4" stroke-linecap="round"/>
+            <g transform="rotate(-24 47 45)">
+              <path d="M36 45l-5-4v8l5-4zM56 45l5-4v8l-5-4z" fill="#FF8A65" stroke="#BF360C" stroke-width="1.6" stroke-linejoin="round"/>
+              <ellipse cx="46" cy="45" rx="9" ry="6.5" fill="#E53935" stroke="#8E0000" stroke-width="1.8"/>
+              <path d="M41 42c3 2 7 2 10 0M41 48c3-2 7-2 10 0" stroke="#FFF" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+          </svg>`,
+        producto: (color = '#D32F2F', size = 28) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <ellipse cx="32" cy="56" rx="20" ry="3.2" fill="#000" fill-opacity="0.12"/>
+            <path d="M13 23l19-10 19 10v22L32 55 13 45V23z" fill="#FFB74D" stroke="#8D4C0E" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M13 23l19 10 19-10" stroke="#8D4C0E" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M32 33v22" stroke="#8D4C0E" stroke-width="2.2"/>
+            <path d="M22 18l19 10v7l-5-2.5v-5L18 20.5 22 18z" fill="#E53935" stroke="#8E0000" stroke-width="1.5" stroke-linejoin="round"/>
+            <circle cx="48" cy="45" r="8" fill="#D32F2F" stroke="#FFF" stroke-width="2"/>
+            <path d="M45 45h6M48 42v6" stroke="#FFF" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>`,
         gear: (size = 20) => `
           <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"/>
@@ -1763,12 +1845,19 @@
       const FOOD_ICON_OPTIONS = [
         { key: 'burger', label: 'Hamburguesa' },
         { key: 'hotdog', label: 'Perro Caliente' },
+        { key: 'empanada', label: 'Empanada' },
+        { key: 'arepa', label: 'Arepa' },
         { key: 'shawarma', label: 'Shawarma' },
         { key: 'pepito', label: 'Pepito' },
         { key: 'pizza', label: 'Pizza' },
         { key: 'chicken', label: 'Pollo Crispy' },
         { key: 'fries', label: 'Papas Fritas' },
+        { key: 'dulces', label: 'Dulces' },
         { key: 'soda', label: 'Refresco' },
+        { key: 'belleza', label: 'Belleza' },
+        { key: 'medicina', label: 'Medicina' },
+        { key: 'electronica', label: 'Electrónicos' },
+        { key: 'producto', label: 'Cualquier Producto' },
         { key: 'moto', label: 'Delivery Moto' }
       ];
 
@@ -2762,10 +2851,10 @@
                 <span class="price-bs">${formatBs(item.priceUsd, rate)}</span>
               </div>
             </div>
-            <p class="menu-item-desc">${escapeHtml(item.description)}</p>
-            <div class="ingredients-box"><strong>Ingredientes:</strong> ${escapeHtml(item.ingredients.join(' • '))}</div>
+            ${item.description ? `<p class="menu-item-desc">${escapeHtml(item.description)}</p>` : ''}
+            ${(item.ingredients && item.ingredients.length) ? `<div class="ingredients-box"><strong>Opciones / Ingredientes:</strong> ${escapeHtml(item.ingredients.join(' • '))}</div>` : ''}
             <div class="card-btn-row">
-              <button class="btn-outline" data-customize-item="${escapeHtml(item.id)}">Ingredientes</button>
+              <button class="btn-outline" data-customize-item="${escapeHtml(item.id)}">${(item.ingredients && item.ingredients.length) ? 'Personalizar' : 'Ver detalle'}</button>
               <button class="btn-primary" data-quick-add="${escapeHtml(item.id)}" ${avail ? '' : 'disabled'}>${isStoreOpen ? (isItemAvailable(item) ? '+ Agregar' : 'Agotado') : 'Local cerrado'}</button>
             </div>
           </div>`;
@@ -3394,12 +3483,13 @@
             <span style="font-weight:900;color:var(--crimson-primary)">${formatUsd(item.priceUsd)} • ${formatBs(item.priceUsd, rate)}</span>
           </div>
           ${!canOrder ? '<div class="error-banner">Este producto no está disponible actualmente (agotado o local cerrado).</div>' : ''}
+          ${(item.ingredients && item.ingredients.length) ? `
           <div>
-            <div style="font-size:13px;font-weight:800;margin-bottom:8px">Ingredientes (toca para quitar o incluir):</div>
+            <div style="font-size:13px;font-weight:800;margin-bottom:8px">Opciones / Ingredientes (toca para quitar o incluir):</div>
             <div class="ing-chips">
               ${item.ingredients.map((ing) => `<button class="ing-chip selected" data-ing="${escapeHtml(ing)}">✓ ${escapeHtml(ing)}</button>`).join('')}
             </div>
-          </div>
+          </div>` : ''}
           <div class="field-group">
             <label class="field-label" for="m-item-note">Nota especial (opcional)</label>
             <input id="m-item-note" class="input" type="text" placeholder="Ej: Sin cebolla, extra salsa de ajo" />
@@ -3443,17 +3533,49 @@
       }
 
       function openEditMenuItemModal(itemOrStoreId, isNew) {
-        const item = isNew ? { id: 'item_' + Date.now(), storeId: itemOrStoreId, name: '', category: 'Hamburguesas', description: '', priceUsd: 5.0, ingredients: ['Queso', 'Salsas'], iconKey: 'burger', isPopular: false, available: true, stock: null } : itemOrStoreId;
-        const categories = ['Hamburguesas', 'Perros', 'Pepitos', 'Shawarmas', 'Pizzas', 'Pollo', 'Papas', 'Refrescos'];
-        let selectedIconKey = item.iconKey || 'burger';
+        const defaultStore = isNew ? state.stores.find((s) => s.id === itemOrStoreId) : null;
+        const defaultIcon = (defaultStore && defaultStore.iconKey) ? defaultStore.iconKey : 'producto';
+        const iconToCat = {
+          burger: 'Hamburguesas',
+          hotdog: 'Perros',
+          empanada: 'Empanadas',
+          arepa: 'Arepas',
+          pepito: 'Pepitos',
+          shawarma: 'Shawarmas',
+          pizza: 'Pizzas',
+          chicken: 'Pollo',
+          fries: 'Papas',
+          dulces: 'Dulces',
+          soda: 'Refrescos',
+          belleza: 'Belleza',
+          medicina: 'Medicina',
+          electronica: 'Electrónicos',
+          producto: 'General'
+        };
+        const item = isNew
+          ? { id: 'item_' + Date.now(), storeId: itemOrStoreId, name: '', category: iconToCat[defaultIcon] || 'General', description: '', priceUsd: 5.0, ingredients: [], iconKey: defaultIcon, isPopular: false, available: true, stock: null }
+          : itemOrStoreId;
+        const categories = ['Empanadas', 'Arepas', 'Belleza', 'Medicina', 'Electrónicos', 'Dulces', 'Hamburguesas', 'Perros', 'Pepitos', 'Shawarmas', 'Pizzas', 'Pollo', 'Papas', 'Refrescos', 'General'];
+        const isCustomCat = item.category && !categories.includes(item.category);
+        let selectedIconKey = item.iconKey || 'producto';
         const hasStockVal = item.stock !== null && item.stock !== undefined && item.stock !== '';
         openModal(`
           <div style="display:flex;justify-content:space-between;align-items:center">
             <h3 style="margin:0">${isNew ? 'Nuevo Producto' : 'Editar ' + escapeHtml(item.name)}</h3>
             <button class="chip" id="m-close">✕</button>
           </div>
-          <div class="field-group"><label class="field-label">Nombre</label><input id="ed-name" class="input" type="text" value="${escapeHtml(item.name)}" /></div>
-          <div class="field-group"><label class="field-label">Categoría</label><select id="ed-cat" class="input">${categories.map((c) => `<option value="${c}" ${c === item.category ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+          <div class="field-group"><label class="field-label">Nombre del producto (cualquier producto)</label><input id="ed-name" class="input" type="text" placeholder="Ej: Empanada de Queso, Labial Mate, Acetaminofén, Audífonos..." value="${escapeHtml(item.name)}" /></div>
+          <div class="field-group">
+            <label class="field-label">Categoría</label>
+            <select id="ed-cat" class="input">
+              ${categories.map((c) => `<option value="${c}" ${c === item.category ? 'selected' : ''}>${c}</option>`).join('')}
+              <option value="__CUSTOM__" ${isCustomCat ? 'selected' : ''}>✏️ Otra categoría personalizada...</option>
+            </select>
+          </div>
+          <div class="field-group" id="ed-cat-custom-wrap" style="display:${isCustomCat ? 'flex' : 'none'}">
+            <label class="field-label">Especificar categoría personalizada</label>
+            <input id="ed-cat-custom" class="input" type="text" placeholder="Ej: Cuidado Personal, Repuestos, Helados..." value="${isCustomCat ? escapeHtml(item.category) : ''}" />
+          </div>
           <div class="field-group">
             <label class="field-label">Ícono visual del producto</label>
             <div class="icon-picker-grid">
@@ -3475,14 +3597,22 @@
               <option value="false" ${item.available === false ? 'selected' : ''}>🚫 Agotado / Pausado</option>
             </select>
           </div>
-          <div class="field-group"><label class="field-label">Descripción</label><input id="ed-desc" class="input" type="text" value="${escapeHtml(item.description)}" /></div>
-          <div class="field-group"><label class="field-label">Ingredientes (separados por coma)</label><textarea id="ed-ings" class="input textarea">${escapeHtml((item.ingredients || []).join(', '))}</textarea></div>
+          <div class="field-group"><label class="field-label">Descripción</label><input id="ed-desc" class="input" type="text" placeholder="Presentación, peso, marca o detalles..." value="${escapeHtml(item.description)}" /></div>
+          <div class="field-group"><label class="field-label">Opciones / Ingredientes (opcional, separados por coma)</label><textarea id="ed-ings" class="input textarea" placeholder="Opcional: ej. Queso, Carne o Talla M, Color Negro">${escapeHtml((item.ingredients || []).join(', '))}</textarea></div>
           <div class="card-btn-row">
             ${!isNew ? '<button class="btn-outline" id="ed-delete" style="color:#B00020">🗑️ Eliminar</button>' : ''}
             <button class="btn-primary" id="ed-save">Guardar</button>
           </div>`,
           (close) => {
             document.getElementById('m-close').onclick = close;
+            const catSel = document.getElementById('ed-cat');
+            const customCatWrap = document.getElementById('ed-cat-custom-wrap');
+            const customCatInp = document.getElementById('ed-cat-custom');
+            catSel.onchange = () => {
+              const showCustom = catSel.value === '__CUSTOM__';
+              customCatWrap.style.display = showCustom ? 'flex' : 'none';
+              if (showCustom) customCatInp.focus();
+            };
             document.querySelectorAll('[data-item-icon]').forEach((btn) => {
               btn.onclick = () => {
                 selectedIconKey = btn.getAttribute('data-item-icon');
@@ -3501,13 +3631,17 @@
               const name = document.getElementById('ed-name').value.trim();
               const priceUsd = parseFloat(document.getElementById('ed-price').value);
               if (!name || !priceUsd || priceUsd <= 0) return showToast('Completa nombre y precio válido');
+              let finalCategory = catSel.value;
+              if (finalCategory === '__CUSTOM__') {
+                finalCategory = customCatInp.value.trim() || 'General';
+              }
               const rawStock = document.getElementById('ed-stock').value.trim();
               const stockVal = rawStock === '' ? null : Math.max(0, Math.floor(Number(rawStock)));
               let availVal = document.getElementById('ed-available').value === 'true';
               if (stockVal !== null && stockVal <= 0) availVal = false;
               const updated = {
                 ...item, name,
-                category: document.getElementById('ed-cat').value,
+                category: finalCategory,
                 iconKey: selectedIconKey,
                 priceUsd,
                 available: availVal,
@@ -3551,7 +3685,7 @@
         let selectedIconKey = 'burger';
         openModal(`
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <h3 style="margin:0">Nuevo Local de Comida Rápida</h3>
+            <h3 style="margin:0">Nuevo Local</h3>
             <button class="chip" id="m-close">✕</button>
           </div>
           <div class="store-card" style="cursor:default">
@@ -3559,13 +3693,13 @@
               <div style="min-width:0">
                 <span class="store-badge">Nuevo Local</span>
                 <h4 id="st-preview-name" class="store-name" style="font-size:17px">Mi Nuevo Local</h4>
-                <div id="st-preview-tag" class="store-meta">Comida rápida y delivery express</div>
+                <div id="st-preview-tag" class="store-meta">Productos variados y delivery express</div>
               </div>
               <div id="st-preview-icon" class="store-icon-box" style="width:58px;height:58px">${getCategoryIcon(selectedIconKey, '', 40)}</div>
             </div>
           </div>
-          <div class="field-group"><label class="field-label">Nombre del local</label><input id="st-name" class="input" type="text" placeholder="Ej: Grill Arismendi" /></div>
-          <div class="field-group"><label class="field-label">Especialidad</label><input id="st-tag" class="input" type="text" placeholder="Ej: Hamburguesas, Pepitos y Refrescos" /></div>
+          <div class="field-group"><label class="field-label">Nombre del local</label><input id="st-name" class="input" type="text" placeholder="Ej: Empanadas Don Pepe, Farmacia Salud, Tech Store..." /></div>
+          <div class="field-group"><label class="field-label">Especialidad o categoría del local</label><input id="st-tag" class="input" type="text" placeholder="Ej: Empanadas, Arepas, Belleza, Medicina, Electrónicos, Dulces..." /></div>
           <div class="field-group">
             <label class="field-label">Elige el ícono representativo del local</label>
             <div class="icon-picker-grid">
@@ -3576,6 +3710,18 @@
                 </button>`).join('')}
             </div>
           </div>
+          <div style="background:var(--surface-variant);border:1px solid var(--outline);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:13px;font-weight:800;color:var(--text-main)">📦 Primer producto del local (opcional — cualquier producto)</div>
+            <div class="field-group"><label class="field-label" for="st-first-name">Nombre del producto</label><input id="st-first-name" class="input" type="text" placeholder="Ej: Empanada de Queso, Crema Facial, Cargador USB-C..." /></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div class="field-group"><label class="field-label" for="st-first-cat">Categoría / Tipo</label><input id="st-first-cat" class="input" type="text" placeholder="Ej: Empanadas, Medicina..." /></div>
+              <div class="field-group"><label class="field-label" for="st-first-price">Precio ($)</label><input id="st-first-price" class="input" type="number" step="0.25" min="0" placeholder="Ej: 3.50" /></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px">
+              <div class="field-group"><label class="field-label" for="st-first-stock">Stock (opcional)</label><input id="st-first-stock" class="input" type="number" min="0" step="1" placeholder="Ilimitado" /></div>
+              <div class="field-group"><label class="field-label" for="st-first-desc">Descripción (opcional)</label><input id="st-first-desc" class="input" type="text" placeholder="Detalles o presentación" /></div>
+            </div>
+          </div>
           <button class="btn-primary" id="st-save" style="min-height:48px">Crear Local</button>`,
           (close) => {
             const nameInput = document.getElementById('st-name');
@@ -3584,7 +3730,7 @@
             const prevTag = document.getElementById('st-preview-tag');
             const prevIcon = document.getElementById('st-preview-icon');
             nameInput.oninput = () => { prevName.textContent = nameInput.value.trim() || 'Mi Nuevo Local'; };
-            tagInput.oninput = () => { prevTag.textContent = tagInput.value.trim() || 'Comida rápida y delivery express'; };
+            tagInput.oninput = () => { prevTag.textContent = tagInput.value.trim() || 'Productos variados y delivery express'; };
             document.querySelectorAll('[data-store-icon]').forEach((btn) => {
               btn.onclick = () => {
                 selectedIconKey = btn.getAttribute('data-store-icon');
@@ -3596,11 +3742,38 @@
             document.getElementById('st-save').onclick = async () => {
               const name = nameInput.value.trim();
               if (!name) return showToast('Escribe el nombre del local');
-              const newStore = { id: 'store_' + Date.now(), name, badge: 'Nuevo Local', tagline: tagInput.value.trim() || 'Comida rápida y delivery express', etaMinutes: '20-30 min', rating: '5.0', iconKey: selectedIconKey, isOpen: true };
+              const firstName = document.getElementById('st-first-name').value.trim();
+              const firstPrice = parseFloat(document.getElementById('st-first-price').value);
+              if (firstName && (!firstPrice || firstPrice <= 0)) {
+                return showToast('Ingresa un precio válido para el producto inicial');
+              }
+              const newStore = { id: 'store_' + Date.now(), name, badge: 'Nuevo Local', tagline: tagInput.value.trim() || 'Productos variados y delivery express', etaMinutes: '20-30 min', rating: '5.0', iconKey: selectedIconKey, isOpen: true };
               await ArismendiDB.saveStore(newStore);
               state.stores.push(newStore);
               state.expandedAccordions['store_' + newStore.id] = true;
-              close(); showToast(`${name} guardado`); render();
+
+              if (firstName && firstPrice > 0) {
+                const rawStock = document.getElementById('st-first-stock').value.trim();
+                const stockVal = rawStock === '' ? null : Math.max(0, Math.floor(Number(rawStock)));
+                const firstCat = document.getElementById('st-first-cat').value.trim() || (FOOD_ICON_OPTIONS.find((o) => o.key === selectedIconKey)?.label || 'General');
+                const firstItem = {
+                  id: 'item_' + (Date.now() + 1),
+                  storeId: newStore.id,
+                  name: firstName,
+                  category: firstCat,
+                  description: document.getElementById('st-first-desc').value.trim(),
+                  priceUsd: firstPrice,
+                  ingredients: [],
+                  iconKey: selectedIconKey,
+                  isPopular: false,
+                  available: stockVal === null || stockVal > 0,
+                  stock: stockVal
+                };
+                await ArismendiDB.saveMenuItem(firstItem);
+                state.menuItems.push(firstItem);
+              }
+
+              close(); showToast(firstName ? `${name} y ${firstName} guardados` : `${name} guardado`); render();
               GitHubSync.triggerAutoCloudPush('Nuevo local');
             };
           }
