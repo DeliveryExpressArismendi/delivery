@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "releaseTag": "v1.0.3",
+  "stateHash": "ece494176285",
+  "updatedAt": "2026-11-15T16:40:47.407Z",
+  "generatedAt": "2026-11-15T16:40:47.407Z",
+  "generatedBy": "github-actions-robot",
+  "summary": {
+    "exchangeRateBsPerUsd": 1200,
+    "deliveryFeeUsd": 0,
+    "whatsappPhone": "04245224500",
+    "storesTotal": 1,
+    "storesOpen": 1,
+    "storesClosed": 0,
+    "itemsTotal": 7,
+    "itemsAvailable": 7,
+    "itemsOutOfStock": 0
+  }
+}
