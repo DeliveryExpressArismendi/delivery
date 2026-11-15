@@ -1,7 +1,7 @@
 {
-  "version": 35,
-  "releaseTag": "v1.0.35",
-  "updatedAt": "2026-11-15T18:23:40.261Z",
+  "version": 34,
+  "releaseTag": "v1.0.34",
+  "updatedAt": "2026-11-15T18:23:49.325Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -427,7 +427,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794767011410",
+      "storeId": "store_1794766416133",
+      "name": "AREPA SALCHICHA",
+      "category": "Arepas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "arepa",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "076a2b9c2852"
+  ]
 }
