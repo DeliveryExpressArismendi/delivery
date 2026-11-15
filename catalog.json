@@ -1,7 +1,7 @@
 {
-  "version": 29,
-  "releaseTag": "v1.0.29",
-  "updatedAt": "2026-11-15T18:17:46.330Z",
+  "version": 30,
+  "releaseTag": "v1.0.30",
+  "updatedAt": "2026-11-15T18:19:31.357Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -355,7 +355,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794766736046",
+      "storeId": "store_1794766144421",
+      "name": "Empanada POLLO",
+      "category": "Empanadas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "empanada",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "cf4d78596011"
+  "stateHash": "509f0c9daec1"
 }
