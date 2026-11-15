@@ -1,7 +1,7 @@
 {
-  "version": 10,
-  "releaseTag": "v1.0.10",
-  "updatedAt": "2026-11-15T17:04:00.193Z",
+  "version": 11,
+  "releaseTag": "v1.0.11",
+  "updatedAt": "2026-11-15T17:06:29.613Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -180,7 +180,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794762363254",
+      "storeId": "pili_burger",
+      "name": "Mini Hamburguesas",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "burger",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "10199a4d89c3"
+  "stateHash": "d00857c27700"
 }
