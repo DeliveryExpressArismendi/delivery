@@ -1,7 +1,7 @@
 {
-  "version": 12,
-  "releaseTag": "v1.0.12",
-  "updatedAt": "2026-11-15T17:07:57.580Z",
+  "version": 11,
+  "releaseTag": "v1.0.11",
+  "updatedAt": "2026-11-15T17:07:59.531Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -193,7 +193,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794762463219",
+      "storeId": "pili_burger",
+      "name": "Refresco 2L",
+      "category": "Refrescos",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "d00857c27700"
+  ]
 }
