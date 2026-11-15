@@ -1,7 +1,7 @@
 {
   "version": 29,
   "releaseTag": "v1.0.29",
-  "updatedAt": "2026-11-15T18:18:54.945Z",
+  "updatedAt": "2026-11-15T18:19:17.545Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -352,6 +352,19 @@
         "REINA PEPIADA"
       ],
       "iconKey": "arepa",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1794766736046",
+      "storeId": "store_1794766144421",
+      "name": "Empanada POLLO",
+      "category": "Empanadas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "empanada",
       "isPopular": false,
       "available": true,
       "stock": null
