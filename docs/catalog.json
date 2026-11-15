@@ -1,7 +1,7 @@
 {
   "version": 8,
   "releaseTag": "v1.0.8",
-  "updatedAt": "2026-11-15T16:56:14.163Z",
+  "updatedAt": "2026-11-15T16:56:25.263Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -163,10 +163,10 @@
     {
       "id": "pili_shawarma_arabe",
       "storeId": "pili_burger",
-      "name": "Shawarma Árabe Pili",
+      "name": "Shawarma",
       "category": "Shawarmas",
       "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
-      "priceUsd": 6.5,
+      "priceUsd": 6,
       "ingredients": [
         "Pollo y carne marinada",
         "Pan pita tostado",
