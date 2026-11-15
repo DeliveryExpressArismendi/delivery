@@ -582,7 +582,7 @@
       left: 50%;
       bottom: calc(88px + env(safe-area-inset-bottom));
       transform: translateX(-50%);
-      z-index: 120;
+      z-index: 250;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -591,6 +591,78 @@
 
     .toast { background: #231313; color: #fff; padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: 0 8px 20px rgba(0,0,0,0.28); }
     .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
+
+    .startup-gate-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 195;
+      background: radial-gradient(circle at 50% 18%, #D32F2F 0%, #8E0000 45%, #2B0709 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(18px + env(safe-area-inset-top)) 16px calc(22px + env(safe-area-inset-bottom));
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      animation: backdropFade 240ms ease-out both;
+    }
+
+    .startup-gate-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface);
+      border-radius: 26px;
+      padding: 22px 20px;
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.42);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transform-origin: center top;
+      animation: accordionScreenUnfold 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .startup-gate-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+
+    .startup-gate-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      border: 2px solid var(--crimson-primary);
+      box-shadow: 0 8px 20px rgba(211, 47, 47, 0.25);
+      object-fit: cover;
+    }
+
+    .startup-repo-summary {
+      background: var(--surface-variant);
+      border: 1px solid var(--outline);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12.5px;
+    }
+
+    .startup-repo-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .startup-repo-pill {
+      background: #fff;
+      border: 1px solid var(--outline);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--crimson-deep);
+    }
 
     .pw-input-wrap { position: relative; display: flex; align-items: center; }
     .pw-input-wrap .input { padding-right: 46px; }
@@ -1051,6 +1123,7 @@
   </div>
   <div id="app" class="app-shell"></div>
   <div id="modal-root"></div>
+  <div id="gate-root"></div>
   <div id="toast-root" class="toast-container" aria-live="polite"></div>
 
   <script>
@@ -1128,7 +1201,7 @@
         pagoMovilDoc: 'V-00000000',
         pagoMovilPhone: '0424-5224500',
         repoSync: {
-          owner: 'DeliveryExpressArismendi',
+          owner: 'deliveryexpressarismendi',
           repo: 'delivery',
           branch: 'main',
           filePath: 'catalog.json'
@@ -1948,8 +2021,13 @@
             lastCommitSha: meta.lastCommitSha || '',
             lastCommitUrl: meta.lastCommitUrl || '',
             lastRemoteUpdatedAt: meta.lastRemoteUpdatedAt || '',
+            lastRemoteFileSha: meta.lastRemoteFileSha || '',
             hasUnpushedChanges: Boolean(meta.hasUnpushedChanges)
           };
+        }
+
+        function hasSavedToken() {
+          return Boolean(getCreds().token);
         }
 
         async function saveCreds(fields) {
@@ -1958,7 +2036,7 @@
           const branch = String(fields.branch || 'main').trim() || 'main';
           const filePath = String(fields.filePath || 'catalog.json').trim().replace(/^\/+/, '') || 'catalog.json';
           const token = String(fields.token || '').trim();
-          // El token solo se guarda localmente en el dispositivo del administrador, jamás en catalog.json
+          // El token solo se guarda localmente en el dispositivo del usuario, jamás en catalog.json
           saveMeta({ owner, repo, branch, filePath, token });
           state.config = {
             ...state.config,
@@ -2035,7 +2113,7 @@
           if (!creds.repo) throw new Error('Ingresa el nombre del repositorio.');
           if (!creds.branch) throw new Error('Ingresa la rama (ej: main).');
           if (!creds.filePath) throw new Error('Ingresa la ruta del archivo (ej: catalog.json).');
-          if (requireToken && !creds.token) throw new Error('Ingresa tu Token Personal de GitHub (PAT) para subir cambios.');
+          if (requireToken && !creds.token) throw new Error('Ingresa tu Token Personal de GitHub (PAT).');
         }
 
         async function parseGhError(resp, fallbackMsg) {
@@ -2045,20 +2123,20 @@
             if (j && j.message) detail = j.message;
           } catch (_) {}
           if (resp.status === 401) return 'Token inválido o expirado (401). Verifica tu PAT en GitHub.';
-          if (resp.status === 403) return 'Sin permiso de escritura (403). Asegúrate de que el token tenga permiso "Contents: Read & Write".';
+          if (resp.status === 403) return 'Sin permisos suficientes (403). Verifica que el token tenga permiso "Contents".';
           if (resp.status === 404) return 'Repositorio, rama o usuario no encontrado (404). Verifica Owner, Repositorio y Rama.';
           if (resp.status === 409 || resp.status === 422) return detail || 'Conflicto de versión al escribir el archivo en GitHub.';
           return detail ? `${fallbackMsg}: ${detail}` : `${fallbackMsg} (HTTP ${resp.status})`;
         }
 
-        async function testConnection(credsOverride) {
+        async function testConnection(credsOverride, requireWrite = true) {
           const creds = credsOverride ? { ...getCreds(), ...credsOverride } : getCreds();
           validateCreds(creds, true);
           const repoUrl = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}`;
           const resp = await fetch(repoUrl, { headers: buildHeaders(creds.token), cache: 'no-store' });
           if (!resp.ok) throw new Error(await parseGhError(resp, 'No se pudo conectar con GitHub'));
           const repoData = await resp.json();
-          if (repoData.permissions && repoData.permissions.push === false) {
+          if (requireWrite && repoData.permissions && repoData.permissions.push === false) {
             throw new Error('La conexión funcionó, pero este token solo tiene permisos de lectura (no permite subir cambios).');
           }
           const branchUrl = `${repoUrl}/branches/${encodeURIComponent(creds.branch)}`;
@@ -2069,13 +2147,14 @@
           return {
             fullName: repoData.full_name || `${creds.owner}/${creds.repo}`,
             isPrivate: Boolean(repoData.private),
-            branch: creds.branch
+            branch: creds.branch,
+            canPush: !(repoData.permissions && repoData.permissions.push === false)
           };
         }
 
         async function getExistingFileSha(creds) {
           const encodedPath = encodeRepoPath(creds.filePath);
-          const url = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/contents/${encodedPath}?ref=${encodeURIComponent(creds.branch)}`;
+          const url = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/contents/${encodedPath}?ref=${encodeURIComponent(creds.branch)}&_t=${Date.now()}`;
           const resp = await fetch(url, { headers: buildHeaders(creds.token), cache: 'no-store' });
           if (resp.status === 404) return null;
           if (!resp.ok) throw new Error(await parseGhError(resp, 'Error al consultar el archivo en GitHub'));
@@ -2118,56 +2197,100 @@
           const result = await resp.json();
           const commitSha = (result && result.commit && result.commit.sha) ? result.commit.sha.slice(0, 7) : '';
           const commitUrl = (result && result.commit && result.commit.html_url) ? result.commit.html_url : '';
+          const newFileSha = (result && result.content && result.content.sha) ? result.content.sha : '';
           saveMeta({
             hasUnpushedChanges: false,
             lastSyncAt: Date.now(),
             lastRemoteUpdatedAt: payload.updatedAt,
+            lastRemoteFileSha: newFileSha,
             lastCommitSha: commitSha,
             lastCommitUrl: commitUrl
           });
           return { commitSha, commitUrl, updatedAt: payload.updatedAt };
         }
 
-        async function applyPulledPayload(data) {
+        async function applyPulledPayload(data, resolvedPath, remoteFileSha) {
           if (!data || !Array.isArray(data.stores) || !Array.isArray(data.menuItems) || !data.config) {
             return false;
           }
-          await ArismendiDB.applyRemoteCatalog(data);
-          state.config = { ...ArismendiDB.DEFAULT_CONFIG, ...data.config, id: 'business_config' };
+          const cleanIncomingConfig = { ...ArismendiDB.DEFAULT_CONFIG, ...data.config, id: 'business_config' };
+          if (resolvedPath) {
+            cleanIncomingConfig.repoSync = {
+              ...(cleanIncomingConfig.repoSync || ArismendiDB.DEFAULT_CONFIG.repoSync),
+              filePath: resolvedPath
+            };
+          }
+          await ArismendiDB.applyRemoteCatalog({ ...data, config: cleanIncomingConfig });
+          state.config = cleanIncomingConfig;
           state.stores = data.stores;
           state.menuItems = data.menuItems;
           if (state.stores.length && !state.stores.some((s) => s.id === state.selectedStoreId)) {
             state.selectedStoreId = state.stores[0].id;
           }
-          if (data.config.repoSync) {
+          if (cleanIncomingConfig.repoSync) {
             const meta = getMeta();
             saveMeta({
-              owner: meta.owner || data.config.repoSync.owner || '',
-              repo: meta.repo || data.config.repoSync.repo || '',
-              branch: meta.branch || data.config.repoSync.branch || 'main',
-              filePath: meta.filePath || data.config.repoSync.filePath || 'catalog.json'
+              owner: meta.owner || cleanIncomingConfig.repoSync.owner || '',
+              repo: meta.repo || cleanIncomingConfig.repoSync.repo || '',
+              branch: meta.branch || cleanIncomingConfig.repoSync.branch || 'main',
+              filePath: resolvedPath || meta.filePath || cleanIncomingConfig.repoSync.filePath || 'catalog.json'
             });
           }
           saveMeta({
             hasUnpushedChanges: false,
-            lastRemoteUpdatedAt: data.updatedAt || ''
+            lastRemoteUpdatedAt: data.updatedAt || '',
+            ...(remoteFileSha ? { lastRemoteFileSha: remoteFileSha } : {})
           });
           return true;
         }
 
-        async function pullRemoteCatalog(forceManual = false) {
-          const creds = getCreds();
+        async function fetchContentsApi(creds, pathCandidate) {
+          const encodedPath = encodeRepoPath(pathCandidate);
+          const apiUrl = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/contents/${encodedPath}?ref=${encodeURIComponent(creds.branch)}&_t=${Date.now()}`;
+          return fetch(apiUrl, { headers: buildHeaders(creds.token), cache: 'no-store' });
+        }
+
+        async function pullRemoteCatalog(forceManual = false, credsOverride = null) {
+          const creds = credsOverride ? { ...getCreds(), ...credsOverride } : getCreds();
           if (!forceManual && creds.hasUnpushedChanges) return false;
 
-          // Si es descarga manual y el admin tiene token, leemos directo desde la API de GitHub (sin caché CDN)
-          if (forceManual && creds.owner && creds.repo && creds.token) {
-            const encodedPath = encodeRepoPath(creds.filePath);
-            const apiUrl = `https://api.github.com/repos/${encodeURIComponent(creds.owner)}/${encodeURIComponent(creds.repo)}/contents/${encodedPath}?ref=${encodeURIComponent(creds.branch)}`;
-            const resp = await fetch(apiUrl, { headers: buildHeaders(creds.token), cache: 'no-store' });
-            if (!resp.ok) throw new Error(await parseGhError(resp, 'No se pudo descargar catalog.json desde GitHub'));
-            const metaJson = await resp.json();
+          // Cuando hay token, siempre consultamos la GitHub Contents API (sin caché CDN -> tiempo real)
+          if (creds.owner && creds.repo && creds.token) {
+            const pathCandidates = [creds.filePath];
+            const altPath = creds.filePath === 'catalog.json' ? 'docs/catalog.json' : 'catalog.json';
+            if (!pathCandidates.includes(altPath)) pathCandidates.push(altPath);
+
+            let successResp = null;
+            let resolvedPath = creds.filePath;
+            let lastErrResp = null;
+
+            for (const candidate of pathCandidates) {
+              const resp = await fetchContentsApi(creds, candidate);
+              if (resp.ok) {
+                successResp = resp;
+                resolvedPath = candidate;
+                break;
+              }
+              lastErrResp = resp;
+              if (resp.status !== 404) break;
+            }
+
+            if (!successResp) {
+              if (forceManual) {
+                throw new Error(await parseGhError(lastErrResp, 'No se pudo descargar el catálogo desde GitHub'));
+              }
+              return false;
+            }
+
+            const metaJson = await successResp.json();
+            if (!forceManual && metaJson && metaJson.sha && metaJson.sha === creds.lastRemoteFileSha) {
+              return false;
+            }
             const parsed = JSON.parse(base64ToUtf8(metaJson.content));
-            return applyPulledPayload(parsed);
+            if (!forceManual && parsed && parsed.updatedAt && parsed.updatedAt === creds.lastRemoteUpdatedAt && (!metaJson.sha || metaJson.sha === creds.lastRemoteFileSha)) {
+              return false;
+            }
+            return applyPulledPayload(parsed, resolvedPath, metaJson && metaJson.sha ? metaJson.sha : '');
           }
 
           const candidates = [];
@@ -2179,7 +2302,7 @@
             candidates.push(`./catalog.json?t=${Date.now()}`);
           }
           if (!candidates.length) {
-            if (forceManual) throw new Error('Configura el Usuario y Repositorio de GitHub primero.');
+            if (forceManual) throw new Error('Configura el Usuario, Repositorio y Token de GitHub.');
             return false;
           }
 
@@ -2198,17 +2321,18 @@
           }
 
           if (!latestData) {
-            if (forceManual) throw new Error('No se encontró catalog.json en el repositorio o GitHub Pages aún.');
+            if (forceManual) throw new Error('No se encontró catalog.json en el repositorio.');
             return false;
           }
           if (!forceManual && latestData.updatedAt && latestData.updatedAt === creds.lastRemoteUpdatedAt) {
             return false;
           }
-          return applyPulledPayload(latestData);
+          return applyPulledPayload(latestData, creds.filePath, '');
         }
 
         return {
           getCreds,
+          hasSavedToken,
           saveCreds,
           markUnpushedChanges,
           testConnection,
@@ -2515,6 +2639,7 @@
             <div class="hero-pills-row">
               <button class="rate-pill" id="btn-quick-rate">💱 Tasa: ${formatRate(rate)}${state.isAdminUnlocked ? ' ✎' : ''}</button>
               <span class="wa-badge-pill">WhatsApp: ${escapeHtml(state.config.whatsappPhone)}</span>
+              ${GitHubSync.hasSavedToken() ? '<button class="wa-badge-pill" id="btn-live-sync" style="cursor:pointer;border:1px solid rgba(255,255,255,0.28)" title="Sincronizar cambios en tiempo real">🟢 En vivo ↻</button>' : ''}
             </div>
             <p class="hero-desc">Comida rápida directo a tu puerta con factura en Bolívares y Dólares a la tasa del día. Sin registros obligatorios.</p>
           </header>
@@ -2813,7 +2938,7 @@
                 <h3 class="panel-card-title">🐙 Sincronización con GitHub (Publicar Cambios)</h3>
                 <p style="margin:0;font-size:12.5px;color:var(--text-muted)">Introduce tus credenciales de GitHub para subir locales nuevos, cambios de menú, precios y la tasa del día directamente a tu repositorio (<code>${escapeHtml(gh.filePath)}</code>). Tu token se guarda <b>solo en este teléfono</b> y nunca se sube al repositorio.</p>
                 ${ghFeedbackHtml}
-                <div class="field-group"><label class="field-label" for="gh-owner">Usuario u Organización GitHub (Owner)</label><input id="gh-owner" class="input" type="text" placeholder="Ej: DeliveryExpressArismendi" value="${escapeHtml(gh.owner)}" autocomplete="off" /></div>
+                <div class="field-group"><label class="field-label" for="gh-owner">Usuario u Organización GitHub (Owner)</label><input id="gh-owner" class="input" type="text" placeholder="Ej: deliveryexpressarismendi" value="${escapeHtml(gh.owner)}" autocomplete="off" /></div>
                 <div class="field-group"><label class="field-label" for="gh-repo">Nombre del Repositorio</label><input id="gh-repo" class="input" type="text" placeholder="Ej: delivery" value="${escapeHtml(gh.repo)}" autocomplete="off" /></div>
                 <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px">
                   <div class="field-group"><label class="field-label" for="gh-branch">Rama</label><input id="gh-branch" class="input" type="text" placeholder="main" value="${escapeHtml(gh.branch)}" autocomplete="off" /></div>
@@ -3425,6 +3550,16 @@
         const byId = (id) => document.getElementById(id);
         if (byId('btn-quick-rate')) byId('btn-quick-rate').onclick = () => requestAdminAccess(openQuickRateModal);
         if (byId('btn-open-admin')) byId('btn-open-admin').onclick = () => requestAdminAccess(() => goView('admin'));
+        if (byId('btn-live-sync')) byId('btn-live-sync').onclick = async () => {
+          showToast('Sincronizando catálogo en tiempo real...');
+          try {
+            const ok = await GitHubSync.pullRemoteCatalog(true);
+            render();
+            showToast(ok ? '✅ Menú, locales y tasa actualizados' : '✅ Ya estás al día');
+          } catch (err) {
+            showToast(err && err.message ? err.message : 'No se pudo sincronizar');
+          }
+        };
         if (byId('btn-header-checkout')) byId('btn-header-checkout').onclick = () => goView('checkout');
         if (byId('btn-open-checkout')) byId('btn-open-checkout').onclick = () => goView('checkout');
         if (byId('btn-back-home')) byId('btn-back-home').onclick = () => goView('home');
@@ -3796,9 +3931,183 @@
         });
       }
 
+      // Pantalla obligatoria inicial para ingresar el Token Personal de GitHub (en usuarios nuevos)
+      let realtimeSyncTimer = null;
+      function startRealtimeSyncLoop() {
+        if (realtimeSyncTimer) return;
+        const runBackgroundPull = async () => {
+          if (document.hidden || state.isSyncingGitHub) return;
+          if (!GitHubSync.hasSavedToken()) return;
+          try {
+            const updated = await GitHubSync.pullRemoteCatalog(false);
+            if (updated) {
+              render();
+              showToast('🔄 Catálogo y precios actualizados en tiempo real');
+            }
+          } catch (_) {}
+        };
+        realtimeSyncTimer = setInterval(runBackgroundPull, 15000);
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) runBackgroundPull();
+        });
+        window.addEventListener('online', runBackgroundPull);
+      }
+
+      function openMandatoryStartupTokenGate() {
+        const root = document.getElementById('gate-root');
+        if (!root || root.innerHTML.trim()) return;
+        const creds = GitHubSync.getCreds();
+        document.body.style.overflow = 'hidden';
+        root.innerHTML = `
+          <div class="startup-gate-backdrop" id="startup-gate-backdrop" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+            <div class="startup-gate-card">
+              <div class="startup-gate-hero">
+                <img src="icons/logo.png" alt="Logo Delivery Express Arismendi" class="startup-gate-logo" />
+                <div style="font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--crimson-primary);text-transform:uppercase">Delivery Express Arismendi</div>
+                <h2 id="gate-title" style="margin:0;font-size:21px;font-weight:900;color:var(--text-main)">Conectar con GitHub</h2>
+                <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.4">Para iniciar la aplicación y recibir los locales, menú y precios en tiempo real, introduce tu <b>Token Personal de GitHub</b>.</p>
+              </div>
+
+              <div class="startup-repo-summary">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                  <strong style="color:var(--text-main)">Repositorio preconfigurado</strong>
+                  <button type="button" class="chip" id="btn-gate-edit-repo" style="padding:4px 9px;font-size:11px">Ajustar ▾</button>
+                </div>
+                <div class="startup-repo-pills">
+                  <span class="startup-repo-pill">👤 <span id="gate-pill-owner">${escapeHtml(creds.owner || 'deliveryexpressarismendi')}</span></span>
+                  <span class="startup-repo-pill">📦 <span id="gate-pill-repo">${escapeHtml(creds.repo || 'delivery')}</span></span>
+                  <span class="startup-repo-pill">🌿 <span id="gate-pill-branch">${escapeHtml(creds.branch || 'main')}</span></span>
+                  <span class="startup-repo-pill">📄 <span id="gate-pill-path">${escapeHtml(creds.filePath || 'catalog.json')}</span></span>
+                </div>
+                <div id="gate-repo-fields" style="display:none;flex-direction:column;gap:8px;margin-top:6px;padding-top:8px;border-top:1px dashed var(--outline)">
+                  <div class="field-group"><label class="field-label" for="gate-owner">Usuario u Organización (Owner)</label><input id="gate-owner" class="input" type="text" value="${escapeHtml(creds.owner || 'deliveryexpressarismendi')}" autocomplete="off" /></div>
+                  <div class="field-group"><label class="field-label" for="gate-repo">Nombre del Repositorio</label><input id="gate-repo" class="input" type="text" value="${escapeHtml(creds.repo || 'delivery')}" autocomplete="off" /></div>
+                  <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:8px">
+                    <div class="field-group"><label class="field-label" for="gate-branch">Rama</label><input id="gate-branch" class="input" type="text" value="${escapeHtml(creds.branch || 'main')}" autocomplete="off" /></div>
+                    <div class="field-group"><label class="field-label" for="gate-path">Archivo de Catálogo</label><input id="gate-path" class="input" type="text" value="${escapeHtml(creds.filePath || 'catalog.json')}" autocomplete="off" /></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="gate-token">Token Personal de GitHub (PAT) *</label>
+                <div class="pw-input-wrap">
+                  <input id="gate-token" class="input" type="password" placeholder="Pega aquí tu token (ghp_... o github_pat_...)" autocomplete="off" />
+                  <button type="button" class="pw-toggle-btn" id="btn-toggle-gate-token" aria-label="Mostrar u ocultar token">👁️</button>
+                </div>
+              </div>
+
+              <div id="gate-status" class="error-banner" style="display:none"></div>
+
+              <button class="btn-primary" id="btn-gate-submit" style="min-height:50px;font-size:15px">🚀 Cargar Aplicación</button>
+              <div style="font-size:11.5px;color:var(--text-muted);text-align:center">Tu token se guarda únicamente de forma segura en este dispositivo.</div>
+            </div>
+          </div>`;
+
+        const ownerInp = document.getElementById('gate-owner');
+        const repoInp = document.getElementById('gate-repo');
+        const branchInp = document.getElementById('gate-branch');
+        const pathInp = document.getElementById('gate-path');
+        const tokenInp = document.getElementById('gate-token');
+        const statusEl = document.getElementById('gate-status');
+        const submitBtn = document.getElementById('btn-gate-submit');
+        const repoFieldsBox = document.getElementById('gate-repo-fields');
+
+        document.getElementById('btn-gate-edit-repo').onclick = () => {
+          const isOpen = repoFieldsBox.style.display === 'flex';
+          repoFieldsBox.style.display = isOpen ? 'none' : 'flex';
+        };
+        const syncPills = () => {
+          document.getElementById('gate-pill-owner').textContent = ownerInp.value.trim() || '—';
+          document.getElementById('gate-pill-repo').textContent = repoInp.value.trim() || '—';
+          document.getElementById('gate-pill-branch').textContent = branchInp.value.trim() || 'main';
+          document.getElementById('gate-pill-path').textContent = pathInp.value.trim() || 'catalog.json';
+        };
+        [ownerInp, repoInp, branchInp, pathInp].forEach((inp) => inp.addEventListener('input', syncPills));
+
+        document.getElementById('btn-toggle-gate-token').onclick = () => {
+          tokenInp.type = tokenInp.type === 'password' ? 'text' : 'password';
+        };
+
+        setTimeout(() => tokenInp.focus(), 80);
+
+        const setGateStatus = (msg, isError = true) => {
+          if (!msg) {
+            statusEl.style.display = 'none';
+            return;
+          }
+          statusEl.style.display = 'block';
+          statusEl.style.background = isError ? '#FFEBEE' : '#E3F2FD';
+          statusEl.style.color = isError ? '#B00020' : '#0D47A1';
+          statusEl.style.borderColor = isError ? 'rgba(176, 0, 32, 0.25)' : '#90CAF9';
+          statusEl.textContent = msg;
+        };
+
+        const submitGate = async () => {
+          const enteredCreds = {
+            owner: ownerInp.value.trim(),
+            repo: repoInp.value.trim(),
+            branch: branchInp.value.trim() || 'main',
+            filePath: pathInp.value.trim().replace(/^\/+/, '') || 'catalog.json',
+            token: tokenInp.value.trim()
+          };
+          if (!enteredCreds.owner || !enteredCreds.repo) {
+            repoFieldsBox.style.display = 'flex';
+            return setGateStatus('Verifica el Usuario y Repositorio de GitHub.');
+          }
+          if (!enteredCreds.token) {
+            tokenInp.focus();
+            return setGateStatus('Debes introducir el Token Personal de GitHub para cargar la aplicación.');
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = '⏳ Sincronizando con GitHub...';
+          setGateStatus('Conectando con el repositorio y descargando menú y tasa en tiempo real...', false);
+
+          try {
+            await GitHubSync.testConnection(enteredCreds, false);
+            await GitHubSync.pullRemoteCatalog(true, enteredCreds);
+            const finalPath = (state.config && state.config.repoSync && state.config.repoSync.filePath) || enteredCreds.filePath;
+            await GitHubSync.saveCreds({ ...enteredCreds, filePath: finalPath });
+            root.innerHTML = '';
+            document.body.style.overflow = '';
+            startRealtimeSyncLoop();
+            render();
+            showToast('✅ Aplicación cargada y sincronizada en tiempo real');
+            if (state.userProfile && state.userProfile.loyaltyNotificationPending) {
+              setTimeout(() => openLoyaltyRewardModal(), 260);
+            }
+          } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '🚀 Cargar Aplicación';
+            setGateStatus(err && err.message ? err.message : 'No se pudo conectar con GitHub. Revisa tu token.');
+          }
+        };
+
+        submitBtn.onclick = submitGate;
+        tokenInp.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') submitGate();
+        });
+      }
+
       // Pantalla de bienvenida animada antes de iniciar la app
       let splashDismissed = false;
+      let dbBootCompleted = false;
       let pendingLoyaltyAfterSplash = false;
+
+      function onBootReadyAndSplashDone() {
+        if (!splashDismissed || !dbBootCompleted) return;
+        if (!GitHubSync.hasSavedToken()) {
+          openMandatoryStartupTokenGate();
+        } else {
+          startRealtimeSyncLoop();
+          if (pendingLoyaltyAfterSplash) {
+            pendingLoyaltyAfterSplash = false;
+            setTimeout(() => openLoyaltyRewardModal(), 260);
+          }
+        }
+      }
+
       function dismissSplashScreen() {
         if (splashDismissed) return;
         splashDismissed = true;
@@ -3813,10 +4122,7 @@
           void appRoot.offsetWidth;
           appRoot.classList.add('view-accordion-enter');
         }
-        if (pendingLoyaltyAfterSplash) {
-          pendingLoyaltyAfterSplash = false;
-          setTimeout(() => openLoyaltyRewardModal(), 260);
-        }
+        onBootReadyAndSplashDone();
       }
 
       const splashEl = document.getElementById('splash-screen');
@@ -3870,13 +4176,19 @@
         await recordActivity('app_open', 'Inicio de sesión en la aplicación');
         render();
         if (state.userProfile && state.userProfile.loyaltyNotificationPending) {
-          if (splashDismissed) openLoyaltyRewardModal();
-          else pendingLoyaltyAfterSplash = true;
+          pendingLoyaltyAfterSplash = true;
         }
-        GitHubSync.pullRemoteCatalog(false).then((updated) => {
-          if (updated) render();
-        }).catch(() => {});
-      }).catch(() => {});
+        dbBootCompleted = true;
+        onBootReadyAndSplashDone();
+        if (GitHubSync.hasSavedToken()) {
+          GitHubSync.pullRemoteCatalog(false).then((updated) => {
+            if (updated) render();
+          }).catch(() => {});
+        }
+      }).catch(() => {
+        dbBootCompleted = true;
+        onBootReadyAndSplashDone();
+      });
     })();
   </script>
 </body>
