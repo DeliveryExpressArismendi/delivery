@@ -1,7 +1,7 @@
 {
   "version": 30,
   "releaseTag": "v1.0.30",
-  "updatedAt": "2026-11-15T18:19:31.357Z",
+  "updatedAt": "2026-11-15T18:20:08.305Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -368,7 +368,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794766787088",
+      "storeId": "store_1794766144421",
+      "name": "Empanada JAMON CON QUESO",
+      "category": "Empanadas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "empanada",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "509f0c9daec1"
+  ]
 }
