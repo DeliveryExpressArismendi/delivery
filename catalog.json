@@ -1,14 +1,14 @@
 {
-  "version": 9,
-  "releaseTag": "v1.0.9",
-  "updatedAt": "2026-11-15T16:57:12.418Z",
+  "version": 10,
+  "releaseTag": "v1.0.10",
+  "updatedAt": "2026-11-15T17:04:00.193Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
     "whatsappPhone": "04245224500",
-    "deliveryFeeUsd": 0,
-    "pagoMovilBank": "Banco de Venezuela (0102)",
-    "pagoMovilDoc": "V-00000000",
+    "deliveryFeeUsd": 1,
+    "pagoMovilBank": "Banco de Venezuelo de crédito (0104)",
+    "pagoMovilDoc": "V-26490000",
     "pagoMovilPhone": "0424-5224500",
     "repoSync": {
       "owner": "deliveryexpressarismendi",
@@ -182,5 +182,5 @@
       "stock": null
     }
   ],
-  "stateHash": "a0c58782d641"
+  "stateHash": "10199a4d89c3"
 }
