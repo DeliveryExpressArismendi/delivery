@@ -1,7 +1,7 @@
 {
   "version": 28,
   "releaseTag": "v1.0.28",
-  "updatedAt": "2026-11-15T18:17:11.075Z",
+  "updatedAt": "2026-11-15T18:17:34.039Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -321,7 +321,7 @@
     {
       "id": "item_1794766174398",
       "storeId": "store_1794766144421",
-      "name": "Empanada",
+      "name": "Empanada MECHADA",
       "category": "Empanadas",
       "description": "",
       "priceUsd": 1,
@@ -356,6 +356,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "67ba0c24d9c0"
+  ]
 }
