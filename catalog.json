@@ -1,7 +1,7 @@
 {
-  "version": 33,
-  "releaseTag": "v1.0.33",
-  "updatedAt": "2026-11-15T18:22:48.764Z",
+  "version": 34,
+  "releaseTag": "v1.0.34",
+  "updatedAt": "2026-11-15T18:23:04.852Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -401,7 +401,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794766959158",
+      "storeId": "store_1794766416133",
+      "name": "AREPA POLLO",
+      "category": "Arepas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "arepa",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "02c815808cd5"
+  "stateHash": "0d47782e4a6f"
 }
