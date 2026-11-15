@@ -1,7 +1,7 @@
 {
-  "version": 5,
-  "releaseTag": "v1.0.5",
-  "updatedAt": "2026-11-15T16:51:48.461Z",
+  "version": 6,
+  "releaseTag": "v1.0.6",
+  "updatedAt": "2026-11-15T16:55:15.201Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -41,9 +41,22 @@
   ],
   "menuItems": [
     {
+      "id": "item_1794761474232",
+      "storeId": "store_1794761464624",
+      "name": "Perro Normal",
+      "category": "Perros",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "hotdog",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
-      "name": "Hamburguesa Clásica Pili",
+      "name": "Hamburguesa Normal",
       "category": "Hamburguesas",
       "description": "Pan brioche artesanal con carne a la parrilla y vegetales frescos.",
       "priceUsd": 5,
@@ -185,20 +198,7 @@
       "isPopular": false,
       "available": true,
       "stock": null
-    },
-    {
-      "id": "item_1794761474232",
-      "storeId": "store_1794761464624",
-      "name": "Perro Normal",
-      "category": "Perros",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "hotdog",
-      "isPopular": false,
-      "available": true,
-      "stock": null
     }
   ],
-  "stateHash": "a1b0f60f9682"
+  "stateHash": "39085943f0e0"
 }
