@@ -1,9 +1,9 @@
 {
-  "version": 37,
-  "releaseTag": "v1.0.37",
+  "version": 38,
+  "releaseTag": "v1.0.38",
   "stateHash": "d63de601ed35",
-  "updatedAt": "2026-11-15T18:24:18.364Z",
-  "generatedAt": "2026-11-15T18:24:18.364Z",
+  "updatedAt": "2026-11-15T18:25:08.913Z",
+  "generatedAt": "2026-11-15T18:25:08.913Z",
   "generatedBy": "github-actions-robot",
   "summary": {
     "exchangeRateBsPerUsd": 1200,
