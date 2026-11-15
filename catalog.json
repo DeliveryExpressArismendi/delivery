@@ -1,7 +1,7 @@
 {
-  "version": 31,
-  "releaseTag": "v1.0.31",
-  "updatedAt": "2026-11-15T18:20:33.215Z",
+  "version": 32,
+  "releaseTag": "v1.0.32",
+  "updatedAt": "2026-11-15T18:21:00.737Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -394,7 +394,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794766820550",
+      "storeId": "store_1794766144421",
+      "name": "Empanada PABELLON",
+      "category": "Empanadas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "empanada",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "e3c26dc49025"
+  "stateHash": "122be6303643"
 }
