@@ -1,7 +1,7 @@
 {
   "version": 8,
   "releaseTag": "v1.0.8",
-  "updatedAt": "2026-11-15T16:55:56.056Z",
+  "updatedAt": "2026-11-15T16:56:09.378Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -123,10 +123,10 @@
     {
       "id": "pili_perro_caliente",
       "storeId": "pili_burger",
-      "name": "Perro Caliente Pili",
+      "name": "Perro Normal",
       "category": "Perros",
       "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
-      "priceUsd": 2.5,
+      "priceUsd": 1,
       "ingredients": [
         "Salchicha al vapor",
         "Pan suave",
@@ -199,6 +199,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "3610cc8235f8"
+  ]
 }
