@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-15T13:44:43.968Z",
+  "updatedAt": "2026-11-15T13:49:12.019Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
     "whatsappPhone": "04245224500",
-    "deliveryFeeUsd": 1,
-    "pagoMovilBank": "0104 Banco Venezolano de Credito",
-    "pagoMovilDoc": "V-26490000",
+    "deliveryFeeUsd": 0,
+    "pagoMovilBank": "Banco de Venezuela (0102)",
+    "pagoMovilDoc": "V-00000000",
     "pagoMovilPhone": "0424-5224500",
     "repoSync": {
       "owner": "deliveryexpressarismendi",
@@ -27,130 +27,20 @@
       "iconKey": "burger"
     },
     {
-      "id": "store_1794693424873",
-      "name": "La Negra",
-      "badge": "Nuevo Local",
-      "tagline": "Perros, Hamburguesas y shawarma",
-      "etaMinutes": "20-30 min",
-      "rating": "5.0",
-      "iconKey": "burger"
+      "id": "rey_shawarma",
+      "name": "El Rey del Shawarma",
+      "badge": "Especialidad Árabe",
+      "tagline": "Auténtico trompo árabe, crema de ajo artesanal y pepitos",
+      "etaMinutes": "25-35 min",
+      "rating": "4.8",
+      "iconKey": "shawarma"
     }
   ],
   "menuItems": [
     {
-      "id": "item_1794693125664",
-      "storeId": "pili_burger",
-      "name": "Refresco 2L",
-      "category": "Refrescos",
-      "description": "",
-      "priceUsd": 2,
-      "ingredients": [],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693443775",
-      "storeId": "store_1794693424873",
-      "name": "Perro Normal",
-      "category": "Perros",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "hotdog",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693471143",
-      "storeId": "store_1794693424873",
-      "name": "Perro Especial",
-      "category": "Perros",
-      "description": "",
-      "priceUsd": 3,
-      "ingredients": [],
-      "iconKey": "hotdog",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693497263",
-      "storeId": "store_1794693424873",
-      "name": "Mini Hamburguesa",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 2,
-      "ingredients": [],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693513779",
-      "storeId": "store_1794693424873",
-      "name": "Hamburguesa Normal",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 5,
-      "ingredients": [],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693528173",
-      "storeId": "store_1794693424873",
-      "name": "Hamburguesa Especial",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 8,
-      "ingredients": [],
-      "iconKey": "burger",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693542987",
-      "storeId": "store_1794693424873",
-      "name": "Shawarma",
-      "category": "Shawarmas",
-      "description": "",
-      "priceUsd": 6,
-      "ingredients": [],
-      "iconKey": "shawarma",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693565274",
-      "storeId": "store_1794693424873",
-      "name": "Pepito",
-      "category": "Pepitos",
-      "description": "",
-      "priceUsd": 7,
-      "ingredients": [],
-      "iconKey": "pepito",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693588274",
-      "storeId": "store_1794693424873",
-      "name": "Refresco 1L",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
-      "id": "item_1794693682575",
-      "storeId": "store_1794693424873",
-      "name": "Refresco 2L",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 2,
-      "ingredients": [],
-      "iconKey": "soda",
-      "isPopular": false
-    },
-    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
-      "name": "Hamburguesa Normal",
+      "name": "Hamburguesa Clásica Pili",
       "category": "Hamburguesas",
       "description": "Pan brioche artesanal con carne a la parrilla y vegetales frescos.",
       "priceUsd": 5,
@@ -171,10 +61,10 @@
     {
       "id": "pili_hamburguesa_doble",
       "storeId": "pili_burger",
-      "name": "Hamburguesa Especial",
+      "name": "Hamburguesa Doble Especial",
       "category": "Hamburguesas",
       "description": "Doble carne jugosa, doble cheddar, tocineta crocante y huevo.",
-      "priceUsd": 8,
+      "priceUsd": 7.5,
       "ingredients": [
         "Doble carne de res",
         "Doble queso cheddar",
@@ -191,10 +81,10 @@
     {
       "id": "pili_pepito_mixto",
       "storeId": "pili_burger",
-      "name": "Pepito",
+      "name": "Pepito Mixto Pili",
       "category": "Pepitos",
       "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
-      "priceUsd": 7,
+      "priceUsd": 8,
       "ingredients": [
         "Carne a la plancha",
         "Pollo a la plancha",
@@ -211,10 +101,10 @@
     {
       "id": "pili_perro_caliente",
       "storeId": "pili_burger",
-      "name": "Perro Normal",
+      "name": "Perro Caliente Pili",
       "category": "Perros",
       "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
-      "priceUsd": 3,
+      "priceUsd": 2.5,
       "ingredients": [
         "Salchicha al vapor",
         "Pan suave",
@@ -232,21 +122,41 @@
     {
       "id": "pili_refresco_15l",
       "storeId": "pili_burger",
-      "name": "Refresco 1L",
+      "name": "Refresco Familiar 1.5L",
       "category": "Refrescos",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
+      "description": "Botella familiar de 1.5 litros bien fría.",
+      "priceUsd": 3,
+      "ingredients": [
+        "Coca-Cola 1.5L",
+        "Chinotto 1.5L",
+        "Frescolita 1.5L"
+      ],
+      "iconKey": "soda",
+      "isPopular": false
+    },
+    {
+      "id": "pili_refresco_lata",
+      "storeId": "pili_burger",
+      "name": "Refresco Frío 355ml",
+      "category": "Refrescos",
+      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
+      "priceUsd": 1.5,
+      "ingredients": [
+        "Coca-Cola",
+        "Chinotto",
+        "Frescolita",
+        "Bien frío"
+      ],
       "iconKey": "soda",
       "isPopular": false
     },
     {
       "id": "pili_shawarma_arabe",
       "storeId": "pili_burger",
-      "name": "Shawarma",
+      "name": "Shawarma Árabe Pili",
       "category": "Shawarmas",
       "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
-      "priceUsd": 7,
+      "priceUsd": 6.5,
       "ingredients": [
         "Pollo y carne marinada",
         "Pan pita tostado",
@@ -255,6 +165,75 @@
         "Tomate",
         "Cebolla morada",
         "Pepinillos"
+      ],
+      "iconKey": "shawarma",
+      "isPopular": false
+    },
+    {
+      "id": "rey_pepito_arabe",
+      "storeId": "rey_shawarma",
+      "name": "Pepito Árabe Especial",
+      "category": "Pepitos",
+      "description": "Pan canilla tostado relleno de carne de shawarma y queso fundido.",
+      "priceUsd": 8.5,
+      "ingredients": [
+        "Carne estilo shawarma",
+        "Queso mozzarella fundido",
+        "Crema de ajo",
+        "Tomate",
+        "Papas hilo"
+      ],
+      "iconKey": "pepito",
+      "isPopular": false
+    },
+    {
+      "id": "rey_refresco_355",
+      "storeId": "rey_shawarma",
+      "name": "Refresco 355ml",
+      "category": "Refrescos",
+      "description": "Lata fría (Coca-Cola, Chinotto o Frescolita).",
+      "priceUsd": 1.5,
+      "ingredients": [
+        "Coca-Cola",
+        "Chinotto",
+        "Frescolita"
+      ],
+      "iconKey": "soda",
+      "isPopular": false
+    },
+    {
+      "id": "rey_shawarma_mixto",
+      "storeId": "rey_shawarma",
+      "name": "Shawarma Mixto Supremo",
+      "category": "Shawarmas",
+      "description": "Carne y pollo al trompo con papas fritas por dentro y doble crema de ajo.",
+      "priceUsd": 7,
+      "ingredients": [
+        "Carne al trompo",
+        "Pollo al trompo",
+        "Crema de ajo",
+        "Salsa tahini",
+        "Repollo morado",
+        "Tomate",
+        "Pepinillos",
+        "Papas fritas"
+      ],
+      "iconKey": "shawarma",
+      "isPopular": true
+    },
+    {
+      "id": "rey_shawarma_pollo",
+      "storeId": "rey_shawarma",
+      "name": "Shawarma de Pollo Clásico",
+      "category": "Shawarmas",
+      "description": "Pollo especiado estilo árabe en pan pita recién tostado.",
+      "priceUsd": 5.5,
+      "ingredients": [
+        "Pollo especiado",
+        "Crema de ajo",
+        "Lechuga",
+        "Tomate",
+        "Cebolla morada"
       ],
       "iconKey": "shawarma",
       "isPopular": false
