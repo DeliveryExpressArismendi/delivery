@@ -1,7 +1,7 @@
 {
-  "version": 19,
-  "releaseTag": "v1.0.19",
-  "updatedAt": "2026-11-15T17:12:52.433Z",
+  "version": 20,
+  "releaseTag": "v1.0.20",
+  "updatedAt": "2026-11-15T17:14:17.790Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -271,7 +271,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794762820380",
+      "storeId": "store_1794761464624",
+      "name": "Refresco 1L",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "0f480b90d0c2"
+  "stateHash": "0eb794774bed"
 }
