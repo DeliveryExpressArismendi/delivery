@@ -1,7 +1,7 @@
 {
-  "version": 26,
-  "releaseTag": "v1.0.26",
-  "updatedAt": "2026-11-15T18:12:32.164Z",
+  "version": 27,
+  "releaseTag": "v1.0.27",
+  "updatedAt": "2026-11-15T18:13:50.147Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -46,6 +46,16 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "empanada",
+      "isOpen": true
+    },
+    {
+      "id": "store_1794766416133",
+      "name": "KENEDY",
+      "badge": "Nuevo Local",
+      "tagline": "AREPAS",
+      "etaMinutes": "20-30 min",
+      "rating": "5.0",
+      "iconKey": "arepa",
       "isOpen": true
     }
   ],
@@ -328,5 +338,5 @@
       "stock": null
     }
   ],
-  "stateHash": "3175e3869dba"
+  "stateHash": "564bb80698fd"
 }
