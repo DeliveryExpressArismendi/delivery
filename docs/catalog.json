@@ -1,7 +1,7 @@
 {
   "version": 8,
   "releaseTag": "v1.0.8",
-  "updatedAt": "2026-11-15T16:56:09.378Z",
+  "updatedAt": "2026-11-15T16:56:14.163Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -154,24 +154,6 @@
         "Coca-Cola 1.5L",
         "Chinotto 1.5L",
         "Frescolita 1.5L"
-      ],
-      "iconKey": "soda",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_refresco_lata",
-      "storeId": "pili_burger",
-      "name": "Refresco Frío 355ml",
-      "category": "Refrescos",
-      "description": "Bebida gaseosa bien fría para acompañar tu comida.",
-      "priceUsd": 1.5,
-      "ingredients": [
-        "Coca-Cola",
-        "Chinotto",
-        "Frescolita",
-        "Bien frío"
       ],
       "iconKey": "soda",
       "isPopular": false,
