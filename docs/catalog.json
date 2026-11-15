@@ -1,7 +1,7 @@
 {
   "version": 24,
   "releaseTag": "v1.0.24",
-  "updatedAt": "2026-11-15T18:09:16.706Z",
+  "updatedAt": "2026-11-15T18:10:09.700Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -307,7 +307,25 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794766174398",
+      "storeId": "store_1794766144421",
+      "name": "Empanada",
+      "category": "Empanadas",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [
+        "Mechada",
+        "pollo",
+        "jamón con queso",
+        "pabellón",
+        "guiso"
+      ],
+      "iconKey": "empanada",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "4937cba98a26"
+  ]
 }
