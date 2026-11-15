@@ -1,7 +1,7 @@
 {
-  "version": 6,
-  "releaseTag": "v1.0.6",
-  "updatedAt": "2026-11-15T16:55:15.201Z",
+  "version": 7,
+  "releaseTag": "v1.0.7",
+  "updatedAt": "2026-11-15T16:55:34.162Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -79,10 +79,10 @@
     {
       "id": "pili_hamburguesa_doble",
       "storeId": "pili_burger",
-      "name": "Hamburguesa Doble Especial",
+      "name": "Hamburguesa Especial",
       "category": "Hamburguesas",
       "description": "Doble carne jugosa, doble cheddar, tocineta crocante y huevo.",
-      "priceUsd": 7.5,
+      "priceUsd": 8,
       "ingredients": [
         "Doble carne de res",
         "Doble queso cheddar",
@@ -200,5 +200,5 @@
       "stock": null
     }
   ],
-  "stateHash": "39085943f0e0"
+  "stateHash": "c081aedf6553"
 }
