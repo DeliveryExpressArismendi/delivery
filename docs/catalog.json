@@ -1,7 +1,7 @@
 {
   "version": 29,
   "releaseTag": "v1.0.29",
-  "updatedAt": "2026-11-15T18:18:53.338Z",
+  "updatedAt": "2026-11-15T18:18:54.945Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -334,7 +334,7 @@
       ],
       "iconKey": "empanada",
       "isPopular": false,
-      "available": false,
+      "available": true,
       "stock": null
     },
     {
