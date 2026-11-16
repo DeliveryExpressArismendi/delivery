@@ -1,7 +1,7 @@
 {
-  "version": 38,
-  "releaseTag": "v1.0.38",
-  "updatedAt": "2026-11-15T18:25:08.913Z",
+  "version": 39,
+  "releaseTag": "v1.0.39",
+  "updatedAt": "2026-11-16T05:05:32.901Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -56,6 +56,16 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "arepa",
+      "isOpen": true
+    },
+    {
+      "id": "store_1794805519941",
+      "name": "DULCE PALADAR",
+      "badge": "Nuevo Local",
+      "tagline": "Productos variados y delivery express",
+      "etaMinutes": "20-30 min",
+      "rating": "5.0",
+      "iconKey": "dulces",
       "isOpen": true
     }
   ],
@@ -186,134 +196,6 @@
       "priceUsd": 2,
       "ingredients": [],
       "iconKey": "soda",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_hamburguesa_clasica",
-      "storeId": "pili_burger",
-      "name": "Hamburguesa Normal",
-      "category": "Hamburguesas",
-      "description": "Pan brioche artesanal con carne a la parrilla y vegetales frescos.",
-      "priceUsd": 5,
-      "ingredients": [
-        "Carne de res 150g",
-        "Queso amarillo",
-        "Jamón",
-        "Lechuga",
-        "Tomate",
-        "Cebolla",
-        "Papas ralladas",
-        "Salsa de ajo",
-        "Salsa rosada"
-      ],
-      "iconKey": "burger",
-      "isPopular": true,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_hamburguesa_doble",
-      "storeId": "pili_burger",
-      "name": "Hamburguesa Especial",
-      "category": "Hamburguesas",
-      "description": "Doble carne jugosa, doble cheddar, tocineta crocante y huevo.",
-      "priceUsd": 8,
-      "ingredients": [
-        "Doble carne de res",
-        "Doble queso cheddar",
-        "Tocineta crocante",
-        "Huevo frito",
-        "Lechuga",
-        "Tomate",
-        "Papas ralladas",
-        "Salsa especial Pili"
-      ],
-      "iconKey": "burger",
-      "isPopular": true,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_pepito_mixto",
-      "storeId": "pili_burger",
-      "name": "Pepito",
-      "category": "Pepitos",
-      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
-      "priceUsd": 7,
-      "ingredients": [
-        "Carne a la plancha",
-        "Pollo a la plancha",
-        "Tocineta",
-        "Queso blanco fundido",
-        "Maíz dulce",
-        "Aguacate",
-        "Papas hilo",
-        "Salsa de ajo y tártara"
-      ],
-      "iconKey": "pepito",
-      "isPopular": true,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_perro_caliente",
-      "storeId": "pili_burger",
-      "name": "Perro Normal",
-      "category": "Perros",
-      "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
-      "priceUsd": 1,
-      "ingredients": [
-        "Salchicha al vapor",
-        "Pan suave",
-        "Repollo",
-        "Cebolla picada",
-        "Papas hilo",
-        "Queso blanco rallado",
-        "Kétchup",
-        "Mostaza",
-        "Salsa de ajo"
-      ],
-      "iconKey": "hotdog",
-      "isPopular": true,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_refresco_15l",
-      "storeId": "pili_burger",
-      "name": "Refresco Familiar 1L",
-      "category": "Refrescos",
-      "description": "Botella familiar de 1.5 litros bien fría.",
-      "priceUsd": 1,
-      "ingredients": [
-        "Coca-Cola 1.5L",
-        "Chinotto 1.5L",
-        "Frescolita 1.5L"
-      ],
-      "iconKey": "soda",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "pili_shawarma_arabe",
-      "storeId": "pili_burger",
-      "name": "Shawarma",
-      "category": "Shawarmas",
-      "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
-      "priceUsd": 6,
-      "ingredients": [
-        "Pollo y carne marinada",
-        "Pan pita tostado",
-        "Crema de ajo libanesa",
-        "Lechuga",
-        "Tomate",
-        "Cebolla morada",
-        "Pepinillos"
-      ],
-      "iconKey": "shawarma",
       "isPopular": false,
       "available": true,
       "stock": null
@@ -453,7 +335,135 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "pili_hamburguesa_clasica",
+      "storeId": "pili_burger",
+      "name": "Hamburguesa Normal",
+      "category": "Hamburguesas",
+      "description": "Pan brioche artesanal con carne a la parrilla y vegetales frescos.",
+      "priceUsd": 5,
+      "ingredients": [
+        "Carne de res 150g",
+        "Queso amarillo",
+        "Jamón",
+        "Lechuga",
+        "Tomate",
+        "Cebolla",
+        "Papas ralladas",
+        "Salsa de ajo",
+        "Salsa rosada"
+      ],
+      "iconKey": "burger",
+      "isPopular": true,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_hamburguesa_doble",
+      "storeId": "pili_burger",
+      "name": "Hamburguesa Especial",
+      "category": "Hamburguesas",
+      "description": "Doble carne jugosa, doble cheddar, tocineta crocante y huevo.",
+      "priceUsd": 8,
+      "ingredients": [
+        "Doble carne de res",
+        "Doble queso cheddar",
+        "Tocineta crocante",
+        "Huevo frito",
+        "Lechuga",
+        "Tomate",
+        "Papas ralladas",
+        "Salsa especial Pili"
+      ],
+      "iconKey": "burger",
+      "isPopular": true,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_pepito_mixto",
+      "storeId": "pili_burger",
+      "name": "Pepito",
+      "category": "Pepitos",
+      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
+      "priceUsd": 7,
+      "ingredients": [
+        "Carne a la plancha",
+        "Pollo a la plancha",
+        "Tocineta",
+        "Queso blanco fundido",
+        "Maíz dulce",
+        "Aguacate",
+        "Papas hilo",
+        "Salsa de ajo y tártara"
+      ],
+      "iconKey": "pepito",
+      "isPopular": true,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_perro_caliente",
+      "storeId": "pili_burger",
+      "name": "Perro Normal",
+      "category": "Perros",
+      "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
+      "priceUsd": 1,
+      "ingredients": [
+        "Salchicha al vapor",
+        "Pan suave",
+        "Repollo",
+        "Cebolla picada",
+        "Papas hilo",
+        "Queso blanco rallado",
+        "Kétchup",
+        "Mostaza",
+        "Salsa de ajo"
+      ],
+      "iconKey": "hotdog",
+      "isPopular": true,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_refresco_15l",
+      "storeId": "pili_burger",
+      "name": "Refresco Familiar 1L",
+      "category": "Refrescos",
+      "description": "Botella familiar de 1.5 litros bien fría.",
+      "priceUsd": 1,
+      "ingredients": [
+        "Coca-Cola 1.5L",
+        "Chinotto 1.5L",
+        "Frescolita 1.5L"
+      ],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "pili_shawarma_arabe",
+      "storeId": "pili_burger",
+      "name": "Shawarma",
+      "category": "Shawarmas",
+      "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
+      "priceUsd": 6,
+      "ingredients": [
+        "Pollo y carne marinada",
+        "Pan pita tostado",
+        "Crema de ajo libanesa",
+        "Lechuga",
+        "Tomate",
+        "Cebolla morada",
+        "Pepinillos"
+      ],
+      "iconKey": "shawarma",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "d63de601ed35"
+  "stateHash": "134552c9d504"
 }
