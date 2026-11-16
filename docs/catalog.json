@@ -1,7 +1,7 @@
 {
-  "version": 40,
-  "releaseTag": "v1.0.40",
-  "updatedAt": "2026-11-16T05:07:01.448Z",
+  "version": 39,
+  "releaseTag": "v1.0.39",
+  "updatedAt": "2026-11-16T05:07:10.728Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -476,7 +476,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1794805612794",
+      "storeId": "store_1794805519941",
+      "name": "Bombas de arequipe",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "0f99e0e4cec3"
+  ]
 }
