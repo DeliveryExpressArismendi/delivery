@@ -1,7 +1,7 @@
 {
   "version": 71,
   "releaseTag": "v1.0.71",
-  "updatedAt": "2026-11-19T04:46:46.078Z",
+  "updatedAt": "2026-11-19T04:48:45.672Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -727,7 +727,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1795063604159",
+      "storeId": "store_1795063309888",
+      "name": "Delivery Carga Pesada",
+      "category": "General",
+      "description": "Bultos de comida, cajas Pesada, o volumen en exceso",
+      "priceUsd": 4,
+      "ingredients": [],
+      "iconKey": "moto",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "1c223b0f7cda"
+  ]
 }
