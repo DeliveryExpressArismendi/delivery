@@ -1,7 +1,7 @@
 {
   "version": 73,
   "releaseTag": "v1.0.73",
-  "updatedAt": "2026-11-19T04:49:14.590Z",
+  "updatedAt": "2026-11-19T04:49:31.228Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -705,7 +705,7 @@
     {
       "id": "item_1795063359601",
       "storeId": "store_1795063309888",
-      "name": "Delivery De compras",
+      "name": "Delivery De Compras",
       "category": "General",
       "description": "Tener que bajarse de la moto.. escoger y pagar",
       "priceUsd": 2,
@@ -741,6 +741,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "24f8bedfbbd9"
+  ]
 }
