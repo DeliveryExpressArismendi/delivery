@@ -1,7 +1,7 @@
 {
-  "version": 45,
-  "releaseTag": "v1.0.45",
-  "updatedAt": "2026-11-19T02:58:53.535Z",
+  "version": 44,
+  "releaseTag": "v1.0.44",
+  "updatedAt": "2026-11-19T02:58:58.061Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -537,11 +537,10 @@
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
-      "iconKey": "dulces",
+      "iconKey": "soda",
       "isPopular": false,
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "3d0297b9c110"
+  ]
 }
