@@ -1,7 +1,7 @@
 {
-  "version": 56,
-  "releaseTag": "v1.0.56",
-  "updatedAt": "2026-11-19T03:16:30.972Z",
+  "version": 57,
+  "releaseTag": "v1.0.57",
+  "updatedAt": "2026-11-19T03:17:15.611Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -301,7 +301,7 @@
       "ingredients": [],
       "iconKey": "arepa",
       "isPopular": false,
-      "available": false,
+      "available": true,
       "stock": null
     },
     {
@@ -327,7 +327,7 @@
       "ingredients": [],
       "iconKey": "arepa",
       "isPopular": false,
-      "available": false,
+      "available": true,
       "stock": null
     },
     {
@@ -557,5 +557,5 @@
       "stock": null
     }
   ],
-  "stateHash": "c6f60f8c0917"
+  "stateHash": "a1b084ee740b"
 }
