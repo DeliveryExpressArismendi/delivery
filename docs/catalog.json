@@ -1,7 +1,7 @@
 {
   "version": 48,
   "releaseTag": "v1.0.48",
-  "updatedAt": "2026-11-19T03:04:35.446Z",
+  "updatedAt": "2026-11-19T03:05:35.646Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -449,14 +449,14 @@
       "description": "Doble carne jugosa, doble cheddar, tocineta crocante y huevo.",
       "priceUsd": 8,
       "ingredients": [
-        "Doble carne de res",
-        "Doble queso cheddar",
-        "Tocineta crocante",
-        "Huevo frito",
-        "Lechuga",
-        "Tomate",
-        "Papas ralladas",
-        "Salsa especial Pili"
+        "Carne picada",
+        "carne de hamburguesa",
+        "chorizo",
+        "tocineta",
+        "pollo",
+        "chuleta ahumada",
+        "ensalada",
+        "salsa y huevo"
       ],
       "iconKey": "burger",
       "isPopular": true,
@@ -546,6 +546,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "e6d8c7ba77af"
+  ]
 }
