@@ -1,7 +1,7 @@
 {
-  "version": 70,
-  "releaseTag": "v1.0.70",
-  "updatedAt": "2026-11-19T04:44:50.529Z",
+  "version": 71,
+  "releaseTag": "v1.0.71",
+  "updatedAt": "2026-11-19T04:46:46.078Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -714,7 +714,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1795063540872",
+      "storeId": "store_1795063309888",
+      "name": "Delivery Transporte",
+      "category": "General",
+      "description": "Cualquier lado del pueblo",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "moto",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "377ad823ff3e"
+  "stateHash": "1c223b0f7cda"
 }
