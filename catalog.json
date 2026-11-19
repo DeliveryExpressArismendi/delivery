@@ -1,7 +1,7 @@
 {
-  "version": 66,
-  "releaseTag": "v1.0.66",
-  "updatedAt": "2026-11-19T03:37:04.024Z",
+  "version": 67,
+  "releaseTag": "v1.0.67",
+  "updatedAt": "2026-11-19T03:37:35.707Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -215,7 +215,16 @@
       "category": "Pepitos",
       "description": "",
       "priceUsd": 7,
-      "ingredients": [],
+      "ingredients": [
+        "Carne picada",
+        "chuleta picada",
+        "chorizo",
+        "ensalada",
+        "salsa",
+        "papita",
+        "queso",
+        "blanco"
+      ],
       "iconKey": "pepito",
       "isPopular": false,
       "available": true,
@@ -649,5 +658,5 @@
       "stock": null
     }
   ],
-  "stateHash": "bedbe311fab0"
+  "stateHash": "a90b48f604ac"
 }
