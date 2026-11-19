@@ -1,7 +1,7 @@
 {
   "version": 46,
   "releaseTag": "v1.0.46",
-  "updatedAt": "2026-11-19T02:59:10.421Z",
+  "updatedAt": "2026-11-19T03:03:19.493Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -90,7 +90,14 @@
       "category": "Hamburguesas",
       "description": "",
       "priceUsd": 2,
-      "ingredients": [],
+      "ingredients": [
+        "Carne picada",
+        "carne de hamburguesa",
+        "papitas",
+        "ensalada",
+        "queso amarillo",
+        "huevo"
+      ],
       "iconKey": "burger",
       "isPopular": false,
       "available": true,
@@ -376,6 +383,45 @@
       "stock": null
     },
     {
+      "id": "item_1795057041915",
+      "storeId": "store_1794805519941",
+      "name": "Quesillo",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 4,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1795057060937",
+      "storeId": "store_1794805519941",
+      "name": "Gelatina 2x1",
+      "category": "Gelatina",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1795057100313",
+      "storeId": "store_1794805519941",
+      "name": "Gelatina",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -502,46 +548,6 @@
       "isPopular": false,
       "available": true,
       "stock": null
-    },
-    {
-      "id": "item_1795057041915",
-      "storeId": "store_1794805519941",
-      "name": "Quesillo",
-      "category": "Dulces",
-      "description": "",
-      "priceUsd": 4,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "item_1795057060937",
-      "storeId": "store_1794805519941",
-      "name": "Gelatina 2x1",
-      "category": "Gelatina",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "soda",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "item_1795057100313",
-      "storeId": "store_1794805519941",
-      "name": "Gelatina",
-      "category": "Dulces",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "soda",
-      "isPopular": false,
-      "available": true,
-      "stock": null
     }
-  ],
-  "stateHash": "eedb61efd9a5"
+  ]
 }
