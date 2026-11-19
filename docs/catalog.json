@@ -1,7 +1,7 @@
 {
   "version": 51,
   "releaseTag": "v1.0.51",
-  "updatedAt": "2026-11-19T03:08:26.088Z",
+  "updatedAt": "2026-11-19T03:08:49.307Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -491,15 +491,11 @@
       "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
       "priceUsd": 1,
       "ingredients": [
-        "Salchicha al vapor",
-        "Pan suave",
-        "Repollo",
-        "Cebolla picada",
-        "Papas hilo",
-        "Queso blanco rallado",
-        "Kétchup",
-        "Mostaza",
-        "Salsa de ajo"
+        "Papita",
+        "ensalada",
+        "salsa",
+        "salchicha",
+        "queso blanco"
       ],
       "iconKey": "hotdog",
       "isPopular": true,
@@ -564,6 +560,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "bb8654ca7e0c"
+  ]
 }
