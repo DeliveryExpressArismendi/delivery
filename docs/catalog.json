@@ -1,7 +1,7 @@
 {
   "version": 58,
   "releaseTag": "v1.0.58",
-  "updatedAt": "2026-11-19T03:23:09.014Z",
+  "updatedAt": "2026-11-19T03:23:29.510Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -568,7 +568,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1795058578132",
+      "storeId": "store_1794805519941",
+      "name": "Torta PEQUEÑA FRESA",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "afc922f530c6"
+  ]
 }
