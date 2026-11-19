@@ -1,7 +1,7 @@
 {
   "version": 62,
   "releaseTag": "v1.0.62",
-  "updatedAt": "2026-11-19T03:32:42.027Z",
+  "updatedAt": "2026-11-19T03:34:24.230Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -129,7 +129,14 @@
       "category": "Perros",
       "description": "",
       "priceUsd": 3,
-      "ingredients": [],
+      "ingredients": [
+        "Salchicha",
+        "carne picada",
+        "ensalada tomate lechuga y aguacate",
+        "papita",
+        "queso blanco",
+        "salsa"
+      ],
       "iconKey": "hotdog",
       "isPopular": false,
       "available": true,
@@ -614,6 +621,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "5fcf5cb6fc64"
+  ]
 }
