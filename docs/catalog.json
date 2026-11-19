@@ -1,7 +1,7 @@
 {
   "version": 54,
   "releaseTag": "v1.0.54",
-  "updatedAt": "2026-11-19T03:10:28.219Z",
+  "updatedAt": "2026-11-19T03:12:09.998Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -523,13 +523,13 @@
       "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
       "priceUsd": 6,
       "ingredients": [
-        "Pollo y carne marinada",
-        "Pan pita tostado",
-        "Crema de ajo libanesa",
-        "Lechuga",
-        "Tomate",
-        "Cebolla morada",
-        "Pepinillos"
+        "Carne picada",
+        "chorizo",
+        "chuleta ahumada",
+        "cocinera",
+        "ensalada",
+        "salsa",
+        "queso amarillo"
       ],
       "iconKey": "shawarma",
       "isPopular": false,
@@ -556,6 +556,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "fb90a28324bd"
+  ]
 }
