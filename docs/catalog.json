@@ -1,7 +1,7 @@
 {
   "version": 65,
   "releaseTag": "v1.0.65",
-  "updatedAt": "2026-11-19T03:35:49.047Z",
+  "updatedAt": "2026-11-19T03:36:47.030Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -191,7 +191,18 @@
       "category": "Hamburguesas",
       "description": "",
       "priceUsd": 8,
-      "ingredients": [],
+      "ingredients": [
+        "Carne picada",
+        "chuleta entera",
+        "milanesa de pollo",
+        "carne hamburguesa",
+        "huevos",
+        "papita",
+        "queso amarillo",
+        "queso blanco",
+        "ensalada",
+        "salsas"
+      ],
       "iconKey": "burger",
       "isPopular": false,
       "available": true,
@@ -637,6 +648,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "d5e328702702"
+  ]
 }
