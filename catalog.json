@@ -1,7 +1,7 @@
 {
-  "version": 53,
-  "releaseTag": "v1.0.53",
-  "updatedAt": "2026-11-19T03:10:10.771Z",
+  "version": 54,
+  "releaseTag": "v1.0.54",
+  "updatedAt": "2026-11-19T03:10:28.219Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
