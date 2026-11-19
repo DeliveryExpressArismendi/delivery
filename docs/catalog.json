@@ -1,7 +1,7 @@
 {
   "version": 49,
   "releaseTag": "v1.0.49",
-  "updatedAt": "2026-11-19T03:05:46.868Z",
+  "updatedAt": "2026-11-19T03:06:22.870Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -471,14 +471,12 @@
       "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
       "priceUsd": 7,
       "ingredients": [
-        "Carne a la plancha",
-        "Pollo a la plancha",
-        "Tocineta",
-        "Queso blanco fundido",
-        "Maíz dulce",
-        "Aguacate",
-        "Papas hilo",
-        "Salsa de ajo y tártara"
+        "carne picada",
+        "ensalada",
+        "salsa",
+        "tocineta",
+        "chorizo",
+        "queso amarillo"
       ],
       "iconKey": "pepito",
       "isPopular": true,
@@ -546,6 +544,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "9a8e8ca8ed80"
+  ]
 }
