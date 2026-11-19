@@ -1,7 +1,7 @@
 {
-  "version": 57,
-  "releaseTag": "v1.0.57",
-  "updatedAt": "2026-11-19T03:17:15.611Z",
+  "version": 58,
+  "releaseTag": "v1.0.58",
+  "updatedAt": "2026-11-19T03:23:09.014Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -555,7 +555,20 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1795058488129",
+      "storeId": "store_1794805519941",
+      "name": "Torta MARQUESA",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "a1b084ee740b"
+  "stateHash": "afc922f530c6"
 }
