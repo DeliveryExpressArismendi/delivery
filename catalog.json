@@ -1,7 +1,7 @@
 {
-  "version": 52,
-  "releaseTag": "v1.0.52",
-  "updatedAt": "2026-11-19T03:09:01.196Z",
+  "version": 53,
+  "releaseTag": "v1.0.53",
+  "updatedAt": "2026-11-19T03:10:10.771Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -505,15 +505,11 @@
     {
       "id": "pili_refresco_15l",
       "storeId": "pili_burger",
-      "name": "Refresco Familiar 1L",
+      "name": "Refresco 1L",
       "category": "Refrescos",
       "description": "Botella familiar de 1.5 litros bien fría.",
       "priceUsd": 1,
-      "ingredients": [
-        "Coca-Cola 1.5L",
-        "Chinotto 1.5L",
-        "Frescolita 1.5L"
-      ],
+      "ingredients": [],
       "iconKey": "soda",
       "isPopular": false,
       "available": true,
@@ -561,5 +557,5 @@
       "stock": null
     }
   ],
-  "stateHash": "f8ae386815d3"
+  "stateHash": "fb90a28324bd"
 }
