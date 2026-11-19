@@ -1,7 +1,7 @@
 {
-  "version": 47,
-  "releaseTag": "v1.0.47",
-  "updatedAt": "2026-11-19T03:03:32.495Z",
+  "version": 48,
+  "releaseTag": "v1.0.48",
+  "updatedAt": "2026-11-19T03:04:35.446Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -429,15 +429,12 @@
       "description": "Pan brioche artesanal con carne a la parrilla y vegetales frescos.",
       "priceUsd": 5,
       "ingredients": [
-        "Carne de res 150g",
-        "Queso amarillo",
-        "Jamón",
-        "Lechuga",
-        "Tomate",
-        "Cebolla",
-        "Papas ralladas",
-        "Salsa de ajo",
-        "Salsa rosada"
+        "carne de hamburguesa",
+        "carne picada",
+        "chorizo",
+        "queso amarillos",
+        "ensalada",
+        "huevo"
       ],
       "iconKey": "burger",
       "isPopular": true,
@@ -550,5 +547,5 @@
       "stock": null
     }
   ],
-  "stateHash": "7f3b4967a0f9"
+  "stateHash": "e6d8c7ba77af"
 }
