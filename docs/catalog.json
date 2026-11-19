@@ -1,7 +1,7 @@
 {
   "version": 63,
   "releaseTag": "v1.0.63",
-  "updatedAt": "2026-11-19T03:34:54.865Z",
+  "updatedAt": "2026-11-19T03:35:02.959Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -154,7 +154,8 @@
         "ensalada",
         "tomate lechuga",
         "queso amarillo",
-        "queso blanco"
+        "queso blanco",
+        "huevo"
       ],
       "iconKey": "burger",
       "isPopular": false,
