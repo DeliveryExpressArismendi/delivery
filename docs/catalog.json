@@ -1,7 +1,7 @@
 {
   "version": 42,
   "releaseTag": "v1.0.42",
-  "updatedAt": "2026-11-16T05:07:53.307Z",
+  "updatedAt": "2026-11-19T02:57:37.921Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -337,6 +337,45 @@
       "stock": null
     },
     {
+      "id": "item_1794805555599",
+      "storeId": "store_1794805519941",
+      "name": "Bombas de Cholate",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1794805612794",
+      "storeId": "store_1794805519941",
+      "name": "Bombas de arequipe",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1794805640170",
+      "storeId": "store_1794805519941",
+      "name": "Bombas de Crema Pastelera",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -465,44 +504,17 @@
       "stock": null
     },
     {
-      "id": "item_1794805555599",
+      "id": "item_1795057041915",
       "storeId": "store_1794805519941",
-      "name": "Bombas de Cholate",
+      "name": "Quesillo",
       "category": "Dulces",
       "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "item_1794805612794",
-      "storeId": "store_1794805519941",
-      "name": "Bombas de arequipe",
-      "category": "Dulces",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "item_1794805640170",
-      "storeId": "store_1794805519941",
-      "name": "Bombas de Crema Pastelera",
-      "category": "Dulces",
-      "description": "",
-      "priceUsd": 1,
+      "priceUsd": 4,
       "ingredients": [],
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "51cf401b9834"
+  ]
 }
