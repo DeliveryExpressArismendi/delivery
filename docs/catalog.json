@@ -1,7 +1,7 @@
 {
   "version": 55,
   "releaseTag": "v1.0.55",
-  "updatedAt": "2026-11-19T03:12:22.534Z",
+  "updatedAt": "2026-11-19T03:16:07.388Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -301,7 +301,7 @@
       "ingredients": [],
       "iconKey": "arepa",
       "isPopular": false,
-      "available": true,
+      "available": false,
       "stock": null
     },
     {
@@ -422,6 +422,26 @@
       "stock": null
     },
     {
+      "id": "item_1795057623709",
+      "storeId": "pili_burger",
+      "name": "Perro Especial",
+      "category": "Perros",
+      "description": "",
+      "priceUsd": 3,
+      "ingredients": [
+        "Carne picada",
+        "salchicha",
+        "ensalada",
+        "salsa",
+        "queso amarillo",
+        "papita"
+      ],
+      "iconKey": "hotdog",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -535,27 +555,6 @@
       "isPopular": false,
       "available": true,
       "stock": null
-    },
-    {
-      "id": "item_1795057623709",
-      "storeId": "pili_burger",
-      "name": "Perro Especial",
-      "category": "Perros",
-      "description": "",
-      "priceUsd": 3,
-      "ingredients": [
-        "Carne picada",
-        "salchicha",
-        "ensalada",
-        "salsa",
-        "queso amarillo",
-        "papita"
-      ],
-      "iconKey": "hotdog",
-      "isPopular": false,
-      "available": true,
-      "stock": null
     }
-  ],
-  "stateHash": "5160b3701851"
+  ]
 }
