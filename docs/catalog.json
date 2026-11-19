@@ -1,7 +1,7 @@
 {
   "version": 43,
   "releaseTag": "v1.0.43",
-  "updatedAt": "2026-11-19T02:57:53.097Z",
+  "updatedAt": "2026-11-19T02:58:17.565Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -515,7 +515,19 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1795057060937",
+      "storeId": "store_1794805519941",
+      "name": "Gelatina 2x1",
+      "category": "Gelatina",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "soda",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
-  ],
-  "stateHash": "f905b6c79c41"
+  ]
 }
