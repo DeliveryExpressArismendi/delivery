@@ -1,7 +1,7 @@
 {
-  "version": 68,
-  "releaseTag": "v1.0.68",
-  "updatedAt": "2026-11-19T03:38:18.160Z",
+  "version": 69,
+  "releaseTag": "v1.0.69",
+  "updatedAt": "2026-11-19T04:42:01.322Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -66,6 +66,16 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "dulces",
+      "isOpen": true
+    },
+    {
+      "id": "store_1795063309888",
+      "name": "Delivery Express",
+      "badge": "Nuevo Local",
+      "tagline": "TE LLEVAMOS A CUALQUIER PARTE",
+      "etaMinutes": "20-30 min",
+      "rating": "5.0",
+      "iconKey": "moto",
       "isOpen": true
     }
   ],
@@ -543,6 +553,28 @@
       "stock": null
     },
     {
+      "id": "item_1795059445156",
+      "storeId": "store_1794761464624",
+      "name": "Shawarma",
+      "category": "Hamburguesas",
+      "description": "",
+      "priceUsd": 6,
+      "ingredients": [
+        "Carne picada",
+        "chuleta entera",
+        "milanesa de pollo",
+        "bueno",
+        "papita",
+        "queso amarillo",
+        "ensalada",
+        "salsas queso blanco"
+      ],
+      "iconKey": "shawarma",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -658,27 +690,18 @@
       "stock": null
     },
     {
-      "id": "item_1795059445156",
-      "storeId": "store_1794761464624",
-      "name": "Shawarma",
-      "category": "Hamburguesas",
-      "description": "",
-      "priceUsd": 6,
-      "ingredients": [
-        "Carne picada",
-        "chuleta entera",
-        "milanesa de pollo",
-        "bueno",
-        "papita",
-        "queso amarillo",
-        "ensalada",
-        "salsas queso blanco"
-      ],
-      "iconKey": "shawarma",
+      "id": "item_1795063309899",
+      "storeId": "store_1795063309888",
+      "name": "Delivery Recibo - Entrega (sencillo)",
+      "category": "Delivery Moto",
+      "description": "Pedido de solo recibir y entregar al cliente",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "moto",
       "isPopular": false,
       "available": true,
       "stock": null
     }
   ],
-  "stateHash": "683a7ed3d066"
+  "stateHash": "5f6ad5b60ad6"
 }
