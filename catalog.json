@@ -1,7 +1,7 @@
 {
-  "version": 63,
-  "releaseTag": "v1.0.63",
-  "updatedAt": "2026-11-19T03:34:36.817Z",
+  "version": 64,
+  "releaseTag": "v1.0.64",
+  "updatedAt": "2026-11-19T03:35:21.378Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -149,7 +149,14 @@
       "category": "Hamburguesas",
       "description": "",
       "priceUsd": 2,
-      "ingredients": [],
+      "ingredients": [
+        "Carne de hamburguesa",
+        "ensalada",
+        "tomate lechuga",
+        "queso amarillo",
+        "queso blanco",
+        "huevo"
+      ],
       "iconKey": "burger",
       "isPopular": false,
       "available": true,
@@ -622,5 +629,5 @@
       "stock": null
     }
   ],
-  "stateHash": "3ff9345e4252"
+  "stateHash": "5bfb04ba1100"
 }
