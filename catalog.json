@@ -1,7 +1,7 @@
 {
-  "version": 50,
-  "releaseTag": "v1.0.50",
-  "updatedAt": "2026-11-19T03:06:33.412Z",
+  "version": 51,
+  "releaseTag": "v1.0.51",
+  "updatedAt": "2026-11-19T03:08:26.088Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -543,7 +543,27 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1795057623709",
+      "storeId": "pili_burger",
+      "name": "Perro Especial",
+      "category": "Perros",
+      "description": "",
+      "priceUsd": 3,
+      "ingredients": [
+        "Carne picada",
+        "salchicha",
+        "ensalada",
+        "salsa",
+        "queso amarillo",
+        "papita"
+      ],
+      "iconKey": "hotdog",
+      "isPopular": false,
+      "available": true,
+      "stock": null
     }
   ],
-  "stateHash": "283947830ba4"
+  "stateHash": "bb8654ca7e0c"
 }
