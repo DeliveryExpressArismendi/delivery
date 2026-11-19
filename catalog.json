@@ -1,7 +1,7 @@
 {
-  "version": 72,
-  "releaseTag": "v1.0.72",
-  "updatedAt": "2026-11-19T04:48:56.235Z",
+  "version": 73,
+  "releaseTag": "v1.0.73",
+  "updatedAt": "2026-11-19T04:49:14.590Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -692,7 +692,7 @@
     {
       "id": "item_1795063309899",
       "storeId": "store_1795063309888",
-      "name": "Delivery Recibo - Entrega (sencillo)",
+      "name": "Delivery Recibo - Entregado (sencillo)",
       "category": "Delivery Moto",
       "description": "Pedido de solo recibir y entregar al cliente",
       "priceUsd": 1,
@@ -742,5 +742,5 @@
       "stock": null
     }
   ],
-  "stateHash": "b181ff5310d0"
+  "stateHash": "24f8bedfbbd9"
 }
