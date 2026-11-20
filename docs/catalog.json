@@ -1,7 +1,7 @@
 {
   "version": 75,
   "releaseTag": "v1.0.75",
-  "updatedAt": "2026-11-20T19:08:59.630Z",
+  "updatedAt": "2026-11-20T19:11:23.686Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -627,6 +627,19 @@
       "stock": null
     },
     {
+      "id": "item_1795201686302",
+      "storeId": "store_1794805519941",
+      "name": "Brownie",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -742,18 +755,17 @@
       "stock": null
     },
     {
-      "id": "item_1795201686302",
+      "id": "item_1795201862042",
       "storeId": "store_1794805519941",
-      "name": "Brownie",
+      "name": "Cachitos",
       "category": "Dulces",
       "description": "",
-      "priceUsd": 2,
+      "priceUsd": 1,
       "ingredients": [],
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "d4bf8baf1fa9"
+  ]
 }
