@@ -1,7 +1,7 @@
 {
-  "version": 74,
-  "releaseTag": "v1.0.74",
-  "updatedAt": "2026-11-19T04:49:41.858Z",
+  "version": 75,
+  "releaseTag": "v1.0.75",
+  "updatedAt": "2026-11-20T19:08:59.630Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -575,6 +575,58 @@
       "stock": null
     },
     {
+      "id": "item_1795063309899",
+      "storeId": "store_1795063309888",
+      "name": "Delivery Recibo - Entregado (sencillo)",
+      "category": "Delivery Moto",
+      "description": "Pedido de solo recibir y entregar al cliente",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "moto",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1795063359601",
+      "storeId": "store_1795063309888",
+      "name": "Delivery De Compras",
+      "category": "General",
+      "description": "Tener que bajarse de la moto.. escoger y pagar",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "moto",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1795063540872",
+      "storeId": "store_1795063309888",
+      "name": "Delivery Transporte",
+      "category": "General",
+      "description": "Cualquier lado del pueblo",
+      "priceUsd": 2,
+      "ingredients": [],
+      "iconKey": "moto",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
+      "id": "item_1795063604159",
+      "storeId": "store_1795063309888",
+      "name": "Delivery Carga Pesada",
+      "category": "General",
+      "description": "Bultos de comida, cajas Pesada, o volumen en exceso",
+      "priceUsd": 4,
+      "ingredients": [],
+      "iconKey": "moto",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -690,57 +742,18 @@
       "stock": null
     },
     {
-      "id": "item_1795063309899",
-      "storeId": "store_1795063309888",
-      "name": "Delivery Recibo - Entregado (sencillo)",
-      "category": "Delivery Moto",
-      "description": "Pedido de solo recibir y entregar al cliente",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "moto",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "item_1795063359601",
-      "storeId": "store_1795063309888",
-      "name": "Delivery De Compras",
-      "category": "General",
-      "description": "Tener que bajarse de la moto.. escoger y pagar",
+      "id": "item_1795201686302",
+      "storeId": "store_1794805519941",
+      "name": "Brownie",
+      "category": "Dulces",
+      "description": "",
       "priceUsd": 2,
       "ingredients": [],
-      "iconKey": "moto",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "item_1795063540872",
-      "storeId": "store_1795063309888",
-      "name": "Delivery Transporte",
-      "category": "General",
-      "description": "Cualquier lado del pueblo",
-      "priceUsd": 2,
-      "ingredients": [],
-      "iconKey": "moto",
-      "isPopular": false,
-      "available": true,
-      "stock": null
-    },
-    {
-      "id": "item_1795063604159",
-      "storeId": "store_1795063309888",
-      "name": "Delivery Carga Pesada",
-      "category": "General",
-      "description": "Bultos de comida, cajas Pesada, o volumen en exceso",
-      "priceUsd": 4,
-      "ingredients": [],
-      "iconKey": "moto",
+      "iconKey": "dulces",
       "isPopular": false,
       "available": true,
       "stock": null
     }
   ],
-  "stateHash": "1ca2f3c15764"
+  "stateHash": "d4bf8baf1fa9"
 }
