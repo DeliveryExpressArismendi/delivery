@@ -212,12 +212,18 @@
       overflow: hidden;
       box-shadow: var(--shadow-sm);
       cursor: pointer;
+      transition: transform 140ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .store-card:active {
+      transform: scale(0.988);
+      box-shadow: 0 2px 6px rgba(154, 0, 7, 0.1);
     }
 
     .store-card-banner {
       background: var(--gradient-red);
       color: #fff;
-      padding: 16px;
+      padding: 15px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -229,12 +235,13 @@
       height: 66px;
       border-radius: 20px;
       background: rgba(255, 250, 246, 0.96);
-      border: 2px solid rgba(255,255,255,0.75);
+      border: 2px solid rgba(255,255,255,0.78);
       box-shadow: 0 6px 16px rgba(0,0,0,0.18);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      overflow: hidden;
     }
 
     .store-badge {
@@ -247,8 +254,8 @@
       margin-bottom: 4px;
     }
 
-    .store-name { margin: 0; font-size: 20px; font-weight: 800; }
-    .store-meta { font-size: 12px; opacity: 0.92; margin-top: 2px; }
+    .store-name { margin: 0; font-size: 19.5px; font-weight: 800; line-height: 1.2; }
+    .store-meta { font-size: 12px; opacity: 0.92; margin-top: 3px; }
 
     .store-card-footer {
       padding: 12px 16px;
@@ -256,9 +263,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFFBFB 100%);
     }
 
-    .store-tagline { font-size: 13px; color: var(--text-muted); }
+    .store-tagline { font-size: 13px; color: var(--text-muted); line-height: 1.35; }
     .dual-price { text-align: right; flex-shrink: 0; }
     .price-usd { display: block; font-size: 17px; font-weight: 900; color: var(--crimson-primary); }
 
@@ -289,6 +297,22 @@
       justify-content: space-between;
       gap: 8px;
       cursor: pointer;
+      transition: transform 140ms ease, box-shadow 180ms ease;
+    }
+
+    .quick-card:active { transform: scale(0.98); }
+
+    .quick-media-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #FFF7F4, #FFE8E4);
+      border: 1px solid rgba(211, 47, 47, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
     .chips-row { display: flex; gap: 8px; overflow-x: auto; padding: 14px 16px 8px; scrollbar-width: none; }
@@ -304,9 +328,11 @@
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
+      transition: transform 120ms ease, background-color 140ms ease;
     }
 
-    .chip.active { background: var(--crimson-primary); border-color: var(--crimson-primary); color: #fff; }
+    .chip:active { transform: scale(0.97); }
+    .chip.active { background: var(--crimson-primary); border-color: var(--crimson-primary); color: #fff; box-shadow: 0 3px 10px rgba(211, 47, 47, 0.24); }
 
     .menu-card {
       background: var(--surface);
@@ -317,13 +343,16 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      transition: transform 140ms ease, box-shadow 180ms ease;
     }
+
+    .menu-card:active { transform: scale(0.992); }
 
     .menu-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 
     .menu-item-icon {
-      width: 54px;
-      height: 54px;
+      width: 58px;
+      height: 58px;
       border-radius: 16px;
       background: linear-gradient(135deg, #FFF7F4, #FFE8E4);
       border: 1px solid rgba(211, 47, 47, 0.14);
@@ -331,6 +360,69 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .media-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .media-thumb-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .web-link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-decoration: none;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: opacity 140ms ease, transform 120ms ease;
+    }
+
+    .web-link-pill:active { transform: scale(0.97); opacity: 0.85; }
+
+    .web-link-pill--card {
+      background: var(--surface-variant);
+      border: 1px solid rgba(211, 47, 47, 0.24);
+      color: var(--crimson-deep);
+    }
+
+    .web-link-pill--soft {
+      background: #FFFDFD;
+      border: 1px solid var(--outline);
+      color: var(--crimson-primary);
+    }
+
+    .store-web-strip {
+      margin: 10px 16px 0;
+      padding: 9px 13px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid rgba(211, 47, 47, 0.22);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--crimson-deep);
+      font-size: 12.5px;
+      font-weight: 700;
     }
 
     .cat-kicker { font-size: 11px; font-weight: 800; color: var(--crimson-primary); text-transform: uppercase; letter-spacing: 0.4px; }
@@ -2530,6 +2622,62 @@
           .replace(/'/g, '&#39;');
       }
 
+      function sanitizeWebUrl(rawUrl) {
+        const trimmed = String(rawUrl || '').trim();
+        if (!trimmed) return '';
+        if (/^(javascript|data|vbscript|file):/i.test(trimmed)) return '';
+        let candidate = trimmed;
+        if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(candidate)) {
+          if (!candidate.includes('.') || /\s/.test(candidate)) return '';
+          candidate = 'https://' + candidate.replace(/^\/+/, '');
+        }
+        try {
+          const parsed = new URL(candidate);
+          if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return '';
+          return parsed.href;
+        } catch (_) {
+          return '';
+        }
+      }
+
+      function getShortLinkHost(cleanUrl) {
+        try {
+          const u = new URL(cleanUrl);
+          const host = u.hostname.replace(/^www\./i, '');
+          const pathPart = u.pathname && u.pathname !== '/' ? u.pathname.replace(/\/$/, '') : '';
+          const full = host + (pathPart.length > 0 && pathPart.length <= 18 ? pathPart : '');
+          return full.length > 30 ? full.slice(0, 29) + '…' : full;
+        } catch (_) {
+          return 'Ver enlace';
+        }
+      }
+
+      function renderVisualMedia(iconKey, imageUrl, iconSize = 38, fallbackColor = '', altText = '') {
+        const safeImg = sanitizeWebUrl(imageUrl);
+        const svgFallback = getCategoryIcon(iconKey, fallbackColor, iconSize);
+        if (!safeImg) return svgFallback;
+        return `<img class="media-thumb-img" src="${escapeHtml(safeImg)}" alt="${escapeHtml(altText || 'Imagen')}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='flex'" /><span class="media-thumb-fallback" style="display:none">${svgFallback}</span>`;
+      }
+
+      function buildShareLink(paramKey, id) {
+        const origin = (window.location.origin && window.location.origin !== 'null' && /^https?:/i.test(window.location.protocol))
+          ? (window.location.origin + window.location.pathname)
+          : 'https://deliveryexpressarismendi.github.io/delivery/';
+        return `${origin}?${encodeURIComponent(paramKey)}=${encodeURIComponent(id)}`;
+      }
+
+      async function copyShareLink(paramKey, id, label) {
+        const shareUrl = buildShareLink(paramKey, id);
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(shareUrl);
+            showToast(`🔗 Link de ${label} copiado`);
+            return;
+          }
+        } catch (_) {}
+        showToast(`Link: ${shareUrl}`);
+      }
+
       function showToast(msg) {
         const root = document.getElementById('toast-root');
         const el = document.createElement('div');
@@ -2722,18 +2870,22 @@
           const storeItems = state.menuItems.filter((i) => i.storeId === st.id);
           const minUsd = storeItems.length ? Math.min(...storeItems.map((i) => i.priceUsd)) : 0;
           const isStoreOpen = st.isOpen !== false;
+          const safeStoreWeb = sanitizeWebUrl(st.webUrl);
           return `
             <div class="store-card" data-open-store="${escapeHtml(st.id)}" style="${isStoreOpen ? '' : 'opacity:0.75'}">
               <div class="store-card-banner">
-                <div>
+                <div style="min-width:0">
                   <span class="store-badge">${escapeHtml(isStoreOpen ? (st.badge || 'Comida Rápida') : '🔴 Cerrado temporalmente')}</span>
                   <h3 class="store-name">${escapeHtml(st.name)}</h3>
                   <div class="store-meta">${escapeHtml(st.etaMinutes || '20-30 min')} • ${storeItems.length} productos • ★ ${escapeHtml(st.rating || '4.9')}</div>
                 </div>
-                <div class="store-icon-box">${getCategoryIcon(st.iconKey, '', 44)}</div>
+                <div class="store-icon-box">${renderVisualMedia(st.iconKey, st.imageUrl, 44, '', st.name)}</div>
               </div>
               <div class="store-card-footer">
-                <div class="store-tagline">${escapeHtml(st.tagline)}</div>
+                <div style="min-width:0;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:6px">
+                  <div class="store-tagline">${escapeHtml(st.tagline)}</div>
+                  ${safeStoreWeb ? `<a class="web-link-pill web-link-pill--card" href="${escapeHtml(safeStoreWeb)}" target="_blank" rel="noopener noreferrer" data-stop-card>🌐 ${escapeHtml(getShortLinkHost(safeStoreWeb))} ↗</a>` : ''}
+                </div>
                 <div class="dual-price">
                   <span class="price-usd">Desde ${formatUsd(minUsd)}</span>
                   <span class="price-bs">${formatBs(minUsd, rate)}</span>
@@ -2744,15 +2896,17 @@
 
         const highlightsHtml = fallbackFeatured.map((item) => {
           const avail = isItemAvailable(item);
+          const safeItemWeb = sanitizeWebUrl(item.webUrl);
           return `
           <div class="quick-card" data-customize-item="${escapeHtml(item.id)}" style="${avail ? '' : 'opacity:0.65'}">
             <div>
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px">
                 <span class="cat-kicker">${escapeHtml(avail ? item.category : 'Agotado')}</span>
-                ${getCategoryIcon(item.iconKey, '', 32)}
+                <div class="quick-media-box">${renderVisualMedia(item.iconKey, item.imageUrl, 28, '', item.name)}</div>
               </div>
               <div style="font-weight:800;font-size:15px">${escapeHtml(item.name)}</div>
-              <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${escapeHtml(item.ingredients.slice(0, 4).join(', '))}</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${escapeHtml((item.ingredients || []).slice(0, 4).join(', '))}</div>
+              ${safeItemWeb ? `<div style="margin-top:6px"><a class="web-link-pill web-link-pill--soft" href="${escapeHtml(safeItemWeb)}" target="_blank" rel="noopener noreferrer" data-stop-card>🔗 ${escapeHtml(getShortLinkHost(safeItemWeb))} ↗</a></div>` : ''}
             </div>
             <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:6px">
               <div class="dual-price" style="text-align:left">
@@ -2828,16 +2982,18 @@
         ).join('');
 
         const isStoreOpen = store.isOpen !== false;
+        const safeStoreWeb = sanitizeWebUrl(store.webUrl);
         const itemsHtml = filtered.map((item) => {
           const avail = isStoreOpen && isItemAvailable(item);
           const hasFiniteStock = item.stock !== null && item.stock !== undefined && item.stock !== '';
           const stockNum = hasFiniteStock ? Number(item.stock) : null;
+          const safeItemWeb = sanitizeWebUrl(item.webUrl);
           return `
           <div class="menu-card" data-customize-item="${escapeHtml(item.id)}" style="${avail ? '' : 'opacity:0.65'}">
             <div class="menu-card-top">
-              <div style="display:flex;gap:12px;align-items:flex-start;flex:1">
-                <div class="menu-item-icon">${getCategoryIcon(item.iconKey, '', 38)}</div>
-                <div>
+              <div style="display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0">
+                <div class="menu-item-icon">${renderVisualMedia(item.iconKey, item.imageUrl, 38, '', item.name)}</div>
+                <div style="min-width:0">
                   <div>
                     <span class="cat-kicker">${escapeHtml(item.category)}</span>
                     ${item.isPopular ? '<span class="popular-tag">Top</span>' : ''}
@@ -2852,6 +3008,7 @@
               </div>
             </div>
             ${item.description ? `<p class="menu-item-desc">${escapeHtml(item.description)}</p>` : ''}
+            ${safeItemWeb ? `<div><a class="web-link-pill web-link-pill--card" href="${escapeHtml(safeItemWeb)}" target="_blank" rel="noopener noreferrer" data-stop-card>🔗 ${escapeHtml(getShortLinkHost(safeItemWeb))} ↗</a></div>` : ''}
             ${(item.ingredients && item.ingredients.length) ? `<div class="ingredients-box"><strong>Opciones / Ingredientes:</strong> ${escapeHtml(item.ingredients.join(' • '))}</div>` : ''}
             <div class="card-btn-row">
               <button class="btn-outline" data-customize-item="${escapeHtml(item.id)}">${(item.ingredients && item.ingredients.length) ? 'Personalizar' : 'Ver detalle'}</button>
@@ -2865,13 +3022,21 @@
             <div class="sub-topbar-left">
               <button class="icon-btn" id="btn-back-home" aria-label="Volver">${SVG_ICONS.back(20)}</button>
               <div>
-                <div style="font-size:18px;font-weight:800">${escapeHtml(store.name)}</div>
+                <div style="font-size:17.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(store.name)}</div>
                 <div style="font-size:12px;opacity:0.9">${escapeHtml(store.etaMinutes)} • ★ ${escapeHtml(store.rating)}${isStoreOpen ? '' : ' • Cerrado'}</div>
               </div>
             </div>
-            <button class="rate-pill" id="btn-quick-rate" style="font-size:12px;padding:6px 10px">${formatRate(rate)}</button>
+            <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+              <button class="icon-btn" id="btn-share-store" style="width:38px;height:38px;font-size:15px" aria-label="Copiar link del local" title="Copiar link directo de este local">🔗</button>
+              <button class="rate-pill" id="btn-quick-rate" style="font-size:12px;padding:6px 10px">${formatRate(rate)}</button>
+            </div>
           </div>
-          ${!isStoreOpen ? '<div class="error-banner" style="margin:12px 14px 0">🔴 Este local está cerrado temporalmente. Revisa otro local o vuelve más tarde.</div>' : ''}
+          ${!isStoreOpen ? '<div class="error-banner" style="margin:12px 16px 0">🔴 Este local está cerrado temporalmente. Revisa otro local o vuelve más tarde.</div>' : ''}
+          ${safeStoreWeb ? `
+            <a class="store-web-strip" href="${escapeHtml(safeStoreWeb)}" target="_blank" rel="noopener noreferrer">
+              <span>🌐 Link web del local: <u style="text-underline-offset:2px">${escapeHtml(getShortLinkHost(safeStoreWeb))}</u></span>
+              <span style="font-size:13px">Abrir ↗</span>
+            </a>` : ''}
           <div class="chips-row">${chipsHtml}</div>
           <div class="stack-list">${itemsHtml || '<div class="empty-state">No hay productos en esta categoría.</div>'}</div>
           ${renderFloatingCartBar()}`;
@@ -3139,12 +3304,13 @@
             const rows = items.map((item) => {
               const avail = isItemAvailable(item);
               const stockLbl = getItemStockLabel(item);
+              const hasLink = Boolean(sanitizeWebUrl(item.webUrl) || sanitizeWebUrl(item.imageUrl));
               return `
               <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--outline)">
                 <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
-                  ${getCategoryIcon(item.iconKey, '#D32F2F', 26)}
+                  <div style="width:30px;height:30px;border-radius:9px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface-variant)">${renderVisualMedia(item.iconKey, item.imageUrl, 24, '#D32F2F', item.name)}</div>
                   <div style="min-width:0">
-                    <div style="font-weight:700;font-size:13.5px;word-break:break-word">${escapeHtml(item.name)}</div>
+                    <div style="font-weight:700;font-size:13.5px;word-break:break-word">${escapeHtml(item.name)}${hasLink ? ' <span title="Tiene enlace web o foto por link" style="font-size:11px">🔗</span>' : ''}</div>
                     <div style="font-size:12px;color:var(--text-muted)">${formatUsd(item.priceUsd)} • <span style="font-weight:700;color:${avail ? '#1B5E20' : '#B00020'}">${escapeHtml(stockLbl)}</span></div>
                   </div>
                 </div>
@@ -3155,16 +3321,18 @@
                 </div>
               </div>`;
             }).join('');
+            const storeHasLink = Boolean(sanitizeWebUrl(st.webUrl) || sanitizeWebUrl(st.imageUrl));
             return `
               <div class="acc-card ${isOpen ? 'open' : ''}">
                 <button type="button" class="acc-trigger" data-acc-toggle="${escapeHtml(accKey)}">
-                  <h3 class="panel-card-title" style="min-width:0">${getCategoryIcon(st.iconKey, '#D32F2F', 24)} <span style="word-break:break-word">${escapeHtml(st.name)} (${items.length})</span></h3>
+                  <h3 class="panel-card-title" style="min-width:0"><span style="width:28px;height:28px;border-radius:8px;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${renderVisualMedia(st.iconKey, st.imageUrl, 24, '#D32F2F', st.name)}</span> <span style="word-break:break-word">${escapeHtml(st.name)} (${items.length})${storeHasLink ? ' 🔗' : ''}</span></h3>
                   <span class="acc-chevron">▾</span>
                 </button>
                 <div class="admin-store-toolbar">
-                  <button class="chip" data-admin-add-item="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">+ Producto</button>
-                  <button class="chip ${storeActive ? '' : 'btn-danger-chip'}" data-admin-toggle-store="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">${storeActive ? '🟢 Abierto' : '🔴 Cerrado'}</button>
-                  <button class="chip btn-danger-chip" data-admin-delete-store="${escapeHtml(st.id)}" style="padding:6px 12px;font-size:12px">🗑️ Eliminar local</button>
+                  <button class="chip" data-admin-add-item="${escapeHtml(st.id)}" style="padding:6px 11px;font-size:12px">+ Producto</button>
+                  <button class="chip" data-admin-edit-store="${escapeHtml(st.id)}" style="padding:6px 11px;font-size:12px">✎ Editar local</button>
+                  <button class="chip ${storeActive ? '' : 'btn-danger-chip'}" data-admin-toggle-store="${escapeHtml(st.id)}" style="padding:6px 11px;font-size:12px">${storeActive ? '🟢 Abierto' : '🔴 Cerrado'}</button>
+                  <button class="chip btn-danger-chip" data-admin-delete-store="${escapeHtml(st.id)}" style="padding:6px 11px;font-size:12px">🗑️ Eliminar</button>
                 </div>
                 <div class="acc-collapse">
                   <div class="acc-collapse-inner">
@@ -3467,17 +3635,22 @@
         const rate = state.config.exchangeRateBsPerUsd;
         const store = state.stores.find((s) => s.id === item.storeId);
         const canOrder = (!store || store.isOpen !== false) && isItemAvailable(item);
+        const safeItemWeb = sanitizeWebUrl(item.webUrl);
         let qty = 1;
-        let selected = [...item.ingredients];
+        let selected = [...(item.ingredients || [])];
         openModal(`
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-            <div style="display:flex;gap:10px;align-items:center">
-              <div class="menu-item-icon">${getCategoryIcon(item.iconKey, '#D32F2F', 28)}</div>
-              <div><span class="cat-kicker">${escapeHtml(item.category)}</span><h3 style="margin:2px 0 0;font-size:19px">${escapeHtml(item.name)}</h3></div>
+            <div style="display:flex;gap:10px;align-items:center;min-width:0">
+              <div class="menu-item-icon">${renderVisualMedia(item.iconKey, item.imageUrl, 30, '#D32F2F', item.name)}</div>
+              <div style="min-width:0"><span class="cat-kicker">${escapeHtml(item.category)}</span><h3 style="margin:2px 0 0;font-size:19px;word-break:break-word">${escapeHtml(item.name)}</h3></div>
             </div>
-            <button class="chip" id="m-close">✕</button>
+            <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+              <button class="chip" id="m-share-item" style="padding:6px 10px;font-size:12px" title="Copiar link del producto">🔗</button>
+              <button class="chip" id="m-close">✕</button>
+            </div>
           </div>
-          <p style="margin:0;font-size:13px;color:var(--text-muted)">${escapeHtml(item.description)}</p>
+          ${item.description ? `<p style="margin:0;font-size:13px;color:var(--text-muted)">${escapeHtml(item.description)}</p>` : ''}
+          ${safeItemWeb ? `<div><a class="web-link-pill web-link-pill--card" href="${escapeHtml(safeItemWeb)}" target="_blank" rel="noopener noreferrer">🌐 Ver enlace web del producto (${escapeHtml(getShortLinkHost(safeItemWeb))}) ↗</a></div>` : ''}
           <div style="background:var(--surface-variant);padding:10px 12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:13px;font-weight:700">Precio unitario</span>
             <span style="font-weight:900;color:var(--crimson-primary)">${formatUsd(item.priceUsd)} • ${formatBs(item.priceUsd, rate)}</span>
@@ -3505,6 +3678,7 @@
           (close) => {
             const sheet = document.querySelector('.bottom-sheet');
             document.getElementById('m-close').onclick = close;
+            document.getElementById('m-share-item').onclick = () => copyShareLink('producto', item.id, item.name);
             sheet.querySelectorAll('[data-ing]').forEach((btn) => {
               btn.onclick = () => {
                 const ing = btn.getAttribute('data-ing');
@@ -3598,6 +3772,8 @@
             </select>
           </div>
           <div class="field-group"><label class="field-label">Descripción</label><input id="ed-desc" class="input" type="text" placeholder="Presentación, peso, marca o detalles..." value="${escapeHtml(item.description)}" /></div>
+          <div class="field-group"><label class="field-label" for="ed-web-url">🌐 Link web del producto (opcional)</label><input id="ed-web-url" class="input" type="url" placeholder="https://instagram.com/... o ficha del producto" value="${escapeHtml(item.webUrl || '')}" /></div>
+          <div class="field-group"><label class="field-label" for="ed-img-url">🖼️ Link de imagen / foto (opcional)</label><input id="ed-img-url" class="input" type="url" placeholder="https://.../foto.jpg (vacío = usa ícono ligero)" value="${escapeHtml(item.imageUrl || '')}" /></div>
           <div class="field-group"><label class="field-label">Opciones / Ingredientes (opcional, separados por coma)</label><textarea id="ed-ings" class="input textarea" placeholder="Opcional: ej. Queso, Carne o Talla M, Color Negro">${escapeHtml((item.ingredients || []).join(', '))}</textarea></div>
           <div class="card-btn-row">
             ${!isNew ? '<button class="btn-outline" id="ed-delete" style="color:#B00020">🗑️ Eliminar</button>' : ''}
@@ -3631,6 +3807,13 @@
               const name = document.getElementById('ed-name').value.trim();
               const priceUsd = parseFloat(document.getElementById('ed-price').value);
               if (!name || !priceUsd || priceUsd <= 0) return showToast('Completa nombre y precio válido');
+              const rawWebUrl = document.getElementById('ed-web-url').value.trim();
+              const cleanWebUrl = sanitizeWebUrl(rawWebUrl);
+              if (rawWebUrl && !cleanWebUrl) return showToast('Link web del producto inválido (usa https://...)');
+              const rawImgUrl = document.getElementById('ed-img-url').value.trim();
+              const cleanImgUrl = sanitizeWebUrl(rawImgUrl);
+              if (rawImgUrl && !cleanImgUrl) return showToast('Link de imagen inválido (usa https://...)');
+
               let finalCategory = catSel.value;
               if (finalCategory === '__CUSTOM__') {
                 finalCategory = customCatInp.value.trim() || 'General';
@@ -3646,6 +3829,8 @@
                 priceUsd,
                 available: availVal,
                 stock: stockVal,
+                webUrl: cleanWebUrl,
+                imageUrl: cleanImgUrl,
                 description: document.getElementById('ed-desc').value.trim(),
                 ingredients: document.getElementById('ed-ings').value.split(',').map((s) => s.trim()).filter(Boolean)
               };
@@ -3681,25 +3866,32 @@
         );
       }
 
-      function openNewStoreModal() {
-        let selectedIconKey = 'burger';
+      function openStoreEditorModal(existingStore = null) {
+        const isNew = !existingStore;
+        let selectedIconKey = (existingStore && existingStore.iconKey) ? existingStore.iconKey : 'burger';
+        const stInit = existingStore || { name: '', tagline: '', etaMinutes: '20-30 min', badge: 'Nuevo Local', webUrl: '', imageUrl: '' };
         openModal(`
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <h3 style="margin:0">Nuevo Local</h3>
+            <h3 style="margin:0">${isNew ? 'Nuevo Local' : 'Editar ' + escapeHtml(stInit.name)}</h3>
             <button class="chip" id="m-close">✕</button>
           </div>
           <div class="store-card" style="cursor:default">
             <div class="store-card-banner" style="padding:12px 14px">
               <div style="min-width:0">
-                <span class="store-badge">Nuevo Local</span>
-                <h4 id="st-preview-name" class="store-name" style="font-size:17px">Mi Nuevo Local</h4>
-                <div id="st-preview-tag" class="store-meta">Productos variados y delivery express</div>
+                <span class="store-badge">${escapeHtml(stInit.badge || 'Nuevo Local')}</span>
+                <h4 id="st-preview-name" class="store-name" style="font-size:17px">${escapeHtml(stInit.name || 'Mi Nuevo Local')}</h4>
+                <div id="st-preview-tag" class="store-meta">${escapeHtml(stInit.tagline || 'Productos variados y delivery express')}</div>
               </div>
-              <div id="st-preview-icon" class="store-icon-box" style="width:58px;height:58px">${getCategoryIcon(selectedIconKey, '', 40)}</div>
+              <div id="st-preview-icon" class="store-icon-box" style="width:58px;height:58px">${renderVisualMedia(selectedIconKey, stInit.imageUrl, 40, '', stInit.name)}</div>
             </div>
           </div>
-          <div class="field-group"><label class="field-label">Nombre del local</label><input id="st-name" class="input" type="text" placeholder="Ej: Empanadas Don Pepe, Farmacia Salud, Tech Store..." /></div>
-          <div class="field-group"><label class="field-label">Especialidad o categoría del local</label><input id="st-tag" class="input" type="text" placeholder="Ej: Empanadas, Arepas, Belleza, Medicina, Electrónicos, Dulces..." /></div>
+          <div class="field-group"><label class="field-label">Nombre del local</label><input id="st-name" class="input" type="text" placeholder="Ej: Empanadas Don Pepe, Farmacia Salud, Tech Store..." value="${escapeHtml(stInit.name)}" /></div>
+          <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:8px">
+            <div class="field-group"><label class="field-label">Especialidad o categoría</label><input id="st-tag" class="input" type="text" placeholder="Ej: Empanadas, Arepas, Belleza..." value="${escapeHtml(stInit.tagline)}" /></div>
+            <div class="field-group"><label class="field-label">Tiempo (ETA)</label><input id="st-eta" class="input" type="text" placeholder="20-30 min" value="${escapeHtml(stInit.etaMinutes || '20-30 min')}" /></div>
+          </div>
+          <div class="field-group"><label class="field-label" for="st-web-url">🌐 Link web del local (opcional)</label><input id="st-web-url" class="input" type="url" placeholder="https://instagram.com/tu_local o sitio web" value="${escapeHtml(stInit.webUrl || '')}" /></div>
+          <div class="field-group"><label class="field-label" for="st-img-url">🖼️ Link de foto / logo del local (opcional)</label><input id="st-img-url" class="input" type="url" placeholder="https://.../logo.jpg (vacío = usa ícono SVG)" value="${escapeHtml(stInit.imageUrl || '')}" /></div>
           <div class="field-group">
             <label class="field-label">Elige el ícono representativo del local</label>
             <div class="icon-picker-grid">
@@ -3710,6 +3902,7 @@
                 </button>`).join('')}
             </div>
           </div>
+          ${isNew ? `
           <div style="background:var(--surface-variant);border:1px solid var(--outline);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px">
             <div style="font-size:13px;font-weight:800;color:var(--text-main)">📦 Primer producto del local (opcional — cualquier producto)</div>
             <div class="field-group"><label class="field-label" for="st-first-name">Nombre del producto</label><input id="st-first-name" class="input" type="text" placeholder="Ej: Empanada de Queso, Crema Facial, Cargador USB-C..." /></div>
@@ -3721,33 +3914,82 @@
               <div class="field-group"><label class="field-label" for="st-first-stock">Stock (opcional)</label><input id="st-first-stock" class="input" type="number" min="0" step="1" placeholder="Ilimitado" /></div>
               <div class="field-group"><label class="field-label" for="st-first-desc">Descripción (opcional)</label><input id="st-first-desc" class="input" type="text" placeholder="Detalles o presentación" /></div>
             </div>
-          </div>
-          <button class="btn-primary" id="st-save" style="min-height:48px">Crear Local</button>`,
+            <div class="field-group"><label class="field-label" for="st-first-web">🌐 Link web del producto (opcional)</label><input id="st-first-web" class="input" type="url" placeholder="https://... enlace del producto" /></div>
+          </div>` : ''}
+          <button class="btn-primary" id="st-save" style="min-height:48px">${isNew ? 'Crear Local' : 'Guardar Cambios'}</button>`,
           (close) => {
             const nameInput = document.getElementById('st-name');
             const tagInput = document.getElementById('st-tag');
+            const imgInput = document.getElementById('st-img-url');
             const prevName = document.getElementById('st-preview-name');
             const prevTag = document.getElementById('st-preview-tag');
             const prevIcon = document.getElementById('st-preview-icon');
+            const refreshPrevMedia = () => {
+              prevIcon.innerHTML = renderVisualMedia(selectedIconKey, imgInput.value, 40, '', nameInput.value);
+            };
             nameInput.oninput = () => { prevName.textContent = nameInput.value.trim() || 'Mi Nuevo Local'; };
             tagInput.oninput = () => { prevTag.textContent = tagInput.value.trim() || 'Productos variados y delivery express'; };
+            imgInput.oninput = refreshPrevMedia;
             document.querySelectorAll('[data-store-icon]').forEach((btn) => {
               btn.onclick = () => {
                 selectedIconKey = btn.getAttribute('data-store-icon');
                 document.querySelectorAll('[data-store-icon]').forEach((b) => b.classList.toggle('selected', b === btn));
-                prevIcon.innerHTML = getCategoryIcon(selectedIconKey, '', 40);
+                refreshPrevMedia();
               };
             });
             document.getElementById('m-close').onclick = close;
             document.getElementById('st-save').onclick = async () => {
               const name = nameInput.value.trim();
               if (!name) return showToast('Escribe el nombre del local');
+              const rawWeb = document.getElementById('st-web-url').value.trim();
+              const cleanWeb = sanitizeWebUrl(rawWeb);
+              if (rawWeb && !cleanWeb) return showToast('Link web del local inválido (usa https://...)');
+              const rawImg = imgInput.value.trim();
+              const cleanImg = sanitizeWebUrl(rawImg);
+              if (rawImg && !cleanImg) return showToast('Link de foto inválido (usa https://...)');
+              const etaVal = document.getElementById('st-eta').value.trim() || '20-30 min';
+
+              if (!isNew) {
+                const updatedStore = {
+                  ...existingStore,
+                  name,
+                  tagline: tagInput.value.trim() || 'Productos variados y delivery express',
+                  etaMinutes: etaVal,
+                  iconKey: selectedIconKey,
+                  webUrl: cleanWeb,
+                  imageUrl: cleanImg
+                };
+                await ArismendiDB.saveStore(updatedStore);
+                state.stores = state.stores.map((s) => (s.id === updatedStore.id ? updatedStore : s));
+                state.menuItems = state.menuItems.map((m) => m); // kept intact
+                state.cart = state.cart.map((c) => (c.storeId === updatedStore.id ? { ...c, storeName: updatedStore.name } : c));
+                await ArismendiDB.replaceCart(state.cart);
+                close(); showToast(`${name} actualizado`); render();
+                GitHubSync.triggerAutoCloudPush(`Local (${name})`);
+                return;
+              }
+
               const firstName = document.getElementById('st-first-name').value.trim();
               const firstPrice = parseFloat(document.getElementById('st-first-price').value);
               if (firstName && (!firstPrice || firstPrice <= 0)) {
                 return showToast('Ingresa un precio válido para el producto inicial');
               }
-              const newStore = { id: 'store_' + Date.now(), name, badge: 'Nuevo Local', tagline: tagInput.value.trim() || 'Productos variados y delivery express', etaMinutes: '20-30 min', rating: '5.0', iconKey: selectedIconKey, isOpen: true };
+              const rawFirstWeb = document.getElementById('st-first-web').value.trim();
+              const cleanFirstWeb = sanitizeWebUrl(rawFirstWeb);
+              if (rawFirstWeb && !cleanFirstWeb) return showToast('Link web del producto inválido (usa https://...)');
+
+              const newStore = {
+                id: 'store_' + Date.now(),
+                name,
+                badge: 'Nuevo Local',
+                tagline: tagInput.value.trim() || 'Productos variados y delivery express',
+                etaMinutes: etaVal,
+                rating: '5.0',
+                iconKey: selectedIconKey,
+                webUrl: cleanWeb,
+                imageUrl: cleanImg,
+                isOpen: true
+              };
               await ArismendiDB.saveStore(newStore);
               state.stores.push(newStore);
               state.expandedAccordions['store_' + newStore.id] = true;
@@ -3765,6 +4007,7 @@
                   priceUsd: firstPrice,
                   ingredients: [],
                   iconKey: selectedIconKey,
+                  webUrl: cleanFirstWeb,
                   isPopular: false,
                   available: stockVal === null || stockVal > 0,
                   stock: stockVal
@@ -3857,8 +4100,19 @@
           goView('home');
         };
 
+        document.querySelectorAll('[data-stop-card]').forEach((el) => {
+          el.onclick = (e) => { e.stopPropagation(); };
+        });
+        if (byId('btn-share-store')) {
+          byId('btn-share-store').onclick = () => {
+            const st = state.stores.find((s) => s.id === state.selectedStoreId);
+            if (st) copyShareLink('local', st.id, st.name);
+          };
+        }
+
         document.querySelectorAll('[data-open-store]').forEach((el) => {
-          el.onclick = () => {
+          el.onclick = (e) => {
+            if (e.target.closest('[data-stop-card]')) return;
             state.selectedStoreId = el.getAttribute('data-open-store');
             state.selectedCategory = 'Todos';
             state.view = 'store';
@@ -3872,10 +4126,10 @@
           el.onclick = () => { state.selectedCategory = el.getAttribute('data-select-cat'); render(); };
         });
         document.querySelectorAll('[data-quick-add]').forEach((el) => {
-          el.onclick = (e) => { e.stopPropagation(); const item = state.menuItems.find((i) => i.id === el.getAttribute('data-quick-add')); if (item) addItemToCart(item, 1, [...item.ingredients], ''); };
+          el.onclick = (e) => { e.stopPropagation(); const item = state.menuItems.find((i) => i.id === el.getAttribute('data-quick-add')); if (item) addItemToCart(item, 1, [...(item.ingredients || [])], ''); };
         });
         document.querySelectorAll('[data-customize-item]').forEach((el) => {
-          el.onclick = (e) => { if (e.target.closest('[data-quick-add]')) return; const item = state.menuItems.find((i) => i.id === el.getAttribute('data-customize-item')); if (item) openItemCustomizerModal(item); };
+          el.onclick = (e) => { if (e.target.closest('[data-quick-add]') || e.target.closest('[data-stop-card]')) return; const item = state.menuItems.find((i) => i.id === el.getAttribute('data-customize-item')); if (item) openItemCustomizerModal(item); };
         });
 
         if (byId('btn-clear-cart')) byId('btn-clear-cart').onclick = async () => { state.cart = []; await ArismendiDB.replaceCart([]); render(); };
@@ -4223,7 +4477,8 @@
           };
         });
         document.querySelectorAll('[data-admin-add-item]').forEach((el) => { el.onclick = () => openEditMenuItemModal(el.getAttribute('data-admin-add-item'), true); });
-        if (byId('btn-admin-new-store')) byId('btn-admin-new-store').onclick = openNewStoreModal;
+        document.querySelectorAll('[data-admin-edit-store]').forEach((el) => { el.onclick = () => { const st = state.stores.find((s) => s.id === el.getAttribute('data-admin-edit-store')); if (st) openStoreEditorModal(st); }; });
+        if (byId('btn-admin-new-store')) byId('btn-admin-new-store').onclick = () => openStoreEditorModal(null);
         if (byId('btn-admin-pull-menu')) byId('btn-admin-pull-menu').onclick = triggerManualSync;
         if (byId('btn-clear-orders')) byId('btn-clear-orders').onclick = async () => { await ArismendiDB.clearOrders(); state.orders = []; showToast('Historial limpiado'); render(); };
         if (byId('btn-clear-logs')) byId('btn-clear-logs').onclick = async () => { await ArismendiDB.clearUsageLogs(); state.usageLogs = []; showToast('Registro de uso limpiado'); render(); };
@@ -4395,6 +4650,7 @@
             document.body.style.overflow = '';
             startRealtimeSyncLoop();
             render();
+            applyPendingDeepLink();
             showToast('✅ Aplicación cargada y sincronizada en tiempo real');
             if (state.userProfile && state.userProfile.loyaltyNotificationPending) {
               setTimeout(() => openLoyaltyRewardModal(), 260);
@@ -4412,6 +4668,44 @@
         });
       }
 
+      let pendingDeepLink = (() => {
+        try {
+          const sp = new URLSearchParams(window.location.search || '');
+          return {
+            storeId: (sp.get('local') || sp.get('store') || '').trim(),
+            itemId: (sp.get('producto') || sp.get('item') || '').trim()
+          };
+        } catch (_) {
+          return { storeId: '', itemId: '' };
+        }
+      })();
+
+      function applyPendingDeepLink() {
+        if (!pendingDeepLink.itemId && !pendingDeepLink.storeId) return;
+        if (pendingDeepLink.itemId) {
+          const item = state.menuItems.find((i) => i.id === pendingDeepLink.itemId);
+          if (item) {
+            pendingDeepLink = { storeId: '', itemId: '' };
+            state.selectedStoreId = item.storeId;
+            state.selectedCategory = 'Todos';
+            state.view = 'store';
+            render();
+            setTimeout(() => openItemCustomizerModal(item), 120);
+            return;
+          }
+        }
+        if (pendingDeepLink.storeId) {
+          const st = state.stores.find((s) => s.id === pendingDeepLink.storeId);
+          if (st) {
+            pendingDeepLink = { storeId: '', itemId: '' };
+            state.selectedStoreId = st.id;
+            state.selectedCategory = 'Todos';
+            state.view = 'store';
+            render();
+          }
+        }
+      }
+
       // Pantalla de bienvenida animada antes de iniciar la app
       let splashDismissed = false;
       let initialBootReady = false;
@@ -4425,6 +4719,7 @@
           openMandatoryStartupTokenGate();
           return;
         }
+        applyPendingDeepLink();
         if (pendingLoyaltyAfterSplash) {
           pendingLoyaltyAfterSplash = false;
           setTimeout(() => openLoyaltyRewardModal(), 260);
