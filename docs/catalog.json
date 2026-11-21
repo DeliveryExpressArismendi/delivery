@@ -1,7 +1,7 @@
 {
   "version": 87,
   "releaseTag": "v1.0.87",
-  "updatedAt": "2026-11-21T16:44:08.955Z",
+  "updatedAt": "2026-11-21T16:44:29.556Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -629,7 +629,9 @@
       "iconKey": "moto",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/HpxnQ5sG/2a71601df0e6ae654b40ad093a1a9996.jpg"
     },
     {
       "id": "item_1795063604159",
@@ -785,6 +787,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "b665b181e560"
+  ]
 }
