@@ -1,7 +1,7 @@
 {
-  "version": 85,
-  "releaseTag": "v1.0.85",
-  "updatedAt": "2026-11-21T15:46:36.984Z",
+  "version": 86,
+  "releaseTag": "v1.0.86",
+  "updatedAt": "2026-11-21T16:43:30.695Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -599,7 +599,9 @@
       "iconKey": "moto",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/mCYyHr7c/delivery-alimentos-bebidas.jpg"
     },
     {
       "id": "item_1795063359601",
@@ -782,5 +784,5 @@
       "stock": null
     }
   ],
-  "stateHash": "dc42818a2e80"
+  "stateHash": "f84edde21cac"
 }
