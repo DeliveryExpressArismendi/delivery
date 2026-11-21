@@ -1,7 +1,7 @@
 {
-  "version": 84,
-  "releaseTag": "v1.0.84",
-  "updatedAt": "2026-11-21T15:05:50.107Z",
+  "version": 83,
+  "releaseTag": "v1.0.83",
+  "updatedAt": "2026-11-21T15:46:23.932Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -82,7 +82,9 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "moto",
-      "isOpen": true
+      "isOpen": true,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/4ZRLFqGd/caja-de-la-entrega-de-la-motocicleta-86078522.jpg"
     }
   ],
   "menuItems": [
@@ -779,6 +781,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "e301a4c69fff"
+  ]
 }
