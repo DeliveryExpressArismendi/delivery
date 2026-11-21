@@ -1,7 +1,7 @@
 {
   "version": 89,
   "releaseTag": "v1.0.89",
-  "updatedAt": "2026-11-21T16:45:11.993Z",
+  "updatedAt": "2026-11-21T17:29:44.499Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -50,7 +50,9 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "empanada",
-      "isOpen": true
+      "isOpen": true,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/Kj4JWhfK/IMG-20261121-WA0107.jpg"
     },
     {
       "id": "store_1794766416133",
@@ -789,6 +791,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "b3c40a9e0154"
+  ]
 }
