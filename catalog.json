@@ -1,7 +1,7 @@
 {
-  "version": 82,
-  "releaseTag": "v1.0.82",
-  "updatedAt": "2026-11-21T14:53:26.873Z",
+  "version": 83,
+  "releaseTag": "v1.0.83",
+  "updatedAt": "2026-11-21T14:58:54.034Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -417,7 +417,9 @@
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/Rpy5Q1N1/Screenshot-2026-11-13-15-00-49-961-com-whatsapp-edit.jpg"
     },
     {
       "id": "item_1794805612794",
@@ -776,5 +778,5 @@
       "stock": null
     }
   ],
-  "stateHash": "50dcae887f9b"
+  "stateHash": "6e3373c5fdbb"
 }
