@@ -1,7 +1,7 @@
 {
   "version": 91,
   "releaseTag": "v1.0.91",
-  "updatedAt": "2026-11-21T20:46:40.838Z",
+  "updatedAt": "2026-11-21T20:56:16.792Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -792,7 +792,21 @@
       "isPopular": false,
       "available": true,
       "stock": null
+    },
+    {
+      "id": "item_1795294000748",
+      "storeId": "store_1794805519941",
+      "name": "Pan de Jamón",
+      "category": "Pan",
+      "description": "",
+      "priceUsd": 3,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/v6ZQYhbm/Screenshot-2026-11-21-16-44-16-061-com-whatsapp-edit.jpg"
     }
-  ],
-  "stateHash": "a35e77bc985a"
+  ]
 }
