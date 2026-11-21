@@ -1,19 +1,19 @@
 {
-  "version": 79,
-  "releaseTag": "v1.0.79",
-  "stateHash": "27cb6d759e95",
-  "updatedAt": "2026-11-21T13:35:54.894Z",
-  "generatedAt": "2026-11-21T13:35:54.894Z",
+  "version": 2,
+  "releaseTag": "v1.0.2",
+  "stateHash": "75d06ecc59b9",
+  "updatedAt": "2026-11-15T15:30:00.000Z",
+  "generatedAt": "2026-11-15T15:30:00.000Z",
   "generatedBy": "github-actions-robot",
   "summary": {
     "exchangeRateBsPerUsd": 1200,
-    "deliveryFeeUsd": 1,
+    "deliveryFeeUsd": 0,
     "whatsappPhone": "04245224500",
-    "storesTotal": 6,
-    "storesOpen": 6,
+    "storesTotal": 3,
+    "storesOpen": 3,
     "storesClosed": 0,
-    "itemsTotal": 44,
-    "itemsAvailable": 44,
+    "itemsTotal": 16,
+    "itemsAvailable": 16,
     "itemsOutOfStock": 0
   }
 }
