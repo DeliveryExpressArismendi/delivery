@@ -1,7 +1,7 @@
 {
   "version": 86,
   "releaseTag": "v1.0.86",
-  "updatedAt": "2026-11-21T16:43:30.695Z",
+  "updatedAt": "2026-11-21T16:43:56.477Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -614,7 +614,9 @@
       "iconKey": "moto",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/yBk8d2Fk/repartidor-alimentos-compra-productos-tienda-comestibles-1303-27747.jpg"
     },
     {
       "id": "item_1795063540872",
@@ -783,6 +785,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "f84edde21cac"
+  ]
 }
