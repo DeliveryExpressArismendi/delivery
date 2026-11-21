@@ -1,9 +1,9 @@
 {
-  "version": 89,
-  "releaseTag": "v1.0.89",
-  "stateHash": "b3c40a9e0154",
-  "updatedAt": "2026-11-21T16:45:11.993Z",
-  "generatedAt": "2026-11-21T16:45:11.993Z",
+  "version": 90,
+  "releaseTag": "v1.0.90",
+  "stateHash": "66525936e2f2",
+  "updatedAt": "2026-11-21T17:29:58.884Z",
+  "generatedAt": "2026-11-21T17:29:58.884Z",
   "generatedBy": "github-actions-robot",
   "summary": {
     "exchangeRateBsPerUsd": 1200,
