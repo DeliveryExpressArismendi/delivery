@@ -1,7 +1,7 @@
 {
-  "version": 77,
-  "releaseTag": "v1.0.77",
-  "updatedAt": "2026-11-21T12:54:58.172Z",
+  "version": 78,
+  "releaseTag": "v1.0.78",
+  "updatedAt": "2026-11-21T13:35:26.463Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -26,7 +26,9 @@
       "etaMinutes": "20-30 min",
       "rating": "4.9",
       "iconKey": "burger",
-      "isOpen": true
+      "isOpen": true,
+      "webUrl": "",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/servidorimagenes/Servidor@main/productos/local/pili-burguer-20261121-a7b3.webp"
     },
     {
       "id": "store_1794761464624",
@@ -640,6 +642,19 @@
       "stock": null
     },
     {
+      "id": "item_1795201862042",
+      "storeId": "store_1794805519941",
+      "name": "Cachitos",
+      "category": "Dulces",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -753,20 +768,7 @@
       "isPopular": false,
       "available": true,
       "stock": null
-    },
-    {
-      "id": "item_1795201862042",
-      "storeId": "store_1794805519941",
-      "name": "Cachitos",
-      "category": "Dulces",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null
     }
   ],
-  "stateHash": "d702a4409e00"
+  "stateHash": "e52d4cae4844"
 }
