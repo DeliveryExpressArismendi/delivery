@@ -1,7 +1,7 @@
 {
-  "version": 88,
-  "releaseTag": "v1.0.88",
-  "updatedAt": "2026-11-21T16:44:44.202Z",
+  "version": 89,
+  "releaseTag": "v1.0.89",
+  "updatedAt": "2026-11-21T16:45:11.993Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -644,7 +644,9 @@
       "iconKey": "moto",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/Fkz66Nkh/Motos-carga-China-7.jpg"
     },
     {
       "id": "item_1795201686302",
@@ -788,5 +790,5 @@
       "stock": null
     }
   ],
-  "stateHash": "d06c0d5b9656"
+  "stateHash": "b3c40a9e0154"
 }
