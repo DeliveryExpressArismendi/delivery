@@ -1,7 +1,7 @@
 {
   "version": 83,
   "releaseTag": "v1.0.83",
-  "updatedAt": "2026-11-21T14:58:54.034Z",
+  "updatedAt": "2026-11-21T15:05:35.771Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -60,7 +60,9 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "arepa",
-      "isOpen": true
+      "isOpen": true,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/Z6Pc8bjB/IMG-20261121-WA0071.jpg"
     },
     {
       "id": "store_1794805519941",
@@ -777,6 +779,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "6e3373c5fdbb"
+  ]
 }
