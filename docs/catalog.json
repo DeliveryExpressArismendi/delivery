@@ -1,7 +1,7 @@
 {
-  "version": 78,
-  "releaseTag": "v1.0.78",
-  "updatedAt": "2026-11-21T13:35:43.011Z",
+  "version": 79,
+  "releaseTag": "v1.0.79",
+  "updatedAt": "2026-11-21T13:35:54.894Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -771,5 +771,6 @@
       "available": true,
       "stock": null
     }
-  ]
+  ],
+  "stateHash": "27cb6d759e95"
 }

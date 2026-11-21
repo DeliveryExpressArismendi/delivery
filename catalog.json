@@ -1,7 +1,7 @@
 {
-  "version": 78,
-  "releaseTag": "v1.0.78",
-  "updatedAt": "2026-11-21T13:35:26.463Z",
+  "version": 79,
+  "releaseTag": "v1.0.79",
+  "updatedAt": "2026-11-21T13:35:54.894Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -38,7 +38,9 @@
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "burger",
-      "isOpen": true
+      "isOpen": true,
+      "webUrl": "",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/servidorimagenes/Servidor@main/productos/local/perro-y-hamburguesa-la-negra-20261121-2837.webp"
     },
     {
       "id": "store_1794766144421",
@@ -770,5 +772,5 @@
       "stock": null
     }
   ],
-  "stateHash": "e52d4cae4844"
+  "stateHash": "27cb6d759e95"
 }
