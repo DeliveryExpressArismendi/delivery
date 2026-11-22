@@ -1,7 +1,7 @@
 {
   "version": 114,
   "releaseTag": "v1.0.114",
-  "updatedAt": "2026-11-22T16:22:08.478Z",
+  "updatedAt": "2026-11-22T16:22:17.168Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -454,7 +454,7 @@
       "id": "item_1794805640170",
       "storeId": "store_1794805519941",
       "name": "Bombas de Crema Pastelera",
-      "category": "Dulces",
+      "category": "Bomba",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
