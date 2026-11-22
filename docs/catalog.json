@@ -1,7 +1,7 @@
 {
   "version": 99,
   "releaseTag": "v1.0.99",
-  "updatedAt": "2026-11-22T01:16:34.921Z",
+  "updatedAt": "2026-11-22T01:22:53.534Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -820,8 +820,9 @@
       "iconKey": "shawarma",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "155e3ed1e00d"
+  ]
 }
