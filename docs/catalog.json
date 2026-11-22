@@ -1,7 +1,7 @@
 {
   "version": 108,
   "releaseTag": "v1.0.108",
-  "updatedAt": "2026-11-22T16:17:11.683Z",
+  "updatedAt": "2026-11-22T16:17:29.666Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -694,7 +694,9 @@
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/1YG396Lm/IMG-20261122-WA0053.jpg"
     },
     {
       "id": "item_1795294000748",
@@ -838,6 +840,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "e055ccb39f39"
+  ]
 }
