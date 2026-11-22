@@ -1,12 +1,12 @@
 {
   "version": 101,
   "releaseTag": "v1.0.101",
-  "updatedAt": "2026-11-22T02:21:42.867Z",
+  "updatedAt": "2026-11-22T03:00:59.549Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
     "whatsappPhone": "04245224500",
-    "deliveryFeeUsd": 1,
+    "deliveryFeeUsd": 2,
     "pagoMovilBank": "Banco de Venezuelo de crédito (0104)",
     "pagoMovilDoc": "V-26490000",
     "pagoMovilPhone": "0424-5224500",
@@ -826,6 +826,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "e055ce718f75"
+  ]
 }
