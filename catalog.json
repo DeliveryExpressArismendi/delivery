@@ -1,7 +1,7 @@
 {
-  "version": 98,
-  "releaseTag": "v1.0.98",
-  "updatedAt": "2026-11-22T01:15:42.024Z",
+  "version": 99,
+  "releaseTag": "v1.0.99",
+  "updatedAt": "2026-11-22T01:16:34.921Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -127,7 +127,9 @@
       "iconKey": "burger",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/6cx1jsvz/Screenshot-2026-11-21-20-56-08-548-com-miui-gallery-edit.jpg"
     },
     {
       "id": "item_1794762463219",
@@ -821,5 +823,5 @@
       "stock": null
     }
   ],
-  "stateHash": "027568cb1ed7"
+  "stateHash": "155e3ed1e00d"
 }
