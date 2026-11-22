@@ -1,7 +1,7 @@
 {
-  "version": 111,
-  "releaseTag": "v1.0.111",
-  "updatedAt": "2026-11-22T16:19:41.751Z",
+  "version": 112,
+  "releaseTag": "v1.0.112",
+  "updatedAt": "2026-11-22T16:19:53.643Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -870,5 +870,6 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
     }
-  ]
+  ],
+  "stateHash": "46eb32d38da1"
 }

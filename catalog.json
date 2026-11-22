@@ -1,7 +1,7 @@
 {
-  "version": 111,
-  "releaseTag": "v1.0.111",
-  "updatedAt": "2026-11-22T16:18:53.314Z",
+  "version": 112,
+  "releaseTag": "v1.0.112",
+  "updatedAt": "2026-11-22T16:19:53.643Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -854,7 +854,22 @@
       "stock": null,
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/XkV0yxd9/Screenshot-2026-11-22-12-07-29-019-com-whatsapp-edit.jpg"
+    },
+    {
+      "id": "item_1795364363286",
+      "storeId": "store_1794805519941",
+      "name": "Pan Dulce",
+      "category": "Pan",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
     }
   ],
-  "stateHash": "b4d56240d9b2"
+  "stateHash": "46eb32d38da1"
 }
