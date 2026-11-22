@@ -1,7 +1,7 @@
 {
   "version": 114,
   "releaseTag": "v1.0.114",
-  "updatedAt": "2026-11-22T16:22:37.964Z",
+  "updatedAt": "2026-11-22T16:22:44.074Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -566,7 +566,7 @@
       "id": "item_1795058621239",
       "storeId": "store_1794805519941",
       "name": "Torta PEQUEÑA CHOCOLATE",
-      "category": "Dulces",
+      "category": "Torta",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
