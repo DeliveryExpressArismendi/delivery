@@ -1,7 +1,7 @@
 {
   "version": 94,
   "releaseTag": "v1.0.94",
-  "updatedAt": "2026-11-22T00:23:48.567Z",
+  "updatedAt": "2026-11-22T00:24:11.084Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -789,7 +789,9 @@
       "iconKey": "soda",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/C5sFF4vC/images-2.jpg"
     },
     {
       "id": "pili_shawarma_arabe",
@@ -812,6 +814,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "a394074d7d43"
+  ]
 }
