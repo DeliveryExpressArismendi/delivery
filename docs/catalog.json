@@ -1,7 +1,7 @@
 {
   "version": 95,
   "releaseTag": "v1.0.95",
-  "updatedAt": "2026-11-22T00:24:22.708Z",
+  "updatedAt": "2026-11-22T00:48:46.219Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -737,7 +737,9 @@
       "iconKey": "burger",
       "isPopular": true,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/Swbw4BMx/Screenshot-2026-11-21-20-41-37-459-com-miui-gallery-edit.jpg"
     },
     {
       "id": "pili_pepito_mixto",
@@ -814,6 +816,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "6c44ae44b810"
+  ]
 }
