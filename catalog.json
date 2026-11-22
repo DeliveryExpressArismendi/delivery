@@ -1,7 +1,7 @@
 {
-  "version": 92,
-  "releaseTag": "v1.0.92",
-  "updatedAt": "2026-11-21T20:56:28.189Z",
+  "version": 93,
+  "releaseTag": "v1.0.93",
+  "updatedAt": "2026-11-22T00:13:28.544Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -514,7 +514,9 @@
       "iconKey": "hotdog",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/pBxhXdzs/IMG-20261121-WA0194.jpg"
     },
     {
       "id": "item_1795058488129",
@@ -679,6 +681,21 @@
       "stock": null
     },
     {
+      "id": "item_1795294000748",
+      "storeId": "store_1794805519941",
+      "name": "Pan de Jamón",
+      "category": "Pan",
+      "description": "",
+      "priceUsd": 3,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/v6ZQYhbm/Screenshot-2026-11-21-16-44-16-061-com-whatsapp-edit.jpg"
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -792,22 +809,7 @@
       "isPopular": false,
       "available": true,
       "stock": null
-    },
-    {
-      "id": "item_1795294000748",
-      "storeId": "store_1794805519941",
-      "name": "Pan de Jamón",
-      "category": "Pan",
-      "description": "",
-      "priceUsd": 3,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null,
-      "webUrl": "",
-      "imageUrl": "https://i.ibb.co/v6ZQYhbm/Screenshot-2026-11-21-16-44-16-061-com-whatsapp-edit.jpg"
     }
   ],
-  "stateHash": "8346942c159e"
+  "stateHash": "078e949a839d"
 }
