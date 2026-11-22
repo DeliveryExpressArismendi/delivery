@@ -1,7 +1,7 @@
 {
-  "version": 114,
-  "releaseTag": "v1.0.114",
-  "updatedAt": "2026-11-22T16:21:35.656Z",
+  "version": 115,
+  "releaseTag": "v1.0.115",
+  "updatedAt": "2026-11-22T16:23:05.045Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -424,7 +424,7 @@
       "id": "item_1794805555599",
       "storeId": "store_1794805519941",
       "name": "Bombas de Cholate",
-      "category": "Dulces",
+      "category": "Bomba",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
@@ -439,7 +439,7 @@
       "id": "item_1794805612794",
       "storeId": "store_1794805519941",
       "name": "Bombas de arequipe",
-      "category": "Dulces",
+      "category": "Bomba",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
@@ -454,7 +454,7 @@
       "id": "item_1794805640170",
       "storeId": "store_1794805519941",
       "name": "Bombas de Crema Pastelera",
-      "category": "Dulces",
+      "category": "Bomba",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
@@ -536,33 +536,37 @@
       "id": "item_1795058488129",
       "storeId": "store_1794805519941",
       "name": "Torta MARQUESA",
-      "category": "Dulces",
+      "category": "Torta",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": ""
     },
     {
       "id": "item_1795058578132",
       "storeId": "store_1794805519941",
       "name": "Torta PEQUEÑA FRESA",
-      "category": "Dulces",
+      "category": "Torta",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": ""
     },
     {
       "id": "item_1795058621239",
       "storeId": "store_1794805519941",
       "name": "Torta PEQUEÑA CHOCOLATE",
-      "category": "Dulces",
+      "category": "Torta",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
@@ -577,14 +581,16 @@
       "id": "item_1795058671847",
       "storeId": "store_1794805519941",
       "name": "Torta PEQUEÑA AREQUIPE",
-      "category": "Dulces",
+      "category": "Torta",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": ""
     },
     {
       "id": "item_1795059445156",
@@ -871,5 +877,5 @@
       "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
     }
   ],
-  "stateHash": "12e3742078e5"
+  "stateHash": "ffd98d8a8ba0"
 }
