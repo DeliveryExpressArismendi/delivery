@@ -1,7 +1,7 @@
 {
-  "version": 109,
-  "releaseTag": "v1.0.109",
-  "updatedAt": "2026-11-22T16:17:41.507Z",
+  "version": 108,
+  "releaseTag": "v1.0.108",
+  "updatedAt": "2026-11-22T16:17:41.535Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -686,7 +686,7 @@
     {
       "id": "item_1795201862042",
       "storeId": "store_1794805519941",
-      "name": "Cachitos",
+      "name": "Pan Cachitos",
       "category": "Dulces",
       "description": "",
       "priceUsd": 1,
@@ -840,6 +840,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "ddb7fdcbdf77"
+  ]
 }
