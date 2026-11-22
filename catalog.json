@@ -1,7 +1,7 @@
 {
-  "version": 110,
-  "releaseTag": "v1.0.110",
-  "updatedAt": "2026-11-22T16:17:56.012Z",
+  "version": 111,
+  "releaseTag": "v1.0.111",
+  "updatedAt": "2026-11-22T16:18:53.314Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -839,7 +839,22 @@
       "stock": null,
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
+    },
+    {
+      "id": "item_1795364292462",
+      "storeId": "store_1794805519941",
+      "name": "Pan Frances",
+      "category": "Pan",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/XkV0yxd9/Screenshot-2026-11-22-12-07-29-019-com-whatsapp-edit.jpg"
     }
   ],
-  "stateHash": "7d373ae0f73c"
+  "stateHash": "b4d56240d9b2"
 }
