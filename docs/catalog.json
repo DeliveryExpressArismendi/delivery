@@ -1,7 +1,7 @@
 {
   "version": 96,
   "releaseTag": "v1.0.96",
-  "updatedAt": "2026-11-22T00:49:05.411Z",
+  "updatedAt": "2026-11-22T00:52:35.800Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -135,7 +135,7 @@
       "name": "Refresco 2L",
       "category": "Refrescos",
       "description": "",
-      "priceUsd": 2,
+      "priceUsd": 3,
       "ingredients": [],
       "iconKey": "soda",
       "isPopular": false,
@@ -816,6 +816,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "9459218428d7"
+  ]
 }
