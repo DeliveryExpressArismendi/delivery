@@ -1,4 +1,4 @@
-const CACHE_NAME = 'arismendi-express-v1.0.116';
+const CACHE_NAME = 'arismendi-express-v1.0.117';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
