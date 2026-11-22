@@ -1,12 +1,12 @@
 {
   "version": 118,
   "releaseTag": "v1.0.118",
-  "updatedAt": "2026-11-22T19:41:35.004Z",
+  "updatedAt": "2026-11-22T19:59:59.431Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
     "whatsappPhone": "04245224500",
-    "deliveryFeeUsd": 2,
+    "deliveryFeeUsd": 1,
     "pagoMovilBank": "Banco de Venezuelo de crédito (0104)",
     "pagoMovilDoc": "V-26490000",
     "pagoMovilPhone": "0424-5224500",
@@ -921,6 +921,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/DDsBjWPx/IMG-20261122-WA0057.jpg"
     }
-  ],
-  "stateHash": "bfabd6ad7f83"
+  ]
 }
