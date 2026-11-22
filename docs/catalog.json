@@ -1,7 +1,7 @@
 {
-  "version": 118,
-  "releaseTag": "v1.0.118",
-  "updatedAt": "2026-11-22T20:00:04.251Z",
+  "version": 119,
+  "releaseTag": "v1.0.119",
+  "updatedAt": "2026-11-22T20:00:25.401Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -921,5 +921,6 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/DDsBjWPx/IMG-20261122-WA0057.jpg"
     }
-  ]
+  ],
+  "stateHash": "d33329d9b297"
 }
