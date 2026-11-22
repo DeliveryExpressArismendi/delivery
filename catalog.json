@@ -1,7 +1,7 @@
 {
-  "version": 97,
-  "releaseTag": "v1.0.97",
-  "updatedAt": "2026-11-22T00:53:07.696Z",
+  "version": 98,
+  "releaseTag": "v1.0.98",
+  "updatedAt": "2026-11-22T01:15:42.024Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -717,7 +717,9 @@
       "iconKey": "burger",
       "isPopular": true,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/sdb56Xq0/Screenshot-2026-11-21-20-55-58-437-com-miui-gallery-edit.jpg"
     },
     {
       "id": "pili_hamburguesa_doble",
@@ -819,5 +821,5 @@
       "stock": null
     }
   ],
-  "stateHash": "b659bcc3cb57"
+  "stateHash": "027568cb1ed7"
 }
