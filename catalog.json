@@ -1,7 +1,7 @@
 {
-  "version": 105,
-  "releaseTag": "v1.0.105",
-  "updatedAt": "2026-11-22T16:14:35.537Z",
+  "version": 106,
+  "releaseTag": "v1.0.106",
+  "updatedAt": "2026-11-22T16:15:22.748Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -496,7 +496,7 @@
     {
       "id": "item_1795057100313",
       "storeId": "store_1794805519941",
-      "name": "Gelatina",
+      "name": "Gelatina Mosaico",
       "category": "Dulces",
       "description": "",
       "priceUsd": 1,
@@ -504,7 +504,9 @@
       "iconKey": "soda",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/Kc7J4ddx/Screenshot-2026-11-22-12-07-20-115-com-whatsapp-edit.jpg"
     },
     {
       "id": "item_1795057623709",
@@ -833,5 +835,5 @@
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
   ],
-  "stateHash": "8a0339f655b6"
+  "stateHash": "e48f4bebc8fe"
 }

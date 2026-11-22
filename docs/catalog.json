@@ -1,7 +1,7 @@
 {
-  "version": 105,
-  "releaseTag": "v1.0.105",
-  "updatedAt": "2026-11-22T16:15:10.378Z",
+  "version": 106,
+  "releaseTag": "v1.0.106",
+  "updatedAt": "2026-11-22T16:15:22.748Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -834,5 +834,6 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ]
+  ],
+  "stateHash": "e48f4bebc8fe"
 }
