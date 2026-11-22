@@ -1,7 +1,7 @@
 {
-  "version": 102,
-  "releaseTag": "v1.0.102",
-  "updatedAt": "2026-11-22T03:01:13.348Z",
+  "version": 103,
+  "releaseTag": "v1.0.103",
+  "updatedAt": "2026-11-22T11:42:05.659Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -765,7 +765,9 @@
       "iconKey": "pepito",
       "isPopular": true,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/nskbBzc9/IMG-20261121-WA0270.jpg"
     },
     {
       "id": "pili_perro_caliente",
@@ -827,5 +829,5 @@
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
   ],
-  "stateHash": "27738c2b3011"
+  "stateHash": "03cad599d66e"
 }
