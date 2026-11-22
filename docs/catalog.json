@@ -1,7 +1,7 @@
 {
-  "version": 113,
-  "releaseTag": "v1.0.113",
-  "updatedAt": "2026-11-22T16:21:14.662Z",
+  "version": 112,
+  "releaseTag": "v1.0.112",
+  "updatedAt": "2026-11-22T16:21:22.337Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -687,7 +687,7 @@
       "id": "item_1795201862042",
       "storeId": "store_1794805519941",
       "name": "Pan Cachitos",
-      "category": "Dulces",
+      "category": "Pan",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
@@ -870,6 +870,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
     }
-  ],
-  "stateHash": "85deed16bd7a"
+  ]
 }
