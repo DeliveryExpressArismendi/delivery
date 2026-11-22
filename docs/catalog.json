@@ -1,7 +1,7 @@
 {
   "version": 93,
   "releaseTag": "v1.0.93",
-  "updatedAt": "2026-11-22T00:13:28.544Z",
+  "updatedAt": "2026-11-22T00:23:34.217Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -140,7 +140,9 @@
       "iconKey": "soda",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/cSH4fJHb/Screenshot-2026-11-21-20-19-35-748-com-android-chrome.png"
     },
     {
       "id": "item_1794762485743",
@@ -810,6 +812,5 @@
       "available": true,
       "stock": null
     }
-  ],
-  "stateHash": "078e949a839d"
+  ]
 }
