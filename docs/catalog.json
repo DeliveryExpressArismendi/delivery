@@ -1,7 +1,7 @@
 {
   "version": 104,
   "releaseTag": "v1.0.104",
-  "updatedAt": "2026-11-22T14:42:00.721Z",
+  "updatedAt": "2026-11-22T16:14:21.503Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -476,7 +476,9 @@
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/84nWFCNT/Screenshot-2026-11-22-12-04-08-845-com-whatsapp-edit.jpg"
     },
     {
       "id": "item_1795057060937",
@@ -830,6 +832,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "8939caeb1d6b"
+  ]
 }
