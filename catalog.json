@@ -1,7 +1,7 @@
 {
-  "version": 115,
-  "releaseTag": "v1.0.115",
-  "updatedAt": "2026-11-22T16:23:05.045Z",
+  "version": 116,
+  "releaseTag": "v1.0.116",
+  "updatedAt": "2026-11-22T19:37:15.385Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -720,6 +720,36 @@
       "imageUrl": "https://i.ibb.co/v6ZQYhbm/Screenshot-2026-11-21-16-44-16-061-com-whatsapp-edit.jpg"
     },
     {
+      "id": "item_1795364292462",
+      "storeId": "store_1794805519941",
+      "name": "Pan Frances",
+      "category": "Pan",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/XkV0yxd9/Screenshot-2026-11-22-12-07-29-019-com-whatsapp-edit.jpg"
+    },
+    {
+      "id": "item_1795364363286",
+      "storeId": "store_1794805519941",
+      "name": "Pan Dulce",
+      "category": "Pan",
+      "description": "",
+      "priceUsd": 1,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -847,35 +877,20 @@
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     },
     {
-      "id": "item_1795364292462",
+      "id": "item_1795376202668",
       "storeId": "store_1794805519941",
-      "name": "Pan Frances",
-      "category": "Pan",
+      "name": "Torta de Chocolate",
+      "category": "Torta",
       "description": "",
-      "priceUsd": 1,
+      "priceUsd": 4,
       "ingredients": [],
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
       "stock": null,
       "webUrl": "",
-      "imageUrl": "https://i.ibb.co/XkV0yxd9/Screenshot-2026-11-22-12-07-29-019-com-whatsapp-edit.jpg"
-    },
-    {
-      "id": "item_1795364363286",
-      "storeId": "store_1794805519941",
-      "name": "Pan Dulce",
-      "category": "Pan",
-      "description": "",
-      "priceUsd": 1,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null,
-      "webUrl": "",
-      "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
+      "imageUrl": "https://i.ibb.co/xSdb04Xq/IMG-20261122-WA0049.jpg"
     }
   ],
-  "stateHash": "ffd98d8a8ba0"
+  "stateHash": "e2a6469b57fd"
 }
