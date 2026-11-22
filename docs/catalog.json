@@ -1,7 +1,7 @@
 {
   "version": 114,
   "releaseTag": "v1.0.114",
-  "updatedAt": "2026-11-22T16:22:44.074Z",
+  "updatedAt": "2026-11-22T16:22:50.042Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -581,14 +581,16 @@
       "id": "item_1795058671847",
       "storeId": "store_1794805519941",
       "name": "Torta PEQUEÑA AREQUIPE",
-      "category": "Dulces",
+      "category": "Torta",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
       "iconKey": "dulces",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": ""
     },
     {
       "id": "item_1795059445156",
