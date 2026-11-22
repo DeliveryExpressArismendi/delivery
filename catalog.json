@@ -1,7 +1,7 @@
 {
-  "version": 112,
-  "releaseTag": "v1.0.112",
-  "updatedAt": "2026-11-22T16:19:53.643Z",
+  "version": 113,
+  "releaseTag": "v1.0.113",
+  "updatedAt": "2026-11-22T16:21:14.662Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -499,7 +499,7 @@
       "id": "item_1795057100313",
       "storeId": "store_1794805519941",
       "name": "Gelatina Mosaico",
-      "category": "Dulces",
+      "category": "Gelatina",
       "description": "",
       "priceUsd": 1,
       "ingredients": [],
@@ -871,5 +871,5 @@
       "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
     }
   ],
-  "stateHash": "46eb32d38da1"
+  "stateHash": "85deed16bd7a"
 }
