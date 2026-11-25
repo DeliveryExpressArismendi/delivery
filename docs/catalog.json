@@ -1,7 +1,7 @@
 {
   "version": 127,
   "releaseTag": "v1.0.127",
-  "updatedAt": "2026-11-25T22:41:58.910Z",
+  "updatedAt": "2026-11-25T22:42:05.387Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -23,7 +23,7 @@
       "name": "Pili Burger",
       "badge": "Más Popular",
       "tagline": "Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos",
-      "etaMinutes": "20-30 min",
+      "etaMinutes": ".",
       "rating": "4.9",
       "iconKey": "burger",
       "isOpen": true,
