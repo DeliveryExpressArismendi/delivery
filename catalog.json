@@ -1,7 +1,7 @@
 {
-  "version": 126,
-  "releaseTag": "v1.0.126",
-  "updatedAt": "2026-11-25T22:11:23.142Z",
+  "version": 127,
+  "releaseTag": "v1.0.127",
+  "updatedAt": "2026-11-25T22:12:31.477Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -831,7 +831,7 @@
       "storeId": "pili_burger",
       "name": "Hamburguesa Especial",
       "category": "Hamburguesas",
-      "description": "Doble carne jugosa, doble cheddar, tocineta crocante y huevo.",
+      "description": "",
       "priceUsd": 8,
       "ingredients": [
         "Carne picada",
@@ -855,7 +855,7 @@
       "storeId": "pili_burger",
       "name": "Pepito",
       "category": "Pepitos",
-      "description": "Pan canilla de 30cm relleno de carne y pollo a la plancha gratinado.",
+      "description": "",
       "priceUsd": 7,
       "ingredients": [
         "carne picada",
@@ -877,7 +877,7 @@
       "storeId": "pili_burger",
       "name": "Perro Normal",
       "category": "Perros",
-      "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
+      "description": "",
       "priceUsd": 1,
       "ingredients": [
         "Papita",
@@ -898,7 +898,7 @@
       "storeId": "pili_burger",
       "name": "Refresco 1L",
       "category": "Refrescos",
-      "description": "Botella familiar de 1.5 litros bien fría.",
+      "description": "",
       "priceUsd": 1,
       "ingredients": [],
       "iconKey": "soda",
@@ -913,7 +913,7 @@
       "storeId": "pili_burger",
       "name": "Shawarma",
       "category": "Shawarmas",
-      "description": "Pan pita dorado al grill con pollo o carne marinada y crema de ajo.",
+      "description": "",
       "priceUsd": 6,
       "ingredients": [
         "Carne picada",
@@ -932,5 +932,5 @@
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
   ],
-  "stateHash": "26052ec54d33"
+  "stateHash": "f9a4ae13a23d"
 }
