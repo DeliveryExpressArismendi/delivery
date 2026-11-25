@@ -1,7 +1,7 @@
 {
-  "version": 119,
-  "releaseTag": "v1.0.119",
-  "updatedAt": "2026-11-22T20:00:25.401Z",
+  "version": 120,
+  "releaseTag": "v1.0.120",
+  "updatedAt": "2026-11-25T22:02:30.321Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -186,7 +186,9 @@
       "iconKey": "burger",
       "isPopular": false,
       "available": true,
-      "stock": null
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/vvYhTqHT/Screenshot-2026-11-25-18-01-27-341-com-miui-gallery-edit.jpg"
     },
     {
       "id": "item_1794762584945",
@@ -750,6 +752,51 @@
       "imageUrl": "https://i.ibb.co/cKpL3M3m/Screenshot-2026-11-22-12-06-38-490-com-whatsapp-edit.jpg"
     },
     {
+      "id": "item_1795376202668",
+      "storeId": "store_1794805519941",
+      "name": "Torta de Chocolate",
+      "category": "Torta",
+      "description": "",
+      "priceUsd": 4,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/xSdb04Xq/IMG-20261122-WA0049.jpg"
+    },
+    {
+      "id": "item_1795376282416",
+      "storeId": "store_1794805519941",
+      "name": "Ponqué",
+      "category": "Torta",
+      "description": "",
+      "priceUsd": 3,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/21Ly30J6/IMG-20261122-WA0048.jpg"
+    },
+    {
+      "id": "item_1795376430865",
+      "storeId": "store_1794805519941",
+      "name": "Tres leches tradicional",
+      "category": "Torta",
+      "description": "",
+      "priceUsd": 4,
+      "ingredients": [],
+      "iconKey": "dulces",
+      "isPopular": false,
+      "available": true,
+      "stock": null,
+      "webUrl": "",
+      "imageUrl": "https://i.ibb.co/DDsBjWPx/IMG-20261122-WA0057.jpg"
+    },
+    {
       "id": "pili_hamburguesa_clasica",
       "storeId": "pili_burger",
       "name": "Hamburguesa Normal",
@@ -875,52 +922,7 @@
       "stock": null,
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
-    },
-    {
-      "id": "item_1795376202668",
-      "storeId": "store_1794805519941",
-      "name": "Torta de Chocolate",
-      "category": "Torta",
-      "description": "",
-      "priceUsd": 4,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null,
-      "webUrl": "",
-      "imageUrl": "https://i.ibb.co/xSdb04Xq/IMG-20261122-WA0049.jpg"
-    },
-    {
-      "id": "item_1795376282416",
-      "storeId": "store_1794805519941",
-      "name": "Ponqué",
-      "category": "Torta",
-      "description": "",
-      "priceUsd": 3,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null,
-      "webUrl": "",
-      "imageUrl": "https://i.ibb.co/21Ly30J6/IMG-20261122-WA0048.jpg"
-    },
-    {
-      "id": "item_1795376430865",
-      "storeId": "store_1794805519941",
-      "name": "Tres leches tradicional",
-      "category": "Torta",
-      "description": "",
-      "priceUsd": 4,
-      "ingredients": [],
-      "iconKey": "dulces",
-      "isPopular": false,
-      "available": true,
-      "stock": null,
-      "webUrl": "",
-      "imageUrl": "https://i.ibb.co/DDsBjWPx/IMG-20261122-WA0057.jpg"
     }
   ],
-  "stateHash": "d33329d9b297"
+  "stateHash": "e86ae238785f"
 }
