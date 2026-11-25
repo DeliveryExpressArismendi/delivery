@@ -1,7 +1,7 @@
 {
-  "version": 130,
-  "releaseTag": "v1.0.130",
-  "updatedAt": "2026-11-25T22:42:34.301Z",
+  "version": 131,
+  "releaseTag": "v1.0.131",
+  "updatedAt": "2026-11-25T22:43:26.389Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -23,7 +23,7 @@
       "name": "Pili Burger",
       "badge": "Más Popular",
       "tagline": "Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos",
-      "etaMinutes": ".",
+      "etaMinutes": "ABIERTO",
       "rating": "4.9",
       "iconKey": "burger",
       "isOpen": true,
@@ -932,5 +932,5 @@
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
   ],
-  "stateHash": "60ae3297d465"
+  "stateHash": "d76234c137a2"
 }
