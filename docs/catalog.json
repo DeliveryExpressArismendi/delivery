@@ -1,7 +1,7 @@
 {
   "version": 126,
   "releaseTag": "v1.0.126",
-  "updatedAt": "2026-11-25T22:11:57.555Z",
+  "updatedAt": "2026-11-25T22:12:05.757Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -877,7 +877,7 @@
       "storeId": "pili_burger",
       "name": "Perro Normal",
       "category": "Perros",
-      "description": "Clásico perro caliente callejero bien resuelto y con salsas al gusto.",
+      "description": "",
       "priceUsd": 1,
       "ingredients": [
         "Papita",
