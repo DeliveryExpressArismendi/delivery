@@ -1,7 +1,7 @@
 {
-  "version": 137,
-  "releaseTag": "v1.0.137",
-  "updatedAt": "2026-11-28T12:15:10.786Z",
+  "version": 136,
+  "releaseTag": "v1.0.136",
+  "updatedAt": "2026-11-28T12:15:18.988Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -47,7 +47,7 @@
       "name": "LAS MOROCHAS",
       "badge": "Nuevo Local",
       "tagline": "Empanada Y Arepa",
-      "etaMinutes": "20-30 min",
+      "etaMinutes": "ABIERTO",
       "rating": "5.0",
       "iconKey": "empanada",
       "isOpen": true,
@@ -59,7 +59,7 @@
       "name": "KENEDY",
       "badge": "Nuevo Local",
       "tagline": "AREPAS",
-      "etaMinutes": "20-30 min",
+      "etaMinutes": "ABIERTO",
       "rating": "5.0",
       "iconKey": "arepa",
       "isOpen": true,
@@ -931,6 +931,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "329e38c7847e"
+  ]
 }
