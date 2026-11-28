@@ -1,7 +1,7 @@
 {
-  "version": 136,
-  "releaseTag": "v1.0.136",
-  "updatedAt": "2026-11-28T12:14:18.124Z",
+  "version": 137,
+  "releaseTag": "v1.0.137",
+  "updatedAt": "2026-11-28T12:15:10.786Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -35,7 +35,7 @@
       "name": "La Negra",
       "badge": "Nuevo Local",
       "tagline": "Hamburguesas, Perros, Pepitos, Shawarmas y Refrescos",
-      "etaMinutes": "20-30 min",
+      "etaMinutes": "ABIERTO",
       "rating": "5.0",
       "iconKey": "burger",
       "isOpen": true,
@@ -932,5 +932,5 @@
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
   ],
-  "stateHash": "cd35e7ebcddb"
+  "stateHash": "329e38c7847e"
 }
