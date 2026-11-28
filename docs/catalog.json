@@ -1,7 +1,7 @@
 {
   "version": 135,
   "releaseTag": "v1.0.135",
-  "updatedAt": "2026-11-28T12:13:46.331Z",
+  "updatedAt": "2026-11-28T12:14:04.704Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -70,7 +70,7 @@
       "id": "store_1794805519941",
       "name": "DULCE PALADAR",
       "badge": "Nuevo Local",
-      "tagline": "Productos variados y delivery express",
+      "tagline": "Tortas, Dulces y Panadería",
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "dulces",
@@ -931,6 +931,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "dc600dfd0802"
+  ]
 }
