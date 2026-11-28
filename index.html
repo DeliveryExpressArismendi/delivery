@@ -548,6 +548,71 @@
       font-weight: 700;
     }
 
+    .search-bar-wrap {
+      padding: 6px 16px 6px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1.5px solid var(--outline);
+      border-radius: 15px;
+      padding: 0 10px 0 12px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--crimson-primary);
+      box-shadow: 0 4px 14px rgba(211, 47, 47, 0.14);
+    }
+
+    .search-box-icon {
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-right: 8px;
+      pointer-events: none;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 44px;
+      border: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 500;
+      outline: none;
+      padding: 8px 4px;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.85;
+    }
+
+    .search-clear-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      background: var(--surface-variant);
+      color: var(--crimson-deep);
+      font-size: 13px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
     .cat-kicker { font-size: 11px; font-weight: 800; color: var(--crimson-primary); text-transform: uppercase; letter-spacing: 0.4px; }
     .popular-tag { display: inline-block; background: var(--amber-soft); color: #8D5800; font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-left: 6px; }
     .menu-item-title { margin: 2px 0 0; font-size: 17px; font-weight: 800; }
@@ -2055,6 +2120,11 @@
         whatsapp: (size = 20) => `
           <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.82 14.12c-.24.69-1.42 1.31-1.97 1.39-.51.08-1.15.11-1.85-.11-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.27-5.06-4.47-.15-.2-1.21-1.61-1.21-3.07s.76-2.18 1.04-2.47c.27-.3.6-.37.8-.37.2 0 .4.01.58.01.19 0 .44-.07.69.53.25.6.86 2.1.94 2.25.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.39-.45.52-.15.15-.31.31-.13.61.18.3.78 1.28 1.68 2.08 1.15 1.03 2.12 1.35 2.42 1.5.3.15.48.13.66-.07.18-.2.76-.88.96-1.18.2-.3.4-.25.68-.15.27.1 1.76.83 2.06.98.3.15.5.22.57.35.07.13.07.75-.17 1.44z"/>
+          </svg>`,
+        search: (size = 18) => `
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7.5"/>
+            <path d="M20.5 20.5L16.6 16.6"/>
           </svg>`
       };
 
@@ -2096,6 +2166,8 @@
         usageLogs: [],
         selectedStoreId: '',
         selectedCategory: 'Todos',
+        homeSearchQuery: '',
+        storeSearchQuery: '',
         deliveryInfo: {
           customerName: '',
           address: '',
@@ -2746,6 +2818,14 @@
           .replace(/'/g, '&#39;');
       }
 
+      function normalizeSearchText(str) {
+        return String(str || '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .trim();
+      }
+
       function sanitizeWebUrl(rawUrl) {
         const trimmed = String(rawUrl || '').trim();
         if (!trimmed) return '';
@@ -2980,6 +3060,65 @@
         return 'Disponible';
       }
 
+      function renderHomeStoresListHtml() {
+        const rate = state.config.exchangeRateBsPerUsd;
+        const normQuery = normalizeSearchText(state.homeSearchQuery);
+        const filteredStores = normQuery
+          ? state.stores.filter((st) => {
+              const haystack = normalizeSearchText(`${st.name || ''} ${st.tagline || ''} ${st.badge || ''}`);
+              return haystack.includes(normQuery);
+            })
+          : state.stores;
+
+        if (filteredStores.length) {
+          return filteredStores.map((st) => {
+            const storeItems = state.menuItems.filter((i) => i.storeId === st.id);
+            const minUsd = storeItems.length ? Math.min(...storeItems.map((i) => i.priceUsd)) : 0;
+            const isStoreOpen = st.isOpen !== false;
+            const safeStoreWeb = sanitizeWebUrl(st.webUrl);
+            return `
+              <div class="store-card" data-open-store="${escapeHtml(st.id)}" style="${isStoreOpen ? '' : 'opacity:0.75'}">
+                <div class="store-card-banner">
+                  <div style="min-width:0">
+                    <span class="store-badge">${escapeHtml(isStoreOpen ? (st.badge || 'Comida Rápida') : '🔴 Cerrado temporalmente')}</span>
+                    <h3 class="store-name">${escapeHtml(st.name)}</h3>
+                    <div class="store-meta">${escapeHtml(st.etaMinutes || '20-30 min')} • ${storeItems.length} productos • ★ ${escapeHtml(st.rating || '4.9')}</div>
+                  </div>
+                  <div class="store-icon-box">${renderVisualMedia(st.iconKey, st.imageUrl, 44, '', st.name)}</div>
+                </div>
+                <div class="store-card-footer">
+                  <div style="min-width:0;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:6px">
+                    <div class="store-tagline">${escapeHtml(st.tagline)}</div>
+                    ${safeStoreWeb ? `<a class="web-link-pill web-link-pill--card" href="${escapeHtml(safeStoreWeb)}" target="_blank" rel="noopener noreferrer" data-stop-card>🌐 ${escapeHtml(getShortLinkHost(safeStoreWeb))} ↗</a>` : ''}
+                  </div>
+                  <div class="dual-price">
+                    <span class="price-usd">Desde ${formatUsd(minUsd)}</span>
+                    <span class="price-bs">${formatBs(minUsd, rate)}</span>
+                  </div>
+                </div>
+              </div>`;
+          }).join('');
+        }
+
+        if (normQuery && state.stores.length) {
+          return `
+            <div class="empty-state" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 18px">
+              <div style="font-size:28px">🔍</div>
+              <div style="font-weight:800;font-size:15px;color:var(--text-main)">Sin coincidencias para "${escapeHtml(state.homeSearchQuery.trim())}"</div>
+              <div style="font-size:13px;color:var(--text-muted)">Prueba con otro nombre o especialidad de local.</div>
+              <button type="button" class="btn-outline" id="btn-clear-home-search" style="max-width:210px;flex:0">Limpiar búsqueda</button>
+            </div>`;
+        }
+
+        return `
+          <div class="empty-state" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 18px">
+            <div style="font-size:28px">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? '📡' : '🏪'}</div>
+            <div style="font-weight:800;font-size:15px;color:var(--text-main)">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? 'Sin conexión con la nube' : 'No hay locales disponibles'}</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.45">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? 'Conéctate a internet para descargar automáticamente los locales, precios, inventario y la tasa del día desde GitHub.' : 'Puedes actualizar desde la nube o crear un local nuevo en Modo Administrador.'}</div>
+            <button class="btn-primary" id="btn-retry-cloud" style="max-width:260px">🔄 Reintentar desde GitHub</button>
+          </div>`;
+      }
+
       function renderHomeView() {
         const rate = state.config.exchangeRateBsPerUsd;
         const { count } = getCartTotals();
@@ -2990,33 +3129,7 @@
           ? popularItems
           : state.menuItems.filter((i) => state.stores.some((s) => s.id === i.storeId)).slice(0, 5);
 
-        const storesHtml = state.stores.map((st) => {
-          const storeItems = state.menuItems.filter((i) => i.storeId === st.id);
-          const minUsd = storeItems.length ? Math.min(...storeItems.map((i) => i.priceUsd)) : 0;
-          const isStoreOpen = st.isOpen !== false;
-          const safeStoreWeb = sanitizeWebUrl(st.webUrl);
-          return `
-            <div class="store-card" data-open-store="${escapeHtml(st.id)}" style="${isStoreOpen ? '' : 'opacity:0.75'}">
-              <div class="store-card-banner">
-                <div style="min-width:0">
-                  <span class="store-badge">${escapeHtml(isStoreOpen ? (st.badge || 'Comida Rápida') : '🔴 Cerrado temporalmente')}</span>
-                  <h3 class="store-name">${escapeHtml(st.name)}</h3>
-                  <div class="store-meta">${escapeHtml(st.etaMinutes || '20-30 min')} • ${storeItems.length} productos • ★ ${escapeHtml(st.rating || '4.9')}</div>
-                </div>
-                <div class="store-icon-box">${renderVisualMedia(st.iconKey, st.imageUrl, 44, '', st.name)}</div>
-              </div>
-              <div class="store-card-footer">
-                <div style="min-width:0;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:6px">
-                  <div class="store-tagline">${escapeHtml(st.tagline)}</div>
-                  ${safeStoreWeb ? `<a class="web-link-pill web-link-pill--card" href="${escapeHtml(safeStoreWeb)}" target="_blank" rel="noopener noreferrer" data-stop-card>🌐 ${escapeHtml(getShortLinkHost(safeStoreWeb))} ↗</a>` : ''}
-                </div>
-                <div class="dual-price">
-                  <span class="price-usd">Desde ${formatUsd(minUsd)}</span>
-                  <span class="price-bs">${formatBs(minUsd, rate)}</span>
-                </div>
-              </div>
-            </div>`;
-        }).join('');
+        const storesHtml = renderHomeStoresListHtml();
 
         const highlightsHtml = fallbackFeatured.map((item) => {
           const avail = isItemAvailable(item);
@@ -3077,13 +3190,15 @@
             <h2 class="section-title">🍔 Locales de Comida Rápida</h2>
             <p class="section-subtitle">Escoge tu local favorito y personaliza los ingredientes</p>
           </div>
-          <div class="stack-list">${storesHtml || `
-            <div class="empty-state" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 18px">
-              <div style="font-size:28px">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? '📡' : '🏪'}</div>
-              <div style="font-weight:800;font-size:15px;color:var(--text-main)">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? 'Sin conexión con la nube' : 'No hay locales disponibles'}</div>
-              <div style="font-size:13px;color:var(--text-muted);line-height:1.45">${navigator.onLine === false || !GitHubSync.hasEverSynced() ? 'Conéctate a internet para descargar automáticamente los locales, precios, inventario y la tasa del día desde GitHub.' : 'Puedes actualizar desde la nube o crear un local nuevo en Modo Administrador.'}</div>
-              <button class="btn-primary" id="btn-retry-cloud" style="max-width:260px">🔄 Reintentar desde GitHub</button>
-            </div>`}</div>
+          ${state.stores.length ? `
+            <div class="search-bar-wrap">
+              <div class="search-box">
+                <span class="search-box-icon">${SVG_ICONS.search(18)}</span>
+                <input id="home-search-input" class="search-input" type="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar local por nombre o especialidad..." value="${escapeHtml(state.homeSearchQuery)}" aria-label="Buscar locales" />
+                <button type="button" class="search-clear-btn" id="home-search-clear" aria-label="Limpiar búsqueda de locales" style="display:${state.homeSearchQuery ? 'inline-flex' : 'none'}">✕</button>
+              </div>
+            </div>` : ''}
+          <div class="stack-list" id="home-stores-list">${storesHtml}</div>
           ${fallbackFeatured.length ? `
             <div class="section-head" style="display:flex;justify-content:space-between;align-items:center">
               <h2 class="section-title" style="font-size:17px">🔥 Destacados del Día</h2>
@@ -3093,13 +3208,77 @@
           ${renderFloatingCartBar()}`;
       }
 
+      function renderStoreItemsListHtml(store) {
+        const rate = state.config.exchangeRateBsPerUsd;
+        const allItems = state.menuItems.filter((i) => i.storeId === store.id);
+        const byCat = state.selectedCategory === 'Todos' ? allItems : allItems.filter((i) => i.category === state.selectedCategory);
+        const normQuery = normalizeSearchText(state.storeSearchQuery);
+        const filtered = normQuery
+          ? byCat.filter((item) => {
+              const haystack = normalizeSearchText(`${item.name || ''} ${item.category || ''} ${item.description || ''} ${(item.ingredients || []).join(' ')}`);
+              return haystack.includes(normQuery);
+            })
+          : byCat;
+
+        const isStoreOpen = store.isOpen !== false;
+        if (filtered.length) {
+          return filtered.map((item) => {
+            const avail = isStoreOpen && isItemAvailable(item);
+            const hasFiniteStock = item.stock !== null && item.stock !== undefined && item.stock !== '';
+            const stockNum = hasFiniteStock ? Number(item.stock) : null;
+            const safeItemWeb = sanitizeWebUrl(item.webUrl);
+            const safeItemImg = sanitizeWebUrl(item.imageUrl);
+            return `
+            <div class="menu-card" data-customize-item="${escapeHtml(item.id)}" style="${avail ? '' : 'opacity:0.65'}">
+              <div class="menu-card-top">
+                <div style="display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0">
+                  <div class="menu-item-icon clickable-media" data-zoom-item="${escapeHtml(item.id)}" role="button" tabindex="0" aria-label="Ver imagen ampliada de ${escapeHtml(item.name)}" title="Toca para ampliar imagen">${renderVisualMedia(item.iconKey, item.imageUrl, 42, '', item.name)}${safeItemImg ? '<span class="zoom-badge" aria-hidden="true">🔍</span>' : ''}</div>
+                  <div style="min-width:0">
+                    <div>
+                      <span class="cat-kicker">${escapeHtml(item.category)}</span>
+                      ${item.isPopular ? '<span class="popular-tag">Top</span>' : ''}
+                      ${!isItemAvailable(item) ? '<span class="popular-tag" style="background:#FFEBEE;color:#B00020">Agotado</span>' : (hasFiniteStock && stockNum <= 5 ? `<span class="popular-tag" style="background:#FFF8E1;color:#8D5800">Quedan ${stockNum}</span>` : '')}
+                    </div>
+                    <h3 class="menu-item-title">${escapeHtml(item.name)}</h3>
+                  </div>
+                </div>
+                <div class="dual-price">
+                  <span class="price-usd">${formatUsd(item.priceUsd)}</span>
+                  <span class="price-bs">${formatBs(item.priceUsd, rate)}</span>
+                </div>
+              </div>
+              ${item.description ? `<p class="menu-item-desc">${escapeHtml(item.description)}</p>` : ''}
+              ${safeItemWeb ? `<div><a class="web-link-pill web-link-pill--card" href="${escapeHtml(safeItemWeb)}" target="_blank" rel="noopener noreferrer" data-stop-card>🔗 ${escapeHtml(getShortLinkHost(safeItemWeb))} ↗</a></div>` : ''}
+              ${(item.ingredients && item.ingredients.length) ? `<div class="ingredients-box"><strong>Opciones / Ingredientes:</strong> ${escapeHtml(item.ingredients.join(' • '))}</div>` : ''}
+              <div class="card-btn-row">
+                <button class="btn-outline" data-customize-item="${escapeHtml(item.id)}">${(item.ingredients && item.ingredients.length) ? 'Personalizar' : 'Ver detalle'}</button>
+                <button class="btn-primary" data-quick-add="${escapeHtml(item.id)}" ${avail ? '' : 'disabled'}>${isStoreOpen ? (isItemAvailable(item) ? '+ Agregar' : 'Agotado') : 'Local cerrado'}</button>
+              </div>
+            </div>`;
+          }).join('');
+        }
+
+        if (normQuery) {
+          return `
+            <div class="empty-state" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 18px">
+              <div style="font-size:28px">🔍</div>
+              <div style="font-weight:800;font-size:15px;color:var(--text-main)">Sin productos para "${escapeHtml(state.storeSearchQuery.trim())}"</div>
+              <div style="font-size:13px;color:var(--text-muted)">${state.selectedCategory !== 'Todos' ? `No hay coincidencias en "${escapeHtml(state.selectedCategory)}".` : 'Intenta buscar otro nombre o ingrediente.'}</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+                ${state.selectedCategory !== 'Todos' ? '<button type="button" class="btn-primary" id="btn-search-all-cats" style="flex:0;padding:0 14px">Buscar en Todos</button>' : ''}
+                <button type="button" class="btn-outline" id="btn-clear-store-search" style="flex:0;padding:0 14px">Limpiar búsqueda</button>
+              </div>
+            </div>`;
+        }
+        return '<div class="empty-state">No hay productos en esta categoría.</div>';
+      }
+
       function renderStoreView() {
         const store = state.stores.find((s) => s.id === state.selectedStoreId) || state.stores[0];
         if (!store) return renderHomeView();
         const rate = state.config.exchangeRateBsPerUsd;
         const allItems = state.menuItems.filter((i) => i.storeId === store.id);
         const categories = ['Todos', ...new Set(allItems.map((i) => i.category))];
-        const filtered = state.selectedCategory === 'Todos' ? allItems : allItems.filter((i) => i.category === state.selectedCategory);
 
         const chipsHtml = categories.map((cat) =>
           `<button class="chip ${cat === state.selectedCategory ? 'active' : ''}" data-select-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</button>`
@@ -3107,40 +3286,7 @@
 
         const isStoreOpen = store.isOpen !== false;
         const safeStoreWeb = sanitizeWebUrl(store.webUrl);
-        const itemsHtml = filtered.map((item) => {
-          const avail = isStoreOpen && isItemAvailable(item);
-          const hasFiniteStock = item.stock !== null && item.stock !== undefined && item.stock !== '';
-          const stockNum = hasFiniteStock ? Number(item.stock) : null;
-          const safeItemWeb = sanitizeWebUrl(item.webUrl);
-          const safeItemImg = sanitizeWebUrl(item.imageUrl);
-          return `
-          <div class="menu-card" data-customize-item="${escapeHtml(item.id)}" style="${avail ? '' : 'opacity:0.65'}">
-            <div class="menu-card-top">
-              <div style="display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0">
-                <div class="menu-item-icon clickable-media" data-zoom-item="${escapeHtml(item.id)}" role="button" tabindex="0" aria-label="Ver imagen ampliada de ${escapeHtml(item.name)}" title="Toca para ampliar imagen">${renderVisualMedia(item.iconKey, item.imageUrl, 42, '', item.name)}${safeItemImg ? '<span class="zoom-badge" aria-hidden="true">🔍</span>' : ''}</div>
-                <div style="min-width:0">
-                  <div>
-                    <span class="cat-kicker">${escapeHtml(item.category)}</span>
-                    ${item.isPopular ? '<span class="popular-tag">Top</span>' : ''}
-                    ${!isItemAvailable(item) ? '<span class="popular-tag" style="background:#FFEBEE;color:#B00020">Agotado</span>' : (hasFiniteStock && stockNum <= 5 ? `<span class="popular-tag" style="background:#FFF8E1;color:#8D5800">Quedan ${stockNum}</span>` : '')}
-                  </div>
-                  <h3 class="menu-item-title">${escapeHtml(item.name)}</h3>
-                </div>
-              </div>
-              <div class="dual-price">
-                <span class="price-usd">${formatUsd(item.priceUsd)}</span>
-                <span class="price-bs">${formatBs(item.priceUsd, rate)}</span>
-              </div>
-            </div>
-            ${item.description ? `<p class="menu-item-desc">${escapeHtml(item.description)}</p>` : ''}
-            ${safeItemWeb ? `<div><a class="web-link-pill web-link-pill--card" href="${escapeHtml(safeItemWeb)}" target="_blank" rel="noopener noreferrer" data-stop-card>🔗 ${escapeHtml(getShortLinkHost(safeItemWeb))} ↗</a></div>` : ''}
-            ${(item.ingredients && item.ingredients.length) ? `<div class="ingredients-box"><strong>Opciones / Ingredientes:</strong> ${escapeHtml(item.ingredients.join(' • '))}</div>` : ''}
-            <div class="card-btn-row">
-              <button class="btn-outline" data-customize-item="${escapeHtml(item.id)}">${(item.ingredients && item.ingredients.length) ? 'Personalizar' : 'Ver detalle'}</button>
-              <button class="btn-primary" data-quick-add="${escapeHtml(item.id)}" ${avail ? '' : 'disabled'}>${isStoreOpen ? (isItemAvailable(item) ? '+ Agregar' : 'Agotado') : 'Local cerrado'}</button>
-            </div>
-          </div>`;
-        }).join('');
+        const itemsHtml = renderStoreItemsListHtml(store);
 
         return `
           <div class="sub-topbar">
@@ -3162,8 +3308,16 @@
               <span>🌐 Link web del local: <u style="text-underline-offset:2px">${escapeHtml(getShortLinkHost(safeStoreWeb))}</u></span>
               <span style="font-size:13px">Abrir ↗</span>
             </a>` : ''}
+          ${allItems.length ? `
+            <div class="search-bar-wrap" style="padding-top:10px">
+              <div class="search-box">
+                <span class="search-box-icon">${SVG_ICONS.search(18)}</span>
+                <input id="store-search-input" class="search-input" type="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar productos en ${escapeHtml(store.name)}..." value="${escapeHtml(state.storeSearchQuery)}" aria-label="Buscar productos en este local" />
+                <button type="button" class="search-clear-btn" id="store-search-clear" aria-label="Limpiar búsqueda de productos" style="display:${state.storeSearchQuery ? 'inline-flex' : 'none'}">✕</button>
+              </div>
+            </div>` : ''}
           <div class="chips-row">${chipsHtml}</div>
-          <div class="stack-list">${itemsHtml || '<div class="empty-state">No hay productos en esta categoría.</div>'}</div>
+          <div class="stack-list" id="store-items-list">${itemsHtml}</div>
           ${renderFloatingCartBar()}`;
       }
 
@@ -4330,9 +4484,81 @@
           goView('home');
         };
 
-        document.querySelectorAll('[data-stop-card]').forEach((el) => {
-          el.onclick = (e) => { e.stopPropagation(); };
-        });
+        const bindStoreCardEvents = (scope = document) => {
+          scope.querySelectorAll('[data-stop-card]').forEach((el) => {
+            el.onclick = (e) => { e.stopPropagation(); };
+          });
+          scope.querySelectorAll('[data-open-store]').forEach((el) => {
+            el.onclick = (e) => {
+              if (e.target.closest('[data-stop-card]')) return;
+              state.selectedStoreId = el.getAttribute('data-open-store');
+              state.selectedCategory = 'Todos';
+              state.storeSearchQuery = '';
+              state.view = 'store';
+              window.scrollTo(0, 0);
+              const st = state.stores.find((s) => s.id === state.selectedStoreId);
+              if (st) recordActivity('view_store', `Abrió menú de ${st.name}`);
+              render();
+            };
+          });
+          if (byId('btn-retry-cloud')) byId('btn-retry-cloud').onclick = triggerManualSync;
+          if (byId('btn-clear-home-search')) {
+            byId('btn-clear-home-search').onclick = () => {
+              state.homeSearchQuery = '';
+              const inp = byId('home-search-input');
+              const clr = byId('home-search-clear');
+              if (inp) { inp.value = ''; inp.focus(); }
+              if (clr) clr.style.display = 'none';
+              const list = byId('home-stores-list');
+              if (list) { list.innerHTML = renderHomeStoresListHtml(); bindStoreCardEvents(list); }
+            };
+          }
+        };
+
+        const bindProductCardEvents = (scope = document) => {
+          scope.querySelectorAll('[data-stop-card]').forEach((el) => {
+            el.onclick = (e) => { e.stopPropagation(); };
+          });
+          scope.querySelectorAll('[data-zoom-item]').forEach((el) => {
+            const openZoom = (e) => {
+              e.stopPropagation();
+              const item = state.menuItems.find((i) => i.id === el.getAttribute('data-zoom-item'));
+              if (item) openProductImageViewer(item, false);
+            };
+            el.onclick = openZoom;
+            el.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openZoom(e);
+              }
+            };
+          });
+          scope.querySelectorAll('[data-quick-add]').forEach((el) => {
+            el.onclick = (e) => { e.stopPropagation(); const item = state.menuItems.find((i) => i.id === el.getAttribute('data-quick-add')); if (item) addItemToCart(item, 1, [...(item.ingredients || [])], ''); };
+          });
+          scope.querySelectorAll('[data-customize-item]').forEach((el) => {
+            el.onclick = (e) => { if (e.target.closest('[data-quick-add]') || e.target.closest('[data-stop-card]') || e.target.closest('[data-zoom-item]')) return; const item = state.menuItems.find((i) => i.id === el.getAttribute('data-customize-item')); if (item) openItemCustomizerModal(item); };
+          });
+          if (byId('btn-search-all-cats')) {
+            byId('btn-search-all-cats').onclick = () => {
+              state.selectedCategory = 'Todos';
+              render();
+            };
+          }
+          if (byId('btn-clear-store-search')) {
+            byId('btn-clear-store-search').onclick = () => {
+              state.storeSearchQuery = '';
+              const inp = byId('store-search-input');
+              const clr = byId('store-search-clear');
+              if (inp) { inp.value = ''; inp.focus(); }
+              if (clr) clr.style.display = 'none';
+              const list = byId('store-items-list');
+              const st = state.stores.find((s) => s.id === state.selectedStoreId) || state.stores[0];
+              if (list && st) { list.innerHTML = renderStoreItemsListHtml(st); bindProductCardEvents(list); }
+            };
+          }
+        };
+
         if (byId('btn-share-store')) {
           byId('btn-share-store').onclick = () => {
             const st = state.stores.find((s) => s.id === state.selectedStoreId);
@@ -4340,40 +4566,61 @@
           };
         }
 
-        document.querySelectorAll('[data-open-store]').forEach((el) => {
-          el.onclick = (e) => {
-            if (e.target.closest('[data-stop-card]')) return;
-            state.selectedStoreId = el.getAttribute('data-open-store');
-            state.selectedCategory = 'Todos';
-            state.view = 'store';
-            window.scrollTo(0, 0);
-            const st = state.stores.find((s) => s.id === state.selectedStoreId);
-            if (st) recordActivity('view_store', `Abrió menú de ${st.name}`);
-            render();
-          };
-        });
-        document.querySelectorAll('[data-select-cat]').forEach((el) => {
-          el.onclick = () => { state.selectedCategory = el.getAttribute('data-select-cat'); render(); };
-        });
-        document.querySelectorAll('[data-zoom-item]').forEach((el) => {
-          const openZoom = (e) => {
-            e.stopPropagation();
-            const item = state.menuItems.find((i) => i.id === el.getAttribute('data-zoom-item'));
-            if (item) openProductImageViewer(item, false);
-          };
-          el.onclick = openZoom;
-          el.onkeydown = (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              openZoom(e);
+        if (byId('home-search-input')) {
+          const homeInp = byId('home-search-input');
+          const homeClr = byId('home-search-clear');
+          const refreshHomeList = () => {
+            if (homeClr) homeClr.style.display = state.homeSearchQuery ? 'inline-flex' : 'none';
+            const list = byId('home-stores-list');
+            if (list) {
+              list.innerHTML = renderHomeStoresListHtml();
+              bindStoreCardEvents(list);
             }
           };
-        });
-        document.querySelectorAll('[data-quick-add]').forEach((el) => {
-          el.onclick = (e) => { e.stopPropagation(); const item = state.menuItems.find((i) => i.id === el.getAttribute('data-quick-add')); if (item) addItemToCart(item, 1, [...(item.ingredients || [])], ''); };
-        });
-        document.querySelectorAll('[data-customize-item]').forEach((el) => {
-          el.onclick = (e) => { if (e.target.closest('[data-quick-add]') || e.target.closest('[data-stop-card]') || e.target.closest('[data-zoom-item]')) return; const item = state.menuItems.find((i) => i.id === el.getAttribute('data-customize-item')); if (item) openItemCustomizerModal(item); };
+          homeInp.oninput = (e) => {
+            state.homeSearchQuery = e.target.value || '';
+            refreshHomeList();
+          };
+          if (homeClr) {
+            homeClr.onclick = () => {
+              state.homeSearchQuery = '';
+              homeInp.value = '';
+              refreshHomeList();
+              homeInp.focus();
+            };
+          }
+        }
+
+        if (byId('store-search-input')) {
+          const storeInp = byId('store-search-input');
+          const storeClr = byId('store-search-clear');
+          const refreshStoreList = () => {
+            if (storeClr) storeClr.style.display = state.storeSearchQuery ? 'inline-flex' : 'none';
+            const list = byId('store-items-list');
+            const st = state.stores.find((s) => s.id === state.selectedStoreId) || state.stores[0];
+            if (list && st) {
+              list.innerHTML = renderStoreItemsListHtml(st);
+              bindProductCardEvents(list);
+            }
+          };
+          storeInp.oninput = (e) => {
+            state.storeSearchQuery = e.target.value || '';
+            refreshStoreList();
+          };
+          if (storeClr) {
+            storeClr.onclick = () => {
+              state.storeSearchQuery = '';
+              storeInp.value = '';
+              refreshStoreList();
+              storeInp.focus();
+            };
+          }
+        }
+
+        bindStoreCardEvents(document);
+        bindProductCardEvents(document);
+        document.querySelectorAll('[data-select-cat]').forEach((el) => {
+          el.onclick = () => { state.selectedCategory = el.getAttribute('data-select-cat'); render(); };
         });
 
         if (byId('btn-clear-cart')) byId('btn-clear-cart').onclick = async () => { state.cart = []; await ArismendiDB.replaceCart([]); render(); };
