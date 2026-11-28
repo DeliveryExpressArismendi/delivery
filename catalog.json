@@ -1,7 +1,7 @@
 {
-  "version": 134,
-  "releaseTag": "v1.0.134",
-  "updatedAt": "2026-11-28T12:13:22.036Z",
+  "version": 135,
+  "releaseTag": "v1.0.135",
+  "updatedAt": "2026-11-28T12:13:46.331Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -46,7 +46,7 @@
       "id": "store_1794766144421",
       "name": "LAS MOROCHAS",
       "badge": "Nuevo Local",
-      "tagline": "Productos variados y delivery express",
+      "tagline": "Empanada Y Arepa",
       "etaMinutes": "20-30 min",
       "rating": "5.0",
       "iconKey": "empanada",
@@ -932,5 +932,5 @@
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
   ],
-  "stateHash": "30df5a120f93"
+  "stateHash": "dc600dfd0802"
 }
