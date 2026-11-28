@@ -1,7 +1,7 @@
 {
-  "version": 138,
-  "releaseTag": "v1.0.138",
-  "updatedAt": "2026-11-28T12:15:52.663Z",
+  "version": 136,
+  "releaseTag": "v1.0.136",
+  "updatedAt": "2026-11-28T12:15:55.512Z",
   "config": {
     "id": "business_config",
     "exchangeRateBsPerUsd": 1200,
@@ -71,7 +71,7 @@
       "name": "DULCE PALADAR",
       "badge": "Nuevo Local",
       "tagline": "Tortas, Dulces y Panadería",
-      "etaMinutes": "20-30 min",
+      "etaMinutes": "ABIERTO",
       "rating": "5.0",
       "iconKey": "dulces",
       "isOpen": true,
@@ -83,7 +83,7 @@
       "name": "Delivery Express",
       "badge": "Nuevo Local",
       "tagline": "TE LLEVAMOS A CUALQUIER PARTE",
-      "etaMinutes": "20-30 min",
+      "etaMinutes": "Disponible",
       "rating": "5.0",
       "iconKey": "moto",
       "isOpen": true,
@@ -931,6 +931,5 @@
       "webUrl": "",
       "imageUrl": "https://i.ibb.co/zhpFqz3d/Screenshot-2026-11-21-21-22-01-415-com-miui-gallery-edit.jpg"
     }
-  ],
-  "stateHash": "b6e7380bd19c"
+  ]
 }
